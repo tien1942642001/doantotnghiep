@@ -1,0 +1,103 @@
+{
+  "login": {
+    "title": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPass": "Quên mật khẩu",
+    "notAccount": "Chưa có tài khoản?",
+    "register": "Đăng ký ngay"
+  },
+  "register": {
+    "title": "Đăng ký",
+    "email": "Email",
+    "fullName": "Tên đầy đủ",
+    "password": "Mật khẩu",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "agree": "Bằng việc đăng ký, tôi đồng ý với Vinpearl về",
+    "and": "và",
+    "service": "Điều kiện điều khoản",
+    "policy": "Chính sách bảo mật",
+    "hasAccount": "Đã có tài khoản?"
+  },
+  "header": {
+    "menu": {
+      "item1": {
+        "name": "Đặt dịch vụ",
+        "list": {
+          "item1": "Khách sạn",
+          "item2": "Vé máy bay",
+          "item3": "Khách sạn + Vé máy bay",
+          "item4": "Tour & Trải nghiệm"
+        }
+      },
+      "item2": {
+        "name": "Trải nghiệm Vinpearl",
+        "list": {
+          "item1": "Quần thể",
+          "item2": "Khách sạn",
+          "item3": "VinWonders",
+          "item4": "Vinpearl Golf",
+          "item5": "Vinpearl Safari",
+          "item6": "Ẩm thực",
+          "item7": "Hội họp và Sự kiện",
+          "item8": "Grand World"
+        }
+      },
+      "item3": {
+        "name": "Ưu đã khuyến mại",
+        "list": {
+          "item1": "Ưu đã nổi bật",
+          "item2": "Ưu đãi Pearl Club"
+        }
+      },
+      "item4": {
+        "name": "Pearl Club",
+        "list": {
+          "item1": "Tổng quan",
+          "item2": "Quyền lợi",
+          "item3": "Hế thống áp dụng",
+          "item4": "Điều kiện điều khoản"
+        }
+      }
+    }
+  },
+  "promo": {
+    "title": "Ưu đãi khuyến mãi",
+    "more": "Xem thêm"
+  },
+  "experience": {
+    "title": "Trải nghiệm hệ sinh thái Vinpearl",
+    "hotel": "Nghỉ dưỡng",
+    "hotelDesc": "Trải mình bên những bãi biển hấp dẫn nhất thế giới, Vinpearl mang đến trải nghiệm nghỉ dưỡng trọn vẹn nhất",
+    "entertainment": "Vui chơi giải trí",
+    "entertainmentDesc": "Chuỗi công viên chủ đề lớn nhất Việt Nam, dẫn đầu Châu Á",
+    "golf": "Vinpearl Golf",
+    "golfDesc": "Vinpearl Golf là thương hiệu sân golf tiêu chuẩn quốc tế, hàng đầu Việt Nam với hệ sinh thái nghỉ dưỡng, vui chơi, khám phá đỉnh cao của Vinpearl tại từng điểm đến",
+    "meeting": "Hội họp và sự kiện",
+    "meetingDesc": "Không gian sự kiện đa chức năng cùng thiết bị tối tân",
+    "cuisine": "Ẩm thực"
+  },
+  "discover": {
+    "title": "Khám phá",
+    "desc": "Hãy sẵn sàng để ngỡ ngàng trước một Việt Nam mà bạn chưa bao giờ thấy, nơi hội tụ tinh hoa văn hóa kỳ thú của năm châu bốn biển",
+    "family": "Gia đình",
+    "familyDesc": "Nghỉ dưỡng biển",
+    "golf": "Golf",
+    "golfDesc": "Nghỉ dưỡng & vui chơi",
+    "health": "Chăm sóc sức khoẻ",
+    "healthDesc": "Cân bằng & thư giãn",
+    "mice": "MICE",
+    "miceDesc": "Hội họp & kết nối"
+  },
+  "recommend": {
+      "title": "Sản phẩm dành cho bạn"
+  },
+  "destination": {
+      "title": "Siêu quần thể Vinpearl",
+      "description": "Siêu quẩn thể nghỉ dưỡng, vui chơi giải trí, mua sắm và ẩm thực tại các điểm đến hàng đầu Việt Nam",
+      "titlePhuQuoc": "Đến với siêu quần thể Phú Quốc United Center, du khách sẽ có cơ hội tận hưởng một mùa lễ hội “đỉnh không tưởng” sánh ngang các “thiên đường du lịch” hàng đầu thế giới 6 sự kiện tâm điểm quy mô kỷ lục diễn ra từ 17/12/2022 đến 6/1/2023: Đại nhạc hội EDM đẳng cấp thế giới CREAMFIELDS VIETNAM, lễ thắp sáng cây thông Noel khổng lồ, Hội chợ Giáng sinh Copenhagen,...",
+      "titleNhaTrang": "Vinpearl Nha Trang - Quần thể du lịch nghỉ dưỡng, vui chơi và khám phá biển hàng đầu Đông Nam Á, top 10 vịnh biển đẹp nhất hành tinh tạo nên vạn trải nghiệm nghỉ dưỡng đỉnh cao.",
+      "titleNamHoiAn": "Là tâm điểm của con đường di sản miền Trung, Quần thể Vinpearl Nam Hội An làm nên một thiên đường nghỉ dưỡng – giải trí đa sắc văn hóa, muôn màu trải nghiệm.",
+      "discover": "Khám phá ngay"
+  }
+}

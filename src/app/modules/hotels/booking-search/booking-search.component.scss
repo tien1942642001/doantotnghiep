@@ -1,0 +1,32 @@
+.hotel-search {
+    background-color: #F4F4F4;
+    padding-top: 10rem;
+
+    .hotel-list .content {
+        padding: 15px 0;
+    }
+
+    .btn-reset-filter {
+        color: #f39f2d!important;
+        cursor: pointer;
+    }
+
+    .col-lg-9 .d-flex {
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+}
+
+::ng-deep {
+    .ant-card-head-title {
+        font-weight: 600;
+    }
+
+    .ant-card-head {
+        background-color: #F4F4F4;
+    }
+
+    .ant-card-bordered {
+        border-color: #e8e8e8;
+    }
+}

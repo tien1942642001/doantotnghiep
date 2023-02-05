@@ -1,0 +1,121 @@
+<div class="hotel-search">
+    <div class="container">
+        <app-search></app-search>
+        <div class="hotel-list">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="d-flex justify-content-between flex-column flex-md-row">
+                            <span>Có 4 kết quả tại/ gần địa điểm "Vinpearl Resort & Spa Phú Quốc"</span>
+                            <div class="select-sort">
+                                <nz-select
+                                    ngModel="jack"
+                                    [nzSuffixIcon]="customIcon"
+                                    class="custom-select"
+                                    [nzDropdownClassName]="''"
+                                >
+                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
+                                </nz-select>
+                                <ng-template #customIcon>
+                                    <img src="../../../../assets/icon/arrow-select.svg" alt="">
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <nz-card style="width:300px;" nzTitle="Lọc kết quả" [nzExtra]="extraTemplate">
+                            <nz-collapse
+                                [nzBordered]="false"
+                                [nzAccordion]="false"
+                            >
+                                <nz-collapse-panel
+                                    [nzShowArrow]="false"
+                                    [nzHeader]="'Dịch vụ'"
+                                    [nzActive]="true"
+                                    [nzDisabled]="true"
+                                    class="custom-borderless-collapse-panel"
+                                >
+                                <nz-checkbox-group
+                                    class="custom-checkbox"
+                                    [(ngModel)]="checkOptionsService"
+                                    (ngModelChange)="onChangeService(checkOptionsService)"
+                                >
+                                </nz-checkbox-group>
+                                </nz-collapse-panel>
+                            </nz-collapse>
+                            <nz-collapse
+                                [nzBordered]="false"
+                                [nzAccordion]="false"
+                            >
+                                <nz-collapse-panel
+                                    [nzShowArrow]="false"
+                                [nzHeader]="'Loại hình lưu trú'"
+                                    [nzActive]="true"
+                                    [nzDisabled]="true"
+                                    class="custom-borderless-collapse-panel"
+                                >
+                                <nz-checkbox-group
+                                    class="custom-checkbox"
+                                    [(ngModel)]="checkOptionsAccommodation"
+                                    (ngModelChange)="onChangeService(checkOptionsAccommodation)">
+                                </nz-checkbox-group>
+                                </nz-collapse-panel>
+                            </nz-collapse>
+                        </nz-card>
+                        <ng-template #extraTemplate>
+                            <p (click)="resetFilter()" class="btn-reset-filter">Đặt lại</p>
+                        </ng-template>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row hotel-box">
+                            <div class="col-md-4">
+                                <div class="hotel-box-image">
+                                    <div class="image-gallery">
+                                        <div class="swiper-container gallery-top">
+                                            <swiper
+                                                [config]="config"
+                                                (swiper)="onSwiper($event)"
+                                                (slideChange)="onSlideChange()"
+                                            >
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
+                                                </ng-template>
+                                                <ng-template swiperSlide>
+                                                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
+                                                </ng-template>
+                                            </swiper>
+                                            </div>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

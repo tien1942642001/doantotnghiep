@@ -1,0 +1,22 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "forgotPass": "Forgot Password",
+    "notAccount": "Didn't have account",
+    "register": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "email": "Email",
+    "fullName": "Full Name",
+    "password": "Password",
+    "confirmPassword": "Retype Password",
+    "agree": "By registering, I agree with Vinpearl's",
+    "and": "and",
+    "service": "Terms of Service",
+    "policy": "Privacy Policy",
+    "hasAccount": "Already have account?"
+  }
+}

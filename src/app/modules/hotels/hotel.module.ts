@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HotelComponent } from './hotel/hotel.component';
+import { HotelRoutingModule } from './hotel-routing.modules';
+import { BookingSearchComponent } from './booking-search/booking-search.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { BookingTourComponent } from './booking-tour/booking-tour.component';
+import { SearchComponent } from 'src/app/shared/search/search.component';
+import { SwiperModule } from 'swiper/angular';
+
+@NgModule({
+  declarations: [
+    HotelComponent,
+    BookingSearchComponent,
+    BookingTourComponent,
+    SearchComponent
+  ],
+  imports: [
+    CommonModule,
+    HotelRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzIconModule,
+    NzTabsModule,
+    NzFormModule,
+    NzSelectModule,
+    NzDatePickerModule,
+    NzButtonModule,
+    NzDropDownModule,
+    NzToolTipModule,
+    NzCardModule,
+    NzCollapseModule,
+    NzCheckboxModule,
+    SwiperModule,
+  ],
+})
+export class HotelModule { }

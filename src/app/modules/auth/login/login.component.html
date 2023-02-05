@@ -1,0 +1,84 @@
+<div class="login d-flex">
+  <div class="logo__login col-8 d-sm-none d-md-block"></div>
+  <div class="col-12 col-sm-4">
+    <div class="content__vinfast">
+      <div class="header d-flex justify-content-center">
+        <img src="../../../../assets/images/login/vinpearl_login_logo-01.png" alt="vinpearl login logo-01">
+        <img src="../../../../assets/images/login/vinpearl_login_logo-02.png" alt="vinpearl login logo-02">
+      </div>
+      <div class="form__login">
+        <ul class="nav__tabs d-flex justify-content-center">
+          <li (click)="clickTab(1)" id="nav__item__1" class="nav__item active col-sm-6">
+            <span>{{'login.title' | translate}}</span>
+          </li>
+          <li (click)="clickTab(2)" id="nav__item__2" class="nav__item col-sm-6">
+            <span>{{'register.title' | translate}}</span>
+          </li>
+        </ul>
+        <div class="tab__content">
+          <div *ngIf="currentTab == 1" class="tab__login">
+            <form [formGroup]="formLogin" nz-form>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="email" nz-input placeholder="{{'login.email' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="password" nz-input placeholder="{{'login.password' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <div class="tab__footer d-flex justify-content-center flex-column">
+                <button class="btn" nz-button nzType="primary">{{'login.title' | translate}}</button>
+                <div class="tab__footer__question">
+                  <div class="d-flex justify-content-center">
+                    {{'login.notAccount' | translate}} &nbsp;
+                    <a (click)="clickTab(2)">{{'login.register' | translate}}</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div *ngIf="currentTab == 2" class="tab__signin">
+            <form [formGroup]="formRegister" nz-form>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="email" nz-input placeholder="{{'register.email' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="fullname" nz-input placeholder="{{'register.fullName' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="password" nz-input placeholder="{{'register.password' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input formControlName="confirmPassword" nz-input placeholder="{{'register.confirmPassword' | translate}}" />
+                </nz-form-control>
+              </nz-form-item>
+              <div class="tab__footer d-flex justify-content-center flex-column">
+                <button class="btn" nz-button nzType="primary">{{'register.title' | translate}}</button>
+                <div class="tab__footer__question">
+                  <div class="d-flex justify-content-center text-center flex-column">
+                    {{'register.agree' | translate}}
+                    <br>
+                    <div><a>{{'register.service' | translate}}</a> {{'register.and' | translate}} <a>{{'register.policy' | translate}}</a></div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    {{'register.hasAccount' | translate}} &nbsp;
+                    <a (click)="clickTab(1)">{{'login.title' | translate}}</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

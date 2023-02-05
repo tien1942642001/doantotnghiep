@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+
+  BASE_PATH_DOMAIN: "123"
 };
