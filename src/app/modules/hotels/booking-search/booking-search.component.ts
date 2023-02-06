@@ -146,7 +146,6 @@ export class BookingSearchComponent implements OnInit {
     { value: 3, label: 'Ăn 3 bữa', checked: true },
     { value: 4, label: 'Vui chơi & Giải trí', checked: true },
     { value: 5, label: 'Tặng voucher ẩm thực', checked: true },
-    { value: 5, label: 'Orange', checked: true },
   ];
 
   checkOptionsAccommodation: any[] = [

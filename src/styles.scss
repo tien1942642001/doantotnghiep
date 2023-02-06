@@ -197,6 +197,12 @@ input:not(:placeholder-shown) {
 	font-weight: 600;
 }
 
+.flex-column-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 
 // custom date picker
 .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {

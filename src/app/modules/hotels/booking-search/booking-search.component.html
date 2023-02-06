@@ -7,7 +7,7 @@
                     <div class="col-lg-3"></div>
                     <div class="col-lg-9">
                         <div class="d-flex justify-content-between flex-column flex-md-row">
-                            <span>Có 4 kết quả tại/ gần địa điểm "Vinpearl Resort & Spa Phú Quốc"</span>
+                            <span>{{'result.booking' | translate}}</span>
                             <div class="select-sort">
                                 <nz-select
                                     ngModel="jack"
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <nz-card style="width:300px;" nzTitle="Lọc kết quả" [nzExtra]="extraTemplate">
+                        <nz-card nzTitle="Lọc kết quả" [nzExtra]="extraTemplate">
                             <nz-collapse
                                 [nzBordered]="false"
                                 [nzAccordion]="false"
@@ -70,47 +70,314 @@
                         </ng-template>
                     </div>
                     <div class="col-lg-9">
-                        <div class="row hotel-box">
-                            <div class="col-md-4">
-                                <div class="hotel-box-image">
-                                    <div class="image-gallery">
-                                        <div class="swiper-container gallery-top">
-                                            <swiper
-                                                [config]="config"
-                                                (swiper)="onSwiper($event)"
-                                                (slideChange)="onSlideChange()"
-                                            >
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
-                                                </ng-template>
-                                                <ng-template swiperSlide>
-                                                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
-                                                </ng-template>
-                                            </swiper>
-                                            </div>
-                                            
+                        <div class="hotel-box-list">
+                            <div class="row hotel-box">
+                                <div class="col-md-4">
+                                    <div class="hotel-box-image">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
+                                                    </ng-template>
+                                                </swiper>
+                                                </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-between">
+                                    <div class="hotel-box-content">
+                                        <h1 class="hotel-name">
+                                            <a class="" href="">Vinpearl Resort & Spa Phú Quốc</a>
+                                        </h1>
+                                        <div class="hotel-address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang, Việt Nam
+                                        </div>
+                                        <div class="hotel-tag">
+                                            <div class="hotel-tag-box">Bãi biển riêng</div>
+                                            <div class="hotel-tag-box">Gần VinWonders</div>
+                                            <div class="hotel-tag-box">Gần Safari</div>
+                                        </div>
+                                    </div>
+                                    <div class="hotel-box-bottom">
+                                        <div class="hotel-price">
+                                            <p class="flex-column-end">
+                                                Chỉ từ
+                                                <span class="flex-column-end price">
+                                                    2.870.000
+                                                    <span>đ</span>
+                                                </span>
+                                            </p>
+                                            /Đêm
+                                        </div>
+                                        <div class="hotel-button">
+                                            <div class="hotel-box-hidden"></div>
+                                            <a href="">
+                                                <button nz-button class="hotel-pick">Đặt ngay</button>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="row hotel-box">
+                                <div class="col-md-4">
+                                    <div class="hotel-box-image">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
+                                                    </ng-template>
+                                                </swiper>
+                                                </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-between">
+                                    <div class="hotel-box-content">
+                                        <h1 class="hotel-name">
+                                            <a class="" href="">Vinpearl Resort & Spa Phú Quốc</a>
+                                        </h1>
+                                        <div class="hotel-address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang, Việt Nam
+                                        </div>
+                                        <div class="hotel-tag">
+                                            <div class="hotel-tag-box">Bãi biển riêng</div>
+                                            <div class="hotel-tag-box">Gần VinWonders</div>
+                                            <div class="hotel-tag-box">Gần Safari</div>
+                                        </div>
+                                    </div>
+                                    <div class="hotel-box-bottom">
+                                        <div class="hotel-price">
+                                            <p class="flex-column-end">
+                                                Chỉ từ
+                                                <span class="flex-column-end price">
+                                                    2.870.000
+                                                    <span>đ</span>
+                                                </span>
+                                            </p>
+                                            /Đêm
+                                        </div>
+                                        <div class="hotel-button">
+                                            <div class="hotel-box-hidden"></div>
+                                            <a href="">
+                                                <button nz-button class="hotel-pick">Đặt ngay</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hotel-box">
+                                <div class="col-md-4">
+                                    <div class="hotel-box-image">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
+                                                    </ng-template>
+                                                </swiper>
+                                                </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-between">
+                                    <div class="hotel-box-content">
+                                        <h1 class="hotel-name">
+                                            <a class="" href="">Vinpearl Resort & Spa Phú Quốc</a>
+                                        </h1>
+                                        <div class="hotel-address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang, Việt Nam
+                                        </div>
+                                        <div class="hotel-tag">
+                                            <span class="hotel-tag-box">Bãi biển riêng</span>
+                                            <span class="hotel-tag-box">Gần VinWonders</span>
+                                            <span class="hotel-tag-box">Gần Safari</span>
+                                        </div>
+                                    </div>
+                                    <div class="hotel-box-bottom">
+                                        <div class="hotel-price">
+                                            <p class="flex-column-end">
+                                                Chỉ từ
+                                                <span class="flex-column-end price">
+                                                    2.870.000
+                                                    <span>đ</span>
+                                                </span>
+                                            </p>
+                                            /Đêm
+                                        </div>
+                                        <div class="hotel-button">
+                                            <div class="hotel-box-hidden"></div>
+                                            <a href="">
+                                                <button nz-button class="hotel-pick">Đặt ngay</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hotel-box">
+                                <div class="col-md-4">
+                                    <div class="hotel-box-image">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="">
+                                                    </ng-template>
+                                                    <ng-template swiperSlide>
+                                                        <img src="https://swiperjs.com/demos/images/nature-9.jpg" alt="">
+                                                    </ng-template>
+                                                </swiper>
+                                                </div>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-between">
+                                    <div class="hotel-box-content">
+                                        <h1 class="hotel-name">
+                                            <a class="" href="">Vinpearl Resort & Spa Phú Quốc</a>
+                                        </h1>
+                                        <div class="hotel-address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang, Việt Nam
+                                        </div>
+                                        <div class="hotel-tag">
+                                            <div class="hotel-tag-box">Bãi biển riêng</div>
+                                            <div class="hotel-tag-box">Gần VinWonders</div>
+                                            <div class="hotel-tag-box">Gần Safari</div>
+                                        </div>
+                                    </div>
+                                    <div class="hotel-box-bottom">
+                                        <div class="hotel-price">
+                                            <p class="flex-column-end">
+                                                Chỉ từ
+                                                <span class="flex-column-end price">
+                                                    2.870.000
+                                                    <span>đ</span>
+                                                </span>
+                                            </p>
+                                            /Đêm
+                                        </div>
+                                        <div class="hotel-button">
+                                            <div class="hotel-box-hidden"></div>
+                                            <a href="">
+                                                <button nz-button class="hotel-pick">Đặt ngay</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

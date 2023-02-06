@@ -18,6 +18,9 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { BookingTourComponent } from './booking-tour/booking-tour.component';
 import { SearchComponent } from 'src/app/shared/search/search.component';
 import { SwiperModule } from 'swiper/angular';
+import { LangChangeEvent, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,36 @@ import { SwiperModule } from 'swiper/angular';
     NzCollapseModule,
     NzCheckboxModule,
     SwiperModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: appCreateTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
 })
-export class HotelModule { }
+
+export class HotelModule {
+  constructor(public translationService: TranslateService) {
+    translationService.addLangs(['en', 'vi']);
+    // this.translationService.store.onLangChange
+    //   .subscribe((lang: LangChangeEvent) => {
+    //     this.translationService.use(lang.lang).toPromise();
+    //   },error =>{
+    //     console.log(error)
+    //   });
+    if (localStorage.getItem('lang')) {
+      translationService.use(localStorage.getItem('lang')!);
+    } else {
+      localStorage.setItem('lang', 'vi');
+      translationService.use('vi');
+    }
+  }
+}
+
+export function appCreateTranslateLoader(http: HttpClient) {
+  console.log('AppModule createTranslateLoader');
+  return new TranslateHttpLoader(
+    http, './assets/i18n/hotel/', '.json');
+}
