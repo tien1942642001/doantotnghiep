@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzSelectPlacementType } from 'ng-zorro-antd/select';
 
 @Component({
@@ -204,16 +205,17 @@ export class HeaderComponent implements OnInit {
   });
 
   constructor(
-    private _el: ElementRef
+    private _el: ElementRef,
+    private route: Router,
   ) { }
 
   onClick(event: { target: any; }) {
     // console.log(event.target);
-    if (!document.getElementById("money__name")?.contains(event.target)) {
+    if (!document.getElementById("money-name")?.contains(event.target)) {
       this.showDropMoney = false;
     }
 
-    if (!document.getElementById("language__name")?.contains(event.target)) {
+    if (!document.getElementById("language-name")?.contains(event.target)) {
       this.showDropLanguage = false;
     }
   }
@@ -283,6 +285,15 @@ export class HeaderComponent implements OnInit {
     if (name == "blur") {
       document.querySelectorAll(".ant-row.ant-form-item")[0].classList.remove("active");
     }
+  }
+
+  navigateToHome() {
+    this.route.navigate(['/home']);
+  }
+
+  changeLanguage(lang: any) {
+    localStorage.setItem('lang', lang);
+    window.location.reload();
   }
 
 }

@@ -1,0 +1,136 @@
+<!-- check hotel booking -->
+<div class="form-search">
+    <form [nzLayout]="'vertical'" [formGroup]="formHotel" nz-form>
+        <div class="row">
+            <div class="col col-md-3">
+                <nz-form-item class="custom-border-right">
+                    <nz-form-label nzFor="location">
+                        <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
+                        <span>{{'search.hotel.form.label1' | translate}}</span>
+                    </nz-form-label>
+                    <nz-form-control>
+                        <!-- <input nz-input name="location" placeholder="Nhập khách sạn/điểm đến" id="location"> -->
+                        <nz-select
+                            (nzFocus)="handleCheckFocus('focus')"
+                            (nzBlur)="handleCheckFocus('blur')"
+                            nzShowSearch nzAllowClear
+                            [nzShowArrow]="false"
+                            [nzPlaceHolder]="'search.hotel.form.placeholder1' | translate"
+                            formControlName="selectedHotel"
+                            [(ngModel)]="selectedHotel"
+                        >
+                            <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
+                                <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
+                                {{item.name}}
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item >
+            </div>
+            <div class="col col-md-3">
+                <nz-form-item class="custom-border-right">
+                    <nz-form-label nzFor="location">
+                        <img src="../../../assets/icon/icon_calendar.svg" style="margin-right: 4px" alt="calendar">
+                        <span>{{'search.hotel.form.label2' | translate}}</span>
+                    </nz-form-label>
+                    <nz-form-control>
+                        <nz-range-picker
+                            nzBorderless
+                            formControlName="rangePicker"
+                            nzFormat="dd/MM/yyyy"
+                            [nzSuffixIcon]="suffixTemplate"
+                            [nzAllowClear]="false"
+                            (nzOnOpenChange)="handleOk()"
+                        >
+                        </nz-range-picker>
+                        <ng-template #suffixTemplate>
+                            <span> - </span>
+                            </ng-template>
+                    </nz-form-control>
+                </nz-form-item >
+            </div>
+            <div class="col col-md-3">
+                <nz-form-item class="custom-border-right">
+                    <nz-form-label nzFor="location">
+                        <img src="../../../assets/icon/icon_room.svg" style="margin-right: 4px;" alt="room">
+                        <span>{{'search.hotel.form.label3' | translate}}</span>
+                    </nz-form-label>
+                    <nz-form-control>
+                        <button
+                            class="btn-person-room w-100 g-bg-white d-flex align-items-center"
+                            nz-button
+                            nzType="primary"
+                            nz-dropdown
+                            nzTrigger="click"
+                            [nzDropdownMenu]="menu"
+                            nz-tooltip
+                            [nzTooltipTitle]="'1 phòng - 1 người lớn - 1 trẻ em'"
+                        >
+                            <span class="text-truncate">
+                                <span class="btn-list-passenger">1 phòng</span>
+                                <span class="btn-list-passenger">1 người lớn</span>
+                                <span class="btn-list-passenger">1 trẻ em</span>
+                            </span>
+                        </button>
+                        <p style="user-select: none;"></p>
+                        <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <div class="dropdown-person">
+                                <div class="room-item d-flex align-items-center justify-content-between">
+                                    <p class="label">{{'search.hotel.form.label3' | translate}}</p>
+                                    <div class="vp-calc">
+                                        <button [disabled]="roomList.length == 1" (click)="onDecreaseRoom()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
+                                            <img src="../../../assets/icon/icon_minus.svg" alt="minus">
+                                        </button>
+                                        <input class="input-person" nz-input type="number" name="location" value={{roomList.length}} id="number">
+                                        <button [disabled]="roomList.length == 2" (click)="onIncreaseRoom(0)" class="btn-person right" nz-button nzType="primary" nzShape="circle">
+                                            <img src="../../../assets/icon/icon_plus.svg" alt="plus">
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="room-detail" *ngFor="let room of roomList; let i = index">
+                                    <p class="label title">{{'search.hotelFlight.form.room' | translate}} {{i + 1}}</p>
+                                    <div class="number-select">
+                                        <div class="number-select--type">
+                                            <div class="info">{{'search.hotelFlight.form.adults' | translate}}</div>
+                                            <div class="vp-calc">
+                                                <button [disabled]="noChildren == 1" (click)="onDecreasePeople()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
+                                                    <img src="../../../assets/icon/icon_minus.svg" alt="minus">
+                                                </button>
+                                                <input class="input-person" nz-input type="number" name="location" value={{noPeopel}} id="number">
+                                                <button [disabled]="noChildren == 8" (click)="onIncreasePeople()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
+                                                    <img src="../../../assets/icon/icon_plus.svg" alt="plus">
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="number-select--type">
+                                            <div class="info">{{'search.hotelFlight.form.children' | translate}}</div>
+                                            <div class="vp-calc">
+                                                <button [disabled]="noChildren == 1" (click)="onDecreaseChildren()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
+                                                    <img src="../../../assets/icon/icon_minus.svg" alt="minus">
+                                                </button>
+                                                <input class="input-person" nz-input type="number" name="location" value="1" id="number">
+                                                <button [disabled]="noChildren == 8" (click)="onIncreaseChildren()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
+                                                    <img src="../../../assets/icon/icon_plus.svg" alt="plus">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="room-detail--info">
+                                    <p>{{'search.hotelFlight.form.descPassenger' | translate}}</p>
+                                </div>
+                            </div>
+                        </nz-dropdown-menu>
+                    </nz-form-control>
+                </nz-form-item >
+            </div>
+            <div class="col col-md-3">
+                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                    <button class="btn-search" (click)="searchHotels()" nz-button nzType="primary">{{'search.btnSearch' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- check tour booking -->

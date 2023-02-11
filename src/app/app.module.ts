@@ -27,7 +27,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { SearchComponent } from './shared/search/search.component';
+import { SharedModule } from './shared/share.module';
 
 registerLocaleData(vi);
 
@@ -37,7 +37,6 @@ registerLocaleData(vi);
     ContentLayoutComponent,
     HeaderComponent,
     FooterComponent,
-    // SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +57,7 @@ registerLocaleData(vi);
     NzButtonModule,
     NzDropDownModule,
     NzToolTipModule,
+    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

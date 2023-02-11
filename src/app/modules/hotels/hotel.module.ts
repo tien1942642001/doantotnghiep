@@ -16,18 +16,17 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { BookingTourComponent } from './booking-tour/booking-tour.component';
-import { SearchComponent } from 'src/app/shared/search/search.component';
 import { SwiperModule } from 'swiper/angular';
 import { LangChangeEvent, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SharedModule } from 'src/app/shared/share.module';
 
 @NgModule({
   declarations: [
     HotelComponent,
     BookingSearchComponent,
     BookingTourComponent,
-    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +44,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     NzCardModule,
     NzCollapseModule,
     NzCheckboxModule,
+    SharedModule,
     SwiperModule,
     TranslateModule.forRoot({
       loader: {
@@ -75,7 +75,7 @@ export class HotelModule {
 }
 
 export function appCreateTranslateLoader(http: HttpClient) {
-  console.log('AppModule createTranslateLoader');
+  console.log('HotelModule createTranslateLoader');
   return new TranslateHttpLoader(
     http, './assets/i18n/hotel/', '.json');
 }

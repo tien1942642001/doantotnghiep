@@ -1,18 +1,18 @@
 <div id="header" class="header">
     <div class="container">
-        <div class="header__container">
-            <div class="header__left">
-                <div class="logo">
-                    <!-- <img class="main__logo" src="../../../assets/images/icon/vp.svg" alt=""> -->
-                    <img class="main__logo" src="../../../assets/icon/vp-logo-blue.svg" alt="">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo" (click)="navigateToHome()">
+                    <!-- <img class="main-logo" src="../../../assets/images/icon/vp.svg" alt=""> -->
+                    <img class="main-logo" src="../../../assets/icon/vp-logo-blue.svg" alt="">
                     <!-- <img class="d-none" src="../../../assets/images/icon/icon_vp_w.svg" alt=""> -->
                 </div>
                 <div class="menu">
                     <ul>
-                        <li class="menu__item" *ngFor="let data of nav_list">
-                            <div class="nav__item">{{data.name}}</div>
-                            <div class="drop__menu">
-                                <div class="links__wrapper">
+                        <li class="menu-item" *ngFor="let data of nav_list">
+                            <div class="nav-item">{{data.name}}</div>
+                            <div class="drop-menu">
+                                <div class="links-wrapper">
                                     <p *ngFor="let dropMenu of data.child">{{dropMenu}}</p>
                                 </div>
                             </div>
@@ -20,52 +20,50 @@
                     </ul>
                 </div>
             </div>
-            <div class="header__right">
+            <div class="header-right">
                 <ul>
                     <li>
                         <div class="d-flex align-items-center justify-content-between">
-                            <div class="icon__money__language icon">
+                            <div class="icon-money-language icon">
                                 <img src="../../../assets/images/icon/search-icon-white.svg" alt="">
                                 <img class="d-none" src="../../../assets/images/icon/search-icon-gray.svg" alt="">
                             </div>
                             <div class="money">
-                                <div id="money__name" (click)="handleShowDrop('money')" class="icon__money__language nav__item">VND</div>
-                                <div *ngIf="showDropMoney" class="drop__menu">
-                                    <div class="links__wrapper">
-                                        <div class="select__label">
-                                            Chọn loại tiền tệ
+                                <div id="money-name" (click)="handleShowDrop('money')" class="icon-money-language nav-item">VND</div>
+                                <div *ngIf="showDropMoney" class="drop-menu">
+                                    <div class="links-wrapper">
+                                        <div class="select-label">
+                                            {{'header.money' | translate}}
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="money__type__item">
-                                                <div class="label">USD</div>
-                                                <div class="desc">Đô Mỹ</div>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="money-type-item">
+                                                <div class="label">{{'header.usd.label' | translate}}</div>
+                                                <div class="desc">{{'header.usd.desc' | translate}}</div>
                                             </div>
-                                            <div class="money__type__item">
-                                                <div class="label">VND</div>
-                                                <div class="desc">Đồng</div>
+                                            <div class="money-type-item">
+                                                <div class="label">{{'header.vnd.label' | translate}}</div>
+                                                <div class="desc">{{'header.vnd.desc' | translate}}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="language">
-                                <div id="language__name" (click)="handleShowDrop('language')" class="icon__money__language language__name">
+                                <div id="language-name" (click)="handleShowDrop('language')" class="icon-money-language language-name">
                                     <img src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
                                 </div>
-                                <div *ngIf="showDropLanguage" class="drop__menu">
-                                    <div class="links__wrapper">
-                                        <div class="select__label">
-                                            Chọn ngôn ngữ
+                                <div *ngIf="showDropLanguage" class="drop-menu">
+                                    <div class="links-wrapper">
+                                        <div class="select-label">
+                                            {{'header.language' | translate}}
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="language__type">
-                                                <img src="../../../assets/images/icon/flag-en.webp" alt="Mỹ">
-                                                <p>Tiếng Anh</p>
-                                            </div>
-                                            <div class="language__type">
-                                                <img src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
-                                                <p>Tiếng Việt</p>
-                                            </div>
+                                        <div (click)="changeLanguage('en')" class=" language-type">
+                                            <img src="../../../assets/images/icon/flag-en.webp" alt="Mỹ">
+                                            <span>{{'header.english' | translate}}</span>
+                                        </div>
+                                        <div (click)="changeLanguage('vi')" class="language-type">
+                                            <img src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
+                                            <span>{{'header.vietnamese' | translate}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -74,9 +72,9 @@
                         
                     </li>
                     <li>
-                        <div class="login">
-                            <button class="btn">{{'login.title' | translate}}</button>
-                        </div>
+                        <a [routerLink]="'/auth/login'" class="login">
+                            <span style="font-weight: 600;">{{'header.login.title' | translate}}</span>
+                        </a>
                     </li>
                 </ul>
             </div>

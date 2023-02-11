@@ -1,81 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { NzSelectPlacementType } from 'ng-zorro-antd/select';
-import { TranslateService } from '@ngx-translate/core';
-import { HomeService } from 'src/app/core/service/home.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-hotel-flight',
+  templateUrl: './hotel-flight.component.html',
+  styleUrls: ['./hotel-flight.component.scss']
 })
-export class HomeComponent implements OnInit {
-  array = [1, 2, 3, 4];
-  effect = 'scrollx';
+export class HotelFlightComponent implements OnInit {
 
-  nav_list: any;
-  indexTab: Number = 0;
-  showDropMoney: Boolean = false;
-  showDropLanguage: Boolean = false;
+  locationId: any;
+  hotelId: any;
+  arrivalDate: any;
   selectedHotel = null;
-  placementSelect: NzSelectPlacementType = 'bottomLeft';
   currentDate = new Date().getTime();
-
   constructor(
-    private translate: TranslateService,
-    private homeService: HomeService,
-    private route: Router, 
-  ) {
-    if (localStorage.getItem('lang')) {
-      translate.use(localStorage.getItem('lang')!);
-    } else {
-      localStorage.setItem('lang', 'vi');
-      translate.use('vi');
-    }
-  }
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
-    this.nav_list = [
-      {
-        name: "Đặt dịch vụ",
-        child: [
-          "Khách sạn",
-          "Vé máy bay",
-          "Khách sạn + Vé máy bay",
-          "Tour & Trải nghiệm"
-        ] 
-      },
-      {
-        name: "Trải nghiệm Vinpearl",
-        child: [
-          "Quần thể",
-          "Khách sạn",
-          "VinWonders",
-          "Vinpearl Golf",
-          "Vinpearl Safari",
-          "Ẩm thực",
-          "Hội họp và Sự kiện",
-          "Grand World"
-        ]
-    },
-    {
-      name: "Ưu đã khuyến mại",
-      child: [
-        "Ưu đã nổi bật",
-        "Ưu đãi Pearl Club"
-      ]
-    },
-    {
-      name: "Pearl Club",
-      child: [
-        "Tổng quan",
-        "Quyền lợi",
-        "Hế thống áp dụng",
-        "Điều kiện điều khoản"
-      ]
-    }
-    ];
+    this.route.queryParams.subscribe(params => {
+      this.locationId = params['locationId'];
+      this.hotelId = params['hotelId'];
+      this.arrivalDate = params['arrivalDate'];
+      console.log(params);
+    })
+    
   }
 
   hotelDefault: any[] = [
@@ -186,48 +137,6 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  bookingTypes: any[] = [
-    {
-      id: 0,
-      name: "Khách sạn & Nghỉ dưỡng",
-      icon: "icon_hotel_w",
-      iconActive: "icon_hotel_y",
-    },
-    // {
-    //   id: 2,
-    //   name: "Vé máy bay",
-    //   icon: "icon_flight_w",
-    //   iconActive: "icon_flight_y",
-    // },
-    {
-      id: 1,
-      name: "Khách sạn + Vé máy bay",
-      icon: "icon_hotel_flight_w",
-      iconActive: "icon_hotel_flight_y",
-    },
-    {
-      id: 2,
-      name: "Tour & Trải nghiệm",
-      icon: "icon_tour_w",
-      iconActive: "icon_tour_y",
-    },
-  ];
-
-  selectedIndexChange(idx: any) {
-    this.indexTab = idx;
-  }
-
-  handleOk() {
-    console.log(123);
-  }
-
-  onSwiper(swiper: any) {
-    console.log(swiper);
-  }
-  onSlideChange() {
-    console.log('slide change');
-  }
-
   roomList: any[] = [
     {
       id: 1,
@@ -266,28 +175,18 @@ export class HomeComponent implements OnInit {
     this.noChildren--;
   }
 
-  formGroup: FormGroup = new FormGroup({
+  handleOk() {
+    console.log(123);
+  }
+
+  formHotelFlight: FormGroup = new FormGroup({
     selectedHotel: new FormControl(),
     rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
   });
 
-  formTour: FormGroup = new FormGroup({
-    searchName: new FormControl(),
-    selectedHotel: new FormControl(),
-  });
-
-  handleShowDrop(name: any) {
-    if (name == "money") {
-      this.showDropMoney = !this.showDropMoney;
-    }
-    if (name == "language") {
-      this.showDropLanguage = !this.showDropLanguage;
-    } 
-  }
-
-  searchBooking () {
-    console.log(this.formGroup.value);
-    this.route.navigate(['/hotels/booking-search'], {
+  searchHotels () {
+    console.log(this.formHotelFlight.value);
+    this.router.navigate(['/hotels/booking-search'], {
       queryParams: {locationId: '1', hotelId: '2', arrivalDate: '3', }
     });
   }

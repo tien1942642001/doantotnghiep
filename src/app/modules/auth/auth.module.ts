@@ -27,7 +27,8 @@ import { HttpClient } from '@angular/common/http';
         provide: TranslateLoader,
         useFactory: (authCreateTranslateLoader),
         deps: [HttpClient]
-      }
+      },
+      isolate: true
     }),
   ]
 })

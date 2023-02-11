@@ -1,0 +1,125 @@
+.form-search {
+    background: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 0 20px 25px rgb(69 69 127 / 10%);
+}
+
+.dropdown-person {
+    width: 352px;
+    margin-top: 9px;
+    box-shadow: 3px 4px 30px -4px rgb(53 60 70/22%);
+    border-radius: 0 0 10px 10px;
+    padding: 0 16px;
+    padding-top: 20px;
+    background-color: #fff;
+}
+
+.room {
+    &-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #edf1f2;
+    }
+
+    &-detail {
+        padding: 12px 0 15px;
+        border-bottom: 1px solid #edf1f2;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        flex-direction: column;
+
+        .label {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 22px;
+            color: #9d9d9d;
+            padding-top: 10px;
+            margin-bottom: unset;
+        }
+
+        .label.title {
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 16px;
+            color: #898994;
+            padding: 0;
+        }
+
+        &--info {
+            margin: 0;
+            border-top: 1px solid #edf1f2;
+
+            p {
+                margin: 0;
+                padding: 12px 0;
+                line-height: 18px;
+                color: #898994;
+                font-style: italic;
+            }
+        }
+    }
+}
+
+.number-select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0;
+
+    &--type {
+        display: flex;
+        flex-direction: column;
+
+        .info {
+            text-align: center;
+            padding: 0;
+            font-size: 13px;
+            line-height: 16px;
+            color: #898994;
+            margin-bottom: 7px;
+        }
+    }
+}
+
+.btn-person {
+    width: 30px;
+    height: 30px;
+    margin-top: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #e29a38;
+    line-height: 18px;
+    background: rgba(232,149,47,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-room {
+        user-select: none;
+    }
+
+    &.left {
+        background: rgba(232,149,47,.1)!important;
+    }
+
+    &.right {
+        background: #e8952f!important;
+    }
+}
+
+.input-person {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #343a40;
+    width: 38px;
+    text-align: center;
+    border: none;
+    outline: none;
+    pointer-events: none;
+}

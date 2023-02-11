@@ -1,25 +1,96 @@
 {
+  "header": {
+    "login.title": "Đăng nhập",
+    "language": "Ngôn ngữ",
+    "english": "Tiếng anh",
+    "vietnamese": "Tiếng việt",
+    "money": "Tiện tệ",
+    "usd.label": "USD",
+    "usd.desc": "Đô Mỹ",
+    "vnd.label": "VND",
+    "vnd.desc": "Đồng"
+  },
+  "banner": {
+    "title": "Khuyến Mãi Đỉnh Nhất Trong Năm",
+    "desc": "Vi vu khắp Việt Nam không lo về giá",
+    "btn": "Đặt ngay"
+  },
   "promo": {
-    "title": "Ưu đãi khuyến mãi"
+    "title": "Ưu đãi khuyến mãi",
+    "more": "Xem thêm"
   },
   "experience": {
     "title": "Trải nghiệm hệ sinh thái Vinpearl",
     "hotel": "Nghỉ dưỡng",
+    "hotelDesc": "Trải mình bên những bãi biển hấp dẫn nhất thế giới, Vinpearl mang đến trải nghiệm nghỉ dưỡng trọn vẹn nhất",
     "entertainment": "Vui chơi giải trí",
-    "golf": "vinpearl Golf",
+    "entertainmentDesc": "Chuỗi công viên chủ đề lớn nhất Việt Nam, dẫn đầu Châu Á",
+    "golf": "Vinpearl Golf",
+    "golfDesc": "Vinpearl Golf là thương hiệu sân golf tiêu chuẩn quốc tế, hàng đầu Việt Nam với hệ sinh thái nghỉ dưỡng, vui chơi, khám phá đỉnh cao của Vinpearl tại từng điểm đến",
     "meeting": "Hội họp và sự kiện",
+    "meetingDesc": "Không gian sự kiện đa chức năng cùng thiết bị tối tân",
     "cuisine": "Ẩm thực"
   },
+  "discover": {
+    "title": "Khám phá",
+    "desc": "Hãy sẵn sàng để ngỡ ngàng trước một Việt Nam mà bạn chưa bao giờ thấy, nơi hội tụ tinh hoa văn hóa kỳ thú của năm châu bốn biển",
+    "family": "Gia đình",
+    "familyDesc": "Nghỉ dưỡng biển",
+    "golf": "Golf",
+    "golfDesc": "Nghỉ dưỡng & vui chơi",
+    "health": "Chăm sóc sức khoẻ",
+    "healthDesc": "Cân bằng & thư giãn",
+    "mice": "MICE",
+    "miceDesc": "Hội họp & kết nối"
+  },
   "recommend": {
-      "title": "Sản phẩm dành cho bạn"
+    "title": "Sản phẩm dành cho bạn"
   },
   "destination": {
-      "title": "Siêu quần thể Vinpearl",
-      "description": "Siêu quẩn thể nghỉ dưỡng, vui chơi giải trí, mua sắm và ẩm thực tại các điểm đến hàng đầu Việt Nam",
-      "titlePhuQuoc": "Đến với siêu quần thể Phú Quốc United Center, du khách sẽ có cơ hội tận hưởng một mùa lễ hội “đỉnh không tưởng” sánh ngang các “thiên đường du lịch” hàng đầu thế giới 6 sự kiện tâm điểm quy mô kỷ lục diễn ra từ 17/12/2022 đến 6/1/2023: Đại nhạc hội EDM đẳng cấp thế giới CREAMFIELDS VIETNAM, lễ thắp sáng cây thông Noel khổng lồ, Hội chợ Giáng sinh Copenhagen,...",
-      "titleNhaTrang": "Vinpearl Nha Trang - Quần thể du lịch nghỉ dưỡng, vui chơi và khám phá biển hàng đầu Đông Nam Á, top 10 vịnh biển đẹp nhất hành tinh tạo nên vạn trải nghiệm nghỉ dưỡng đỉnh cao.",
-      "titleNamHoiAn": "Là tâm điểm của con đường di sản miền Trung, Quần thể Vinpearl Nam Hội An làm nên một thiên đường nghỉ dưỡng – giải trí đa sắc văn hóa, muôn màu trải nghiệm.",
-      "discover": "Khám phá ngay"
+    "title": "Siêu quần thể Vinpearl",
+    "description": "Siêu quẩn thể nghỉ dưỡng, vui chơi giải trí, mua sắm và ẩm thực tại các điểm đến hàng đầu Việt Nam",
+    "titlePhuQuoc": "Đến với siêu quần thể Phú Quốc United Center, du khách sẽ có cơ hội tận hưởng một mùa lễ hội “đỉnh không tưởng” sánh ngang các “thiên đường du lịch” hàng đầu thế giới 6 sự kiện tâm điểm quy mô kỷ lục diễn ra từ 17/12/2022 đến 6/1/2023: Đại nhạc hội EDM đẳng cấp thế giới CREAMFIELDS VIETNAM, lễ thắp sáng cây thông Noel khổng lồ, Hội chợ Giáng sinh Copenhagen,...",
+    "titleNhaTrang": "Vinpearl Nha Trang - Quần thể du lịch nghỉ dưỡng, vui chơi và khám phá biển hàng đầu Đông Nam Á, top 10 vịnh biển đẹp nhất hành tinh tạo nên vạn trải nghiệm nghỉ dưỡng đỉnh cao.",
+    "titleNamHoiAn": "Là tâm điểm của con đường di sản miền Trung, Quần thể Vinpearl Nam Hội An làm nên một thiên đường nghỉ dưỡng – giải trí đa sắc văn hóa, muôn màu trải nghiệm.",
+    "discover": "Khám phá ngay"
+  },
+  "search": {
+    "hotel": {
+        "title": "Khách sạn & Nghỉ dưỡng",
+        "form": {
+            "label1": "Điểm đến",
+            "placeholder1": "Nhập khách sạn/điểm đến",
+            "label2": "Ngày nhận - Trả phòng",
+            "label3": "Số phòng"
+        }
+    },
+    "hotelFlight": {
+        "title": "Khách sạn + Vé máy bay",
+        "form": {
+          "from": "Từ",
+          "leavingFrom": "Điểm đi",
+          "to": "Đến",
+          "goingTo": "Điểm đến",
+          "startTime": "Ngày đi",
+          "endTime": "Ngày về",
+          "numPerson": "Số lượng khách",
+          "room": "Phòng",
+          "numRoom": "Số phòng",
+          "adults": "Người lớn",
+          "children": "Trẻ em",
+          "notifyPassenger": "Số lượng người lớn không được ít hơn số phòng được chọn",
+          "descPassenger": "*Em bé : < 4 tuổi / Trẻ em : 4 tuổi - < 12 tuổi / Người lớn : Từ 12 tuổi"
+        }
+    },
+    "tour": {
+        "title": "Tour & Trải nghiệm",
+        "form": {
+            "label1": "Tìm kiếm",
+            "placeholder1": "Nhập điểm đến, tên sản phẩm hoặc tên ưu đãi ...",
+            "label2": "Địa điểm",
+            "placeholder2": "Tất cả địa điểm"
+        }
+    },
+    "btnSearch": "Tìm kiếm"
   }
 }
-  

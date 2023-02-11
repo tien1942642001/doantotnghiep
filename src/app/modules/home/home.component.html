@@ -1,221 +1,34 @@
 <div id="block-homepage-banner">
     <div class="block__content">
-        <div class="video">
+        <!-- <div class="video">
             <video [autoplay]="false" muted playsinline loop draggable="true" src="https://statics.vinpearl.com/Short15s_1920x1080_Final_1659170954.mp4" poster="https://statics.vinpearl.com/styles/1920x542/public/2022_07/banner-desktop_1659157151.jpeg.webp?itok=cEY4EZLQ"></video>
-        </div>
+        </div> -->
         <div class="container">
+            <div class="title-desc">
+                <div class="title">{{'banner.title' | translate}}</div>
+                <div class="desc">{{'banner.desc' | translate}}</div>
+                <div class="g-mt-30">
+                    <button nz-button nzType="primary">{{'banner.btn' | translate}}</button>
+                </div>
+            </div>
             <div class="booking__search">
                 <div class="card-container">
-                    <nz-tabset nzType="card">
+                    <nz-tabset (nzSelectedIndexChange)="selectedIndexChange($event)" nzType="card">
                       <nz-tab *ngFor="let bookingType of bookingTypes; let i = index" [nzTitle]="titleTemplate">
                         <ng-template #titleTemplate>
-                            <img src="../../../../assets/icon/{{bookingType.iconActive}}.svg" style="margin-right: 4px" alt="">
+                            <img src="../../../../assets/icon/{{indexTab == i ? bookingType.iconActive :bookingType.icon}}.svg" style="margin-right: 4px" alt="">
                             <a target=";"></a>
                             {{ bookingType.name }}
                         </ng-template>
+                        <div *ngIf="bookingType.id == 0">
+                            <app-hotel-resort></app-hotel-resort>
+                        </div>
                         <div *ngIf="bookingType.id == 1">
-                            <form [nzLayout]="'vertical'" [formGroup]="formGroup" nz-form>
-                                <div class="row">
-                                    <div class="col col-md-3">
-                                        <nz-form-item class="custom-input">
-                                            <nz-form-label nzFor="location">
-                                                <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
-                                                <span>Địa điểm</span>
-                                            </nz-form-label>
-                                            <nz-form-control>
-                                                <!-- <input nz-input name="location" placeholder="Nhập khách sạn/điểm đến" id="location"> -->
-                                                <nz-select
-                                                    (nzFocus)="handleCheckFocus('focus')"
-                                                    (nzBlur)="handleCheckFocus('blur')"
-                                                    [nzPlacement]="placementSelect"
-                                                    nzShowSearch nzAllowClear
-                                                    [nzShowArrow]="false"
-                                                    nzPlaceHolder="Nhập khách sạn/điểm đến"
-                                                    formControlName="selectedHotel"
-                                                    [(ngModel)]="selectedHotel"
-                                                    class="custom-select-hotel"
-                                                >
-                                                    <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
-                                                        <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
-                                                        {{item.name}}
-                                                    </nz-option>
-                                                    <!-- <nz-option nzCustomContent nzLabel="Windows" nzValue="windows">
-                                                      <span nz-icon nzType="windows"></span>
-                                                      Windows
-                                                    </nz-option>
-                                                    <nz-option nzCustomContent nzLabel="Mac" nzValue="mac">
-                                                      <span nz-icon nzType="apple"></span>
-                                                      Mac
-                                                    </nz-option>
-                                                    <nz-option nzCustomContent nzLabel="Android" nzValue="android">
-                                                      <span nz-icon nzType="android"></span>
-                                                      Android
-                                                    </nz-option> -->
-                                                  </nz-select>
-                                            </nz-form-control>
-                                        </nz-form-item >
-                                    </div>
-                                    <div class="col col-md-3">
-                                        <nz-form-item>
-                                            <nz-form-label nzFor="location">
-                                                <img src="../../../assets/icon/icon_calendar.svg" style="margin-right: 4px" alt="calendar">
-                                                <span>Ngày nhận - Trả phòng</span>
-                                            </nz-form-label>
-                                            <nz-form-control>
-                                                <nz-range-picker
-                                                    nzBorderless
-                                                    formControlName="rangePicker"
-                                                    nzFormat="dd/MM/yyyy"
-                                                    [nzSuffixIcon]="suffixTemplate"
-                                                    [nzAllowClear]="false"
-                                                    (nzOnOpenChange)="handleOk()"
-                                                >
-                                                </nz-range-picker>
-                                                <ng-template #suffixTemplate>
-                                                    <span> - </span>
-                                                  </ng-template>
-                                            </nz-form-control>
-                                        </nz-form-item >
-                                    </div>
-                                    <div class="col col-md-3">
-                                        <nz-form-item>
-                                            <nz-form-label nzFor="location">
-                                                <img src="../../../assets/icon/icon_room.svg" style="margin-right: 4px;" alt="room">
-                                                <span>Số phòng</span>
-                                            </nz-form-label>
-                                            <nz-form-control>
-                                                <button
-                                                    class="btn-person-room w-100 g-bg-white d-flex align-items-center"
-                                                    nz-button
-                                                    nzType="primary"
-                                                    nz-dropdown
-                                                    nzTrigger="click"
-                                                    [nzDropdownMenu]="menu"
-                                                    nz-tooltip
-                                                    nzTooltipTitle="1 phòng - 1 người lớn - 1 trẻ em"
-                                                >
-                                                    <span class="text-truncate">
-                                                        <span class="btn-list-passenger">1 phòng</span>
-                                                        <span class="btn-list-passenger">1 người lớn</span>
-                                                        <span class="btn-list-passenger">1 trẻ em</span>
-                                                    </span>
-                                                </button>
-                                                <p style="user-select: none;"></p>
-                                                <nz-dropdown-menu #menu="nzDropdownMenu">
-                                                    <div class="dropdown-person">
-                                                        <div class="room__item">
-                                                            <p class="label">Số phòng</p>
-                                                            <div class="vp-calc">
-                                                                <button [disabled]="roomList.length == 1" (click)="onDecreaseRoom()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
-                                                                    <img src="../../../assets/icon/icon_minus.svg" alt="minus">
-                                                                </button>
-                                                                <input class="input-person" nz-input type="number" name="location" value={{roomList.length}} id="number">
-                                                                <button [disabled]="roomList.length == 2" (click)="onIncreaseRoom(0)" class="btn-person right" nz-button nzType="primary" nzShape="circle">
-                                                                    <img src="../../../assets/icon/icon_plus.svg" alt="plus">
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="room__detail" *ngFor="let room of roomList; let i = index">
-                                                            <p class="label title">Phòng {{i + 1}}</p>
-                                                            <div class="number__select">
-                                                                <div class="number__select--type">
-                                                                    <div class="info">Người lớn</div>
-                                                                    <div class="vp-calc">
-                                                                        <button [disabled]="noChildren == 1" (click)="onDecreasePeople()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
-                                                                            <img src="../../../assets/icon/icon_minus.svg" alt="minus">
-                                                                        </button>
-                                                                        <input class="input-person" nz-input type="number" name="location" value={{noPeopel}} id="number">
-                                                                        <button [disabled]="noChildren == 8" (click)="onIncreasePeople()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
-                                                                            <img src="../../../assets/icon/icon_plus.svg" alt="plus">
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="number__select--type">
-                                                                    <div class="info">Trẻ em</div>
-                                                                    <div class="vp-calc">
-                                                                        <button [disabled]="noChildren == 1" (click)="onDecreaseChildren()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
-                                                                            <img src="../../../assets/icon/icon_minus.svg" alt="minus">
-                                                                        </button>
-                                                                        <input class="input-person" nz-input type="number" name="location" value="1" id="number">
-                                                                        <button [disabled]="noChildren == 8" (click)="onIncreaseChildren()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
-                                                                            <img src="../../../assets/icon/icon_plus.svg" alt="plus">
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="room__detail--info">
-                                                            <p>Em bé : < 4 tuổi / Trẻ em : 4 tuổi - < 12 tuổi / Người lớn : Từ 12 tuổi</p>
-                                                        </div>
-                                                    </div>
-                                                </nz-dropdown-menu>
-                                            </nz-form-control>
-                                        </nz-form-item >
-                                    </div>
-                                    <div class="col col-md-3">
-                                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                                            <button class="btn-search" (click)="searchBooking()" nz-button nzType="primary">Tìm kiếm</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            <!-- <p style="padding: 36px; text-align: center; font-weight: 600;">Phần này chưa được hoàn thiện</p> -->
+                            <app-hotel-flight></app-hotel-flight>
                         </div>
-                        <!-- <div *ngIf="bookingType.id == 2"></div> -->
-                        <div *ngIf="bookingType.id == 3">
-                            <p style="padding: 36px; text-align: center; font-weight: 600;">Phần này chưa được hoàn thiện</p>
-                        </div>
-                        <div *ngIf="bookingType.id == 4">
-                            <form [nzLayout]="'vertical'" [formGroup]="formTour" nz-form>
-                                <div class="row">
-                                    <div class="col col-md-6">
-                                        <nz-form-item class="custom-input">
-                                            <nz-form-label nzFor="search">
-                                                <img src="../../../assets/icon/icon_search.svg" style="margin-right: 4px;" alt="search">
-                                                <span>Tìm kiếm</span>
-                                            </nz-form-label>
-                                            <nz-form-control>
-                                                <input
-                                                    formControlName="searchName"
-                                                    nz-input
-                                                    value="Nhập điểm đến, tên sản phẩm hoặc tên ưu đãi ..."
-                                                />
-                                            </nz-form-control>
-                                        </nz-form-item >
-                                    </div>
-                                    <div class="col col-md-6">
-                                        <div class="row align-items-center">
-                                            <div class="col col-md-8">
-                                                <nz-form-item class="custom-input">
-                                                    <nz-form-label nzFor="location">
-                                                        <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
-                                                        <span>Địa điểm</span>
-                                                    </nz-form-label>
-                                                    <nz-form-control>
-                                                        <nz-select
-                                                            (nzFocus)="handleCheckFocus('focus')"
-                                                            (nzBlur)="handleCheckFocus('blur')"
-                                                            [nzPlacement]="placementSelect"
-                                                            nzShowSearch nzAllowClear
-                                                            [nzShowArrow]="false"
-                                                            nzPlaceHolder="Nhập khách sạn/điểm đến"
-                                                            formControlName="selectedHotel"
-                                                            [(ngModel)]="selectedHotel"
-                                                        >
-                                                            <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
-                                                                <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
-                                                                {{item.name}}
-                                                            </nz-option>
-                                                          </nz-select>
-                                                    </nz-form-control>
-                                                </nz-form-item>
-                                            </div>
-                                            <div class="col col-md-4" style="height: 100%;">
-                                                <button class="btn-search" (click)="searchBooking()" nz-button nzType="primary">Tìm kiếm</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                        <div *ngIf="bookingType.id == 2">
+                            <app-tour></app-tour>
                         </div>
                       </nz-tab>
                     </nz-tabset>
@@ -248,8 +61,8 @@
                       <h3>{{ index }}</h3>
                     </div>
                 </nz-carousel> -->
-                <div class="row">
-                    <div class="col col-md-8">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <div class="exp-item _741x500">
                         <div class="experience-item">
                             <div class="img-wrapper">
                                 <img src="../../../assets/images/home/Hotels & Resort_1673079062.png.webp" alt="">
@@ -263,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-md-4">
+                    <div class="exp-item _409x500">
                         <div class="experience-item">
                             <div class="img-wrapper">
                                 <img src="../../../assets/images/home/Amusement Park_1673079085.png.webp" alt="">
@@ -277,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-md-4">
+                    <div class="exp-item _409x500">
                         <div class="experience-item">
                             <div class="img-wrapper">
                                 <img src="../../../assets/images/home/Meetings & Events_1673975369.png.webp" alt="">
@@ -291,7 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-md-8">
+                    <div class="exp-item _741x500">
                         <div class="experience-item">
                             <div class="img-wrapper">
                                 <img src="../../../assets/images/home/Golf_1673079129.png.webp" alt="">

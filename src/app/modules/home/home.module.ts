@@ -16,6 +16,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { SharedModule } from 'src/app/shared/share.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     NzDatePickerModule,
     NzButtonModule,
     NzDropDownModule,
+    SharedModule,
     NzToolTipModule,
     TranslateModule.forChild({
       loader: {
@@ -42,7 +44,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         useFactory: (homeCreateTranslateLoader),
         deps: [HttpClient]
       },
-      isolate: true
+      isolate: false
     }),
   ]
 })
@@ -50,12 +52,18 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 export class HomeModule {
   constructor(public translationService: TranslateService) {
     translationService.addLangs(['en', 'vi']);
-    this.translationService.store.onLangChange
-      .subscribe((lang: LangChangeEvent) => {
-        this.translationService.use(lang.lang).toPromise();
-      },error =>{
-        console.log(error)
-      });
+    // this.translationService.store.onLangChange
+    //   .subscribe((lang: LangChangeEvent) => {
+    //     this.translationService.use(lang.lang).toPromise();
+    //   },error =>{
+    //     console.log(error)
+    //   });
+    if (localStorage.getItem('lang')) {
+      translationService.use(localStorage.getItem('lang')!);
+    } else {
+      localStorage.setItem('lang', 'vi');
+      translationService.use('vi');
+    }
   }
 }
 

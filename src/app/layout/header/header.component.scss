@@ -1,26 +1,30 @@
 @use "../../../assets/scss/" as *;
 
 #header {
-    position: fixed;
-    height: 10rem;
+    // position: fixed;
+    height: 8rem;
     display: flex;
     @include flex(center, unset);
-    left: 0;
-    right: 0;
-    z-index: 99;
+    // left: 0;
+    // right: 0;
+    // z-index: 99;
     background: #FFF;
 }
 
 .header {
-    &__container {
+    &-container {
         @include flex(center, space-between);
     }
 
-    &__left {
+    &-left {
         @include flex(center, space-between);
 
         .logo {
             margin-right: 2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
@@ -29,20 +33,25 @@
     }
 
     .menu {
-        &__item {
+        &-item {
             position: relative;
             transition: all .3s ease;
+
+            .links-wrapper {
+                padding: 2rem;
+            }
+
             &:hover {
                 background: rgba(255,255,255,.12);
                 cursor: pointer;
-                & .drop__menu {
+                & .drop-menu {
                     display: block;
                 }
             }
         }
     }
 
-    .nav__item {
+    .nav-item {
         font-size: 1.6rem;
         font-weight: 600;
         // color: $main-color;
@@ -50,18 +59,18 @@
         padding: 1rem 1.5rem;
     }
 
-    .drop__menu {
+    .drop-menu {
         display: none;
         position: absolute;
         padding-top: 1rem;
-        .links__wrapper {
+        .links-wrapper {
             white-space: nowrap;
             box-shadow: $box-shadow;
             border-radius: $border-radius;
             position: relative;
             background-color: #FFF;
-            padding: 2rem;
-
+            z-index: 99;
+            min-width: 20rem;
             p {
 
                 font-weight: 600;
@@ -73,20 +82,44 @@
                 }
             }
 
-            .select__label {
-                text-transform: uppercase;
-                color: #898994;
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
+            .select-label {
+                margin: 0 24px;
+                padding: 12px 0 8px;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 24px;
+                color: #343a40;
+                border-bottom: 1px solid #ced4da;
+            }
+
+            .language-type {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                    span {
+                        color: #e8952f;
+                    }
+                }
+            }
+
+            .money-type-item {
+                cursor: pointer;
+                &:hover {
+                    background-color: #f5f5f5;
+                    .label, .desc {
+                        color: #e8952f;
+                    }
+                }
             }
         }
     }
 
-    &__right {
-        .icon__money__language {
+    &-right {
+        .icon-money-language {
             padding: 1rem;
 
-            & ~ .drop__menu {
+            & ~ .drop-menu {
                 display: block;
             }
             
@@ -96,7 +129,8 @@
             }
         }
 
-        .money__type__item {
+        .money-type-item {
+            padding: 6px 15px;
             .label {
                 font-weight: 600;
                 font-size: 1.4rem;
@@ -109,13 +143,25 @@
                 font-size: 1.4rem;
             }
         }
+
+        .language-type {
+            padding: 12px 24px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            color: #343a40;
+
+            img {
+                margin-right: 24px;
+            }
+        }
     }
 }
 
-.block__content {
+.block-content {
     position: relative;
 
-    .booking__search {
+    .booking-search {
         position: absolute;
         width: 100%;
         bottom: 0;
@@ -307,124 +353,6 @@
         font-weight: 600;
         width: 100%;
         text-align: center;
-    }
-
-    .btn-person {
-        width: 30px;
-        height: 30px;
-        margin-top: 0;
-        border: 0;
-        color: #e29a38;
-        line-height: 18px;
-        background: rgba(232,149,47,.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &-room {
-            user-select: none;
-        }
-
-        &.left {
-            background: rgba(232,149,47,.1)!important;
-        }
-
-        &.right {
-            background: #e8952f!important;
-        }
-    }
-
-    .input-person {
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        color: #343a40;
-        width: 38px;
-        text-align: center;
-        border: none;
-        outline: none;
-        pointer-events: none;
-    }
-
-    .dropdown-person {
-        width: 352px;
-        margin-top: 9px;
-        box-shadow: 3px 4px 30px -4px rgb(53 60 70/22%);
-        border-radius: 0 0 10px 10px;
-        padding: 0 16px;
-        padding-top: 20px;
-        background-color: #fff;
-    }
-
-    .room {
-        &__item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #edf1f2;
-        }
-
-        &__detail {
-            padding: 12px 0 15px;
-            border-bottom: 1px solid #edf1f2;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            flex-direction: column;
-
-            .label {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 12px;
-                line-height: 22px;
-                color: #9d9d9d;
-                padding-top: 10px;
-                margin-bottom: unset;
-            }
-
-            .label.title {
-                font-weight: 600;
-                font-size: 13px;
-                line-height: 16px;
-                color: #898994;
-                padding: 0;
-            }
-
-            &--info {
-                margin: 0;
-                border-top: 1px solid #edf1f2;
-
-                p {
-                    margin: 0;
-                    padding: 12px 0;
-                    line-height: 18px;
-                    color: #898994;
-                    font-style: italic;
-                }
-            }
-        }
-    }
-
-    .number__select {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 16px 0;
-
-        &--type {
-            display: flex;
-            flex-direction: column;
-
-            .info {
-                text-align: center;
-                padding: 0;
-                font-size: 13px;
-                line-height: 16px;
-                color: #898994;
-                margin-bottom: 7px;
-            }
-        }
     }
 
     .vp-calc {

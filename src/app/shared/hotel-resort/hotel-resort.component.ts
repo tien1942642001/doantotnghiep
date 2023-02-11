@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: 'app-hotel-resort',
+  templateUrl: './hotel-resort.component.html',
+  styleUrls: ['./hotel-resort.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class HotelResortComponent implements OnInit {
 
   locationId: any;
   hotelId: any;
   arrivalDate: any;
   selectedHotel = null;
   currentDate = new Date().getTime();
+  locationPlaceHolder: string = "";
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +28,6 @@ export class SearchComponent implements OnInit {
       this.arrivalDate = params['arrivalDate'];
       console.log(params);
     })
-    
   }
 
   hotelDefault: any[] = [
@@ -178,13 +180,16 @@ export class SearchComponent implements OnInit {
     console.log(123);
   }
 
-  formGroup: FormGroup = new FormGroup({
+  formHotel: FormGroup = new FormGroup({
     selectedHotel: new FormControl(),
     rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
   });
 
   searchHotels () {
-    console.log(this.formGroup.value);
+    console.log(this.formHotel.value);
+    this.router.navigate(['/hotels/booking-search'], {
+      queryParams: {locationId: '1', hotelId: '2', arrivalDate: '3', }
+    });
   }
 
   handleCheckFocus(name: any) {
@@ -196,5 +201,4 @@ export class SearchComponent implements OnInit {
       document.querySelectorAll(".ant-row.ant-form-item")[0].classList.remove("active");
     }
   }
-
 }
