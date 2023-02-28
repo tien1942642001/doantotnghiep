@@ -15,9 +15,10 @@ export class AuthService {
   ) {}
 
   apiUrl = "https://platform.datacom.vn/flights/search";
-
+  
   login(body: any): Observable<any> {
-    return this.http.post(`${APIs.AUTH_LOGIN}`, {
+    // return this.http.post(`${APIs.AUTH_LOGIN}`, {
+      return this.http.post(`http://localhost:8080/login`, {
         username: body.username,
         password: body.password
     });

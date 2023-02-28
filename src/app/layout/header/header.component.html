@@ -50,20 +50,21 @@
                             </div>
                             <div class="language">
                                 <div id="language-name" (click)="handleShowDrop('language')" class="icon-money-language language-name">
-                                    <img src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
+                                    <img *ngIf="currentLang === 'vi'" src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
+                                    <img *ngIf="currentLang === 'en'" src="../../../assets/images/icon/flag-en.webp" alt="Việt nam">
                                 </div>
                                 <div *ngIf="showDropLanguage" class="drop-menu">
                                     <div class="links-wrapper">
                                         <div class="select-label">
                                             {{'header.language' | translate}}
                                         </div>
-                                        <div (click)="changeLanguage('en')" class=" language-type">
-                                            <img src="../../../assets/images/icon/flag-en.webp" alt="Mỹ">
-                                            <span>{{'header.english' | translate}}</span>
-                                        </div>
                                         <div (click)="changeLanguage('vi')" class="language-type">
                                             <img src="../../../assets/images/icon/flag-vie.webp" alt="Việt nam">
                                             <span>{{'header.vietnamese' | translate}}</span>
+                                        </div>
+                                        <div (click)="changeLanguage('en')" class=" language-type">
+                                            <img src="../../../assets/images/icon/flag-en.webp" alt="Mỹ">
+                                            <span>{{'header.english' | translate}}</span>
                                         </div>
                                     </div>
                                 </div>

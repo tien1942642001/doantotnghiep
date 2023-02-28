@@ -1,52 +1,54 @@
-<form [nzLayout]="'vertical'" [formGroup]="formTour" nz-form>
-    <div class="row">
-        <div class="col col-md-6">
-            <nz-form-item class="custom-border-right">
-                <nz-form-label nzFor="search">
-                    <img src="../../../assets/icon/icon_search.svg" style="margin-right: 4px;" alt="search">
-                    <span>Tìm kiếm</span>
-                </nz-form-label>
-                <nz-form-control>
-                    <input
-                        class="custom-border-transparent"
-                        formControlName="searchName"
-                        nz-input
-                        placeholder="Nhập điểm đến, tên sản phẩm hoặc tên ưu đãi ..."
-                    />
-                </nz-form-control>
-            </nz-form-item >
-        </div>
-        <div class="col col-md-6">
-            <div class="row align-items-center">
-                <div class="col col-md-8">
-                    <nz-form-item class="custom-border-right">
-                        <nz-form-label nzFor="location">
-                            <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
-                            <span>Địa điểm</span>
-                        </nz-form-label>
-                        <nz-form-control>
-                            <nz-select
-                                (nzFocus)="handleCheckFocus('focus')"
-                                (nzBlur)="handleCheckFocus('blur')"
-                                [nzPlacement]="placementSelect"
-                                nzShowSearch nzAllowClear
-                                [nzShowArrow]="false"
-                                nzPlaceHolder="Nhập khách sạn/điểm đến"
-                                formControlName="selectedHotel"
-                                [(ngModel)]="selectedHotel"
-                            >
-                                <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
-                                    <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
-                                    {{item.name}}
-                                </nz-option>
-                              </nz-select>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-                <div class="col col-md-4" style="height: 100%;">
-                    <button class="btn-search" (click)="searchBooking()" nz-button nzType="primary">Tìm kiếm</button>
+<div class="form-search">
+    <form [nzLayout]="'vertical'" [formGroup]="formTour" nz-form>
+        <div class="row">
+            <div class="col col-md-6">
+                <nz-form-item class="custom-border-right">
+                    <nz-form-label nzFor="search">
+                        <img src="../../../assets/icon/icon_search.svg" style="margin-right: 4px;" alt="search">
+                        <span>Tìm kiếm</span>
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            class="custom-border-transparent"
+                            formControlName="searchName"
+                            nz-input
+                            placeholder="Nhập điểm đến, tên sản phẩm hoặc tên ưu đãi ..."
+                        />
+                    </nz-form-control>
+                </nz-form-item >
+            </div>
+            <div class="col col-md-6">
+                <div class="row align-items-center">
+                    <div class="col col-md-8">
+                        <nz-form-item class="custom-border-right">
+                            <nz-form-label nzFor="location">
+                                <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
+                                <span>Địa điểm</span>
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-select
+                                    (nzFocus)="handleCheckFocus('focus')"
+                                    (nzBlur)="handleCheckFocus('blur')"
+                                    [nzPlacement]="placementSelect"
+                                    nzShowSearch nzAllowClear
+                                    [nzShowArrow]="false"
+                                    nzPlaceHolder="Nhập khách sạn/điểm đến"
+                                    formControlName="selectedHotel"
+                                    [(ngModel)]="selectedHotel"
+                                >
+                                    <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
+                                        <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
+                                        {{item.name}}
+                                    </nz-option>
+                                  </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-md-4" style="height: 100%;">
+                        <button class="btn-search" (click)="searchBooking()" nz-button nzType="primary">Tìm kiếm</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

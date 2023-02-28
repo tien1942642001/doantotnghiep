@@ -94,6 +94,179 @@
     }
 }
 
+.hotel-new-box .hotel-box {
+    padding: 1.25rem;
+    margin-bottom: 1.75rem;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    font-weight: 500;
+
+    .col-md-8 {
+        padding: 0 15px;
+    }
+}
+
+.hotel-box .title-link {
+    color: #343a40;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.room-list {
+    .hotel-address {
+        font-size: 12px;
+    }
+
+    .hotel-box-bottom {
+        margin: 10px 0 30px;
+        
+        p {
+            font-size: 13px;
+            color: #616971!important;
+        }
+    }
+
+    .text-detail {
+        font-size: 13px;
+    }
+}
+
+.filter-hotel {
+    background-color: hsla(0,0%,87.8%,.2);
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    height: 53px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-filter-room {
+    color: #343a40;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 14px;
+}
+
+.hotel_detail-room-box {
+    color: #343a40;
+}
+
+.hotel-detail-room-box {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    padding: 20px;
+}
+
+.hotel_detail-room-box_info__guest:before {
+    content: "\f007";
+    color: #898994;
+    font-family: "FontAwesome",sans-serif;
+    margin-right: 0.5rem;
+}
+
+.hotel_detail-room-box__title h3 {
+    color: #343a40;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.hotel-detail-room-info .view-rate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hotel-box-price {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    color: #616971;
+    font-size: 12px;
+}
+
+.text-right .hotel-box-price {
+    margin-bottom: 15px;
+}
+
+.standard-text {
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    vertical-align: middle;
+    line-height: 20px;
+    color: #343a40;
+
+    &_value {
+        color: #343a40;
+        font-size: 20px;
+        font-weight: 500;
+    }
+}
+
+.btn-view-rate-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btn-view-rate-wrap button {
+    padding: 10px 30px;
+    border-radius: 40px;
+    background-color: #2a398c;
+    border-color: #2a398c;
+    color: #fff;
+}
+
+.hotel_detail-room-box_description__value {
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hotel-box-view-popup>span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #28327f;
+}
+
+.hotel-detail-room-rates_action {
+    .standard {
+        padding-top: 49px;
+        position: relative;
+        border: 0;
+        padding-bottom: 0;
+        margin-bottom: -8px;
+        padding: 24px 1rem 15px;
+        flex: 1 1;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 3px solid #e8952f;
+            z-index: 0;
+        }
+    }
+
+    .title {
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        color: #e8952f;
+    }
+}
+
 ::ng-deep {
     .ant-card-head-title {
         font-weight: 600;

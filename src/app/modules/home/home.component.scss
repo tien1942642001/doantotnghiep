@@ -84,10 +84,9 @@
 
 .homepage-title {
   margin-bottom: 30px;
-  font-family: eb garamond;
   font-style: normal;
-  font-weight: 500;
-  font-size: 34px;
+  font-weight: 600;
+  font-size: 26px;
   line-height: 44px;
   color: #343a40;
 }
@@ -283,6 +282,41 @@
           color: #e8952f;
         }
       }
+    }
+  }
+}
+
+#block-homepage-destination {
+  margin-bottom: 40px;
+  .gradient-image {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 460px;
+    }
+
+    span {
+      position: absolute;
+      font-size: 22px;
+      font-weight: 600;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      color: #FFF;
+      text-align: center;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: .7;
+      background: linear-gradient(0deg,rgba(0,0,0,.72),hsla(0,0%,100%,0));
     }
   }
 }

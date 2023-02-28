@@ -20,5 +20,45 @@
     "nearVinWonders": "Gần VinWonders",
     "nearSafari": "Gần Safari",
     "onlyFrom": "Chỉ từ",
-    "night": "Đêm"
+    "night": "Đêm",
+    "search": {
+        "hotel": {
+            "title": "Hotels & Resorts",
+            "form": {
+                "label1": "Going to",
+                "placeholder1": "Hotel/Destination",
+                "label2": "Check-in - Check-out",
+                "label3": "Room(s)"
+            }
+        },
+        "hotelFlight": {
+            "title": "Flight + Hotel",
+            "form": {
+              "from": "From",
+              "leavingFrom": "Leaving from",
+              "to": "To",
+              "goingTo": "Going to",
+              "startTime": "Departure date",
+              "endTime": "Return Date",
+              "numPerson": "Number of passengers",
+              "room": "Room",
+              "numRoom": "Room(s)",
+              "adults": "Adult(s)",
+              "children": "Child(ren)",
+              "notifyPassenger": "The number of adults cannot be less than the number of rooms selected",
+              "descPassenger": "*Infant(s) : 0 - 2 years old / Child(ren) : 2 - 11 years old"
+            }
+        },
+        "tour": {
+            "title": "Tours & Experiences",
+            "form": {
+                "label1": "Search",
+                "placeholder1": "Looking for ...",
+                "label2": "Going to",
+                "placeholder2": "Destomations"
+            }
+        },
+        "btnSearch": "Search"
+    },
+    "clickDetail": "Hotel details"
 }

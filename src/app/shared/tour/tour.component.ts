@@ -143,8 +143,8 @@ export class TourComponent implements OnInit {
 
   searchBooking () {
     console.log(this.formTour.value);
-    this.route.navigate(['/hotels/booking-search'], {
-      queryParams: {locationId: '1', hotelId: '2', arrivalDate: '3', }
+    this.route.navigate(['hotels/booking-tour'], {
+      queryParams: {locationId: '1'}
     });
   }
 }

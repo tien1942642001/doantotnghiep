@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { DisabledTimeFn } from 'ng-zorro-antd/date-picker';
+import { HomeService } from 'src/app/core/service/home.service';
 @Component({
   selector: 'app-hotel-resort',
   templateUrl: './hotel-resort.component.html',
@@ -9,26 +11,115 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HotelResortComponent implements OnInit {
 
-  locationId: any;
-  hotelId: any;
+  siteId: any;
   arrivalDate: any;
-  selectedHotel = null;
-  currentDate = new Date().getTime();
+  leaveDate: any;
   locationPlaceHolder: string = "";
+  listOfSite: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private homeService: HomeService,
+    // private toast: Toastr,
   ) { }
+
+  formHotel: FormGroup = new FormGroup({
+    siteId: new FormControl(""),
+    rangePicker: new FormControl([new Date(), new Date().setDate(new Date().getDate() + 2)]),
+  });
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.locationId = params['locationId'];
-      this.hotelId = params['hotelId'];
-      this.arrivalDate = params['arrivalDate'];
-      console.log(params);
+      this.siteId = parseInt(params['siteId']);
+      this.arrivalDate = parseInt(params['arrivalDate']);
+      this.leaveDate = parseInt(params['leaveDate']);
+      
     })
+
+    this.getAllSite();
+    
+    if (!this.router.url.includes("home")) {
+      this.formHotel.controls['siteId'].setValue(this.siteId);
+      this.formHotel.controls['rangePicker'].setValue([this.arrivalDate, this.leaveDate]);
+    }
   }
+
+  getAllSite() {
+    this.homeService.getAllSite().subscribe(res => {
+      if (res.code === 200) {
+        this.listOfSite = res.data;
+      } else {
+        // this.toast
+      }
+    });
+  }
+
+
+  disabledStartDate = (startValue: Date): boolean => {
+    if (!startValue) {
+      return false;
+    }
+    return startValue.getTime() < new Date().getTime();
+  };
+
+  // disabledDateTime:() => DisabledTimeFn = () => (_value) => ({
+  //   nzDisabledHours: () => {
+  //     if (_value != null) {
+  //       const month = new Date(_value.toString()).getMonth();
+  //       const date = new Date(_value.toString()).getDate();
+  //       if (month < new Date().getMonth()) {
+  //         return []
+  //       }
+  //       if (date < new Date().getDate()) {
+  //         return []
+  //       }
+  //     }
+  //     const currentHours = new Date().getHours();
+  //     return this.range(currentHours + 1, 24)
+  //   },
+
+  //   nzDisabledMinutes: () => {
+  //     if (_value != null) {
+  //       const month = new Date(_value.toString()).getMonth();
+  //       const date = new Date(_value.toString()).getDate();
+  //       const hours = new Date(_value.toString()).getHours();
+  //       if (month < new Date().getMonth()) {
+  //         return []
+  //       }
+  //       if (date < new Date().getDate()) {
+  //         return []
+  //       }
+  //       if (hours < new Date().getHours()) {
+  //         return []
+  //       }
+  //     }
+  //     const currentMinutes = new Date().getMinutes()
+  //     return this.range(currentMinutes + 1, 60)
+  //   },
+  //   nzDisabledSeconds: () => {
+  //     if (_value != null) {
+  //       const month = new Date(_value.toString()).getMonth();
+  //       const date = new Date(_value.toString()).getDate();
+  //       const hours = new Date(_value.toString()).getHours();
+  //       const minutes = new Date(_value.toString()).getMinutes();
+  //       if (month < new Date().getMonth()) {
+  //         return []
+  //       }
+  //       if (date < new Date().getDate()) {
+  //         return []
+  //       }
+  //       if (hours < new Date().getHours()) {
+  //         return []
+  //       }
+  //       if (minutes < new Date().getMinutes()) {
+  //         return []
+  //       }
+  //     }
+  //     const currentSecond = new Date().getSeconds()
+  //     return this.range(currentSecond + 1, 60)
+  //   },
+  // });
 
   hotelDefault: any[] = [
     {
@@ -180,16 +271,27 @@ export class HotelResortComponent implements OnInit {
     console.log(123);
   }
 
-  formHotel: FormGroup = new FormGroup({
-    selectedHotel: new FormControl(),
-    rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
-  });
-
   searchHotels () {
-    console.log(this.formHotel.value);
-    this.router.navigate(['/hotels/booking-search'], {
-      queryParams: {locationId: '1', hotelId: '2', arrivalDate: '3', }
-    });
+    const formValue = this.formHotel.value;
+    console.log(formValue);
+    if (typeof (formValue.rangePicker[0]) === 'object') {
+      formValue.rangePicker[0] = formValue.rangePicker[0].getTime();
+    }
+    if (typeof (formValue.rangePicker[1]) === 'object') {
+      formValue.rangePicker[1] = formValue.rangePicker[1].getTime();
+    }
+    const data = {
+      siteId: formValue.siteId,
+      arrivalDate: formValue.rangePicker[0],
+      leaveDate: formValue.rangePicker[1],
+    }
+    if (this.router.url.includes("home")) {
+      this.router.navigate(['/hotels/booking-search'], {
+        queryParams: data
+      });
+    } else {
+      
+    }
   }
 
   handleCheckFocus(name: any) {

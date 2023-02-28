@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   selectedHotel = null;
   placementSelect: NzSelectPlacementType = 'bottomLeft';
   currentDate = new Date().getTime();
+  currentLang = localStorage.getItem("lang");
   hotelDefault: any[] = [
     {
       id: 1,

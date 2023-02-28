@@ -47,12 +47,16 @@
         "title": "Sản phẩm dành cho bạn"
     },
     "destination": {
-        "title": "Siêu quần thể Vinpearl",
+        "title": "Popular Destination",
         "description": "Siêu quẩn thể nghỉ dưỡng, vui chơi giải trí, mua sắm và ẩm thực tại các điểm đến hàng đầu Việt Nam",
         "titlePhuQuoc": "Đến với siêu quần thể Phú Quốc United Center, du khách sẽ có cơ hội tận hưởng một mùa lễ hội “đỉnh không tưởng” sánh ngang các “thiên đường du lịch” hàng đầu thế giới 6 sự kiện tâm điểm quy mô kỷ lục diễn ra từ 17/12/2022 đến 6/1/2023: Đại nhạc hội EDM đẳng cấp thế giới CREAMFIELDS VIETNAM, lễ thắp sáng cây thông Noel khổng lồ, Hội chợ Giáng sinh Copenhagen,...",
         "titleNhaTrang": "Vinpearl Nha Trang - Quần thể du lịch nghỉ dưỡng, vui chơi và khám phá biển hàng đầu Đông Nam Á, top 10 vịnh biển đẹp nhất hành tinh tạo nên vạn trải nghiệm nghỉ dưỡng đỉnh cao.",
         "titleNamHoiAn": "Là tâm điểm của con đường di sản miền Trung, Quần thể Vinpearl Nam Hội An làm nên một thiên đường nghỉ dưỡng – giải trí đa sắc văn hóa, muôn màu trải nghiệm.",
-        "discover": "Khám phá ngay"
+        "discover": "Khám phá ngay",
+        "nhaTrang": "Nha Trang",
+        "daNang": "Da Nang",
+        "phuQuoc": "Phu Quoc",
+        "hoiAn": "Hoi An"
     },
     "search": {
         "hotel": {

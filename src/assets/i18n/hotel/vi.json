@@ -20,5 +20,53 @@
     "nearVinWonders": "Gần VinWonders",
     "nearSafari": "Gần Safari",
     "onlyFrom": "Chỉ từ",
-    "night": "Đêm"
+    "night": "Đêm",
+    "search": {
+        "hotel": {
+            "title": "Khách sạn & Nghỉ dưỡng",
+            "form": {
+                "label1": "Điểm đến",
+                "placeholder1": "Nhập khách sạn/điểm đến",
+                "label2": "Ngày nhận - Trả phòng",
+                "label3": "Số phòng"
+            }
+        },
+        "hotelFlight": {
+            "title": "Khách sạn + Vé máy bay",
+            "form": {
+              "from": "Từ",
+              "leavingFrom": "Điểm đi",
+              "leavingTo": "Điểm đến",
+              "to": "Đến",
+              "goingTo": "Điểm đến",
+              "startTime": "Ngày đi",
+              "endTime": "Ngày về",
+              "numPerson": "Số lượng khách",
+              "room": "Phòng",
+              "numRoom": "Số phòng",
+              "adults": "Người lớn",
+              "children": "Trẻ em",
+              "notifyPassenger": "Số lượng người lớn không được ít hơn số phòng được chọn",
+              "descPassenger": "*Em bé : < 4 tuổi / Trẻ em : 4 tuổi - < 12 tuổi / Người lớn : Từ 12 tuổi"
+            }
+        },
+        "tour": {
+            "title": "Tour & Trải nghiệm",
+            "form": {
+                "label1": "Tìm kiếm",
+                "placeholder1": "Nhập điểm đến, tên sản phẩm hoặc tên ưu đãi ...",
+                "label2": "Địa điểm",
+                "placeholder2": "Tất cả địa điểm"
+            }
+        },
+        "btnSearch": "Tìm kiếm"
+    },
+    "clickDetail": "Xem chi tiết",
+    "guests": "Người",
+    "roomDetails": "Xem phòng",
+    "filterRoom": "Chọn phòng 1/1",
+    "pricePublic": "Giá công bố",
+    "/night": "/đêm",
+    "btnSelect": "Chọn",
+    "standard": "Gói tiêu chuẩn"
 }

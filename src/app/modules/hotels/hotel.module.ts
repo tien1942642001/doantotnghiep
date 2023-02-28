@@ -21,6 +21,7 @@ import { LangChangeEvent, TranslateLoader, TranslateModule, TranslateService } f
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from 'src/app/shared/share.module';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SharedModule } from 'src/app/shared/share.module';
     NzCheckboxModule,
     SharedModule,
     SwiperModule,
+    NzRadioModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

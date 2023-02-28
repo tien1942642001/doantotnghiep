@@ -16,11 +16,10 @@
                             nzShowSearch nzAllowClear
                             [nzShowArrow]="false"
                             [nzPlaceHolder]="'search.hotel.form.placeholder1' | translate"
-                            formControlName="selectedHotel"
-                            [(ngModel)]="selectedHotel"
+                            formControlName="siteId"
                         >
-                            <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
-                                <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
+                            <nz-option *ngFor="let item of listOfSite" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
+                                <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_hotel_y' : 'icon_location'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
                                 {{item.name}}
                             </nz-option>
                         </nz-select>
@@ -41,7 +40,8 @@
                             [nzSuffixIcon]="suffixTemplate"
                             [nzAllowClear]="false"
                             (nzOnOpenChange)="handleOk()"
-                        >
+                            [nzDisabledDate]="disabledStartDate"
+                            >
                         </nz-range-picker>
                         <ng-template #suffixTemplate>
                             <span> - </span>
@@ -66,7 +66,7 @@
                             nz-tooltip
                             [nzTooltipTitle]="'1 phòng - 1 người lớn - 1 trẻ em'"
                         >
-                            <span class="text-truncate">
+                            <span class="text-truncate font-input-search">
                                 <span class="btn-list-passenger">1 phòng</span>
                                 <span class="btn-list-passenger">1 người lớn</span>
                                 <span class="btn-list-passenger">1 trẻ em</span>

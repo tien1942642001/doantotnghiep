@@ -2,11 +2,13 @@
 <div class="form-search">
     <form [nzLayout]="'vertical'" [formGroup]="formHotelFlight" nz-form>
         <div class="row">
-            <div class="col col-md-3">
-                <nz-form-item class="custom-border-right">
+            <div class="col col-md-4">
+                <nz-form-item class="custom-border-right select-hotel-flight">
                     <nz-form-label nzFor="location">
-                        <img src="../../../assets/icon/icon_location.svg" style="margin-right: 4px" alt="location">
-                        <span>{{'search.hotelFlight.form.from' | translate}}</span>
+                        <img src="../../../assets/icon/fi-br-airplane-up-active.svg" style="margin-right: 4px" alt="location">
+                        <span style="margin-right: 120px;">{{'search.hotelFlight.form.from' | translate}}</span>
+                        <img src="../../../assets/icon/fi-br-airplane-down-active.svg" style="margin-right: 4px" alt="location">
+                        <span>{{'search.hotelFlight.form.to' | translate}}</span>
                     </nz-form-label>
                     <nz-form-control>
                         <!-- <input nz-input name="location" placeholder="Nhập khách sạn/điểm đến" id="location"> -->
@@ -16,6 +18,25 @@
                             nzShowSearch nzAllowClear
                             [nzShowArrow]="false"
                             [nzPlaceHolder]="'search.hotelFlight.form.leavingFrom' | translate"
+                            formControlName="selectedHotel"
+                            [(ngModel)]="selectedHotel"
+                        >
+                            <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
+                                <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
+                                {{item.name}}
+                            </nz-option>
+                        </nz-select>
+                        <div class="g-bg-primary btn-swap-flight">
+                            <svg viewBox="64 64 896 896" focusable="false" class="" data-icon="swap" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                <path d="M847.9 592H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h605.2L612.9 851c-4.1 5.2-.4 13 6.3 13h72.5c4.9 0 9.5-2.2 12.6-6.1l168.8-214.1c16.5-21 1.6-51.8-25.2-51.8zM872 356H266.8l144.3-183c4.1-5.2.4-13-6.3-13h-72.5c-4.9 0-9.5 2.2-12.6 6.1L150.9 380.2c-16.5 21-1.6 51.8 25.1 51.8h696c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path>
+                            </svg>
+                        </div>
+                        <nz-select
+                            (nzFocus)="handleCheckFocus('focus')"
+                            (nzBlur)="handleCheckFocus('blur')"
+                            nzShowSearch nzAllowClear
+                            [nzShowArrow]="false"
+                            [nzPlaceHolder]="'search.hotelFlight.form.leavingTo' | translate"
                             formControlName="selectedHotel"
                             [(ngModel)]="selectedHotel"
                         >
@@ -53,7 +74,7 @@
                 <nz-form-item class="custom-border-right">
                     <nz-form-label nzFor="location">
                         <img src="../../../assets/icon/icon_room.svg" style="margin-right: 4px;" alt="room">
-                        <span>{{'search.hotelFlight.form.label3' | translate}}</span>
+                        <span>{{'search.hotelFlight.form.numRoom' | translate}}</span>
                     </nz-form-label>
                     <nz-form-control>
                         <button
@@ -66,7 +87,7 @@
                             nz-tooltip
                             [nzTooltipTitle]="'1 phòng - 1 người lớn - 1 trẻ em'"
                         >
-                            <span class="text-truncate">
+                            <span class="text-truncate font-input-search">
                                 <span class="btn-list-passenger">1 phòng</span>
                                 <span class="btn-list-passenger">1 người lớn</span>
                                 <span class="btn-list-passenger">1 trẻ em</span>
@@ -124,7 +145,7 @@
                     </nz-form-control>
                 </nz-form-item >
             </div>
-            <div class="col col-md-3">
+            <div class="col col-md-2">
                 <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                     <button class="btn-search" (click)="searchHotels()" nz-button nzType="primary">{{'search.btnSearch' | translate}}</button>
                 </div>
