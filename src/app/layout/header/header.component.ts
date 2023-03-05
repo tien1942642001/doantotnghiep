@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzSelectPlacementType } from 'ng-zorro-antd/select';
+import constants from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'app-header',
@@ -153,6 +154,8 @@ export class HeaderComponent implements OnInit {
     },
   ];
 
+  fullName: any;
+
   handleOk() {
     console.log(123);
   }
@@ -262,6 +265,8 @@ export class HeaderComponent implements OnInit {
       ]
     }
     ];
+
+    this.fullName = localStorage.getItem(constants.FULLNAME);
   }
 
   handleShowDrop(name: any) {
@@ -295,6 +300,15 @@ export class HeaderComponent implements OnInit {
   changeLanguage(lang: any) {
     localStorage.setItem('lang', lang);
     window.location.reload();
+  }
+
+  navigateUserProfile(flat: number) {
+    if (flat === 1) {
+      this.route.navigate(["/user/user-profile"])
+    }
+    if (flat === 2) {
+      this.route.navigate(["/user/my-order"])
+    }
   }
 
 }

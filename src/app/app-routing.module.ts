@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { HomeComponent } from './modules/home/home.component';
+import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
       {
         path: 'hotels',
         loadChildren: () => import('./modules/hotels/hotel.module').then(m => m.HotelModule)
+      },
+      {
+        path: 'user',
+        // component: UserProfileComponent,
+        loadChildren: () => import('./modules/user-profile/user-profile.module').then(m => m.UserProfileModule)
       },
       {
         path: 'vinpearl-golf',

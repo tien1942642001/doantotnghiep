@@ -29,7 +29,7 @@
                 </nz-form-control>
               </nz-form-item>
               <div class="tab__footer d-flex justify-content-center flex-column">
-                <button class="btn" nz-button nzType="primary">{{'login.title' | translate}}</button>
+                <button (click)="login()" class="btn" nz-button nzType="primary">{{'login.title' | translate}}</button>
                 <div class="tab__footer__question">
                   <div class="d-flex justify-content-center">
                     {{'login.notAccount' | translate}} &nbsp;
@@ -48,7 +48,7 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="fullname" nz-input placeholder="{{'register.fullName' | translate}}" />
+                  <input formControlName="fullName" nz-input placeholder="{{'register.fullName' | translate}}" />
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
@@ -62,7 +62,7 @@
                 </nz-form-control>
               </nz-form-item>
               <div class="tab__footer d-flex justify-content-center flex-column">
-                <button class="btn" nz-button nzType="primary">{{'register.title' | translate}}</button>
+                <button (click)="register()" class="btn" nz-button nzType="primary">{{'register.title' | translate}}</button>
                 <div class="tab__footer__question">
                   <div class="d-flex justify-content-center text-center flex-column">
                     {{'register.agree' | translate}}

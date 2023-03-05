@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { HomeService } from 'src/app/core/service/home.service';
+import { TourService } from 'src/app/core/service/tour.service';
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, SwiperOptions } from 'swiper';
@@ -27,6 +28,9 @@ export class BookingTourComponent implements OnInit {
   roomTypeList: any[] = [];
   pageSize: Number = 10;
   pageIndex: Number = 0;
+  descriptionVn: any;
+  inclusion: any;
+  termsConditions: any;
 
   roomList: any[] = [
     {
@@ -78,7 +82,8 @@ export class BookingTourComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private homeService: HomeService,
+    private tourService: TourService,
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -86,29 +91,22 @@ export class BookingTourComponent implements OnInit {
       this.siteId = params['siteId'];
       this.hotelId = params['hotelId'];
       this.arrivalDate = params['arrivalDate'];
-      this.getAllHotel(this.siteId);
+      this.getAllTour(this.siteId);
+    })
+    this.tourService.getDetailTour(2).subscribe(res => {
+      if (res.code === 200) {
+        this.descriptionVn = this.sanitizer.bypassSecurityTrustHtml(res.data.descriptionVn);
+        this.inclusion = this.sanitizer.bypassSecurityTrustHtml(res.data.inclusion);
+        this.termsConditions = this.sanitizer.bypassSecurityTrustHtml(res.data.termsConditions);
+      }
     })
   }
 
-  handleRoomTypeSelect(data: any) {
-    this.checkRoomSelect = data;
-    this.getAllRoomType(data.id);
-  }
-
-  getAllHotel(siteId: Number) {
-    this.homeService.getAllHotel(this.pageSize, this.pageIndex, siteId).subscribe(res => {
+  getAllTour(siteId: Number) {
+    this.tourService.getAllTour(this.pageSize, this.pageIndex).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.hotelList = res.data.content;
-      }
-    });
-  }
-
-  getAllRoomType(hotelId: Number) {
-    this.homeService.getAllRoomType(this.pageSize, this.pageIndex, hotelId).subscribe(res => {
-      if (res.code === 200) {
-        // console.log(res.data.content);
-        this.roomTypeList = res.data.content;
       }
     });
   }
@@ -152,7 +150,7 @@ export class BookingTourComponent implements OnInit {
 
   searchHotels () {
     const formValue = this.formGroup.value;
-    this.getAllHotel(formValue.siteId);
+    this.getAllTour(formValue.siteId);
   }
 
   handleCheckFocus(name: any) {

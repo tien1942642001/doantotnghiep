@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/service/auth.service';
+import { Location } from '@angular/common';
+import constants from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +27,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private location: Location
   ) { 
     if (localStorage.getItem('lang')) {
       translate.use(localStorage.getItem('lang')!);
@@ -36,30 +41,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-
-    const body = {
-      "Adt": 1,
-      "Chd": 1,
-      "Inf": 1,
-      "ViewMode": "",
-      "ListFlight": [{
-      "StartPoint": "HAN",
-      "EndPoint": "SGN",
-      "DepartDate": "17092019",
-      "Airline": ""
-      }
-      ],
-      "HeaderUser": "datacom",
-      "HeaderPass": "xxxxxxx",
-      "ProductKey": "xxxxxxxxxxxx",
-      "Language": "vi",
-      "AgentAccount": "DC00001",
-      "AgentPassword": "xxxxxx"
-    }
-      
-    this.authService.login(body).subscribe(res => {
-      console.log(res);
-    })
   }
 
   buildForm() {
@@ -79,7 +60,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', {
         validators: [Validators.required]
       }),
-      fullname: new FormControl('', {
+      fullName: new FormControl('', {
         validators: [Validators.required]
       }),
       password: new FormControl('', {
@@ -108,29 +89,28 @@ export class LoginComponent implements OnInit {
     this.formLogin.reset();
   }
 
-  test() {
-    const body = {
-      "Adt": 1,
-      "Chd": 1,
-      "Inf": 1,
-      "ViewMode": "",
-      "ListFlight": [{
-      "StartPoint": "HAN",
-      "EndPoint": "SGN",
-      "DepartDate": "17092019",
-      "Airline": ""
-      }
-      ],
-      "HeaderUser": "datacom",
-      "HeaderPass": "xxxxxxx",
-      "ProductKey": "xxxxxxxxxxxx",
-      "Language": "vi",
-      "AgentAccount": "DC00001",
-      "AgentPassword": "xxxxxx"
-    }
-      
+  login() {
+    const body = this.formLogin.value;
     this.authService.login(body).subscribe(res => {
-      console.log(res);
+      if (res.code === 200) {
+        // const redirectUrl = this.authService.redirectUrl || '/';
+        localStorage.setItem(constants.FULLNAME, res.data.fullName);
+        this.location.back();
+      }
+    })
+  }
+
+  register() {
+    const formValue = this.formRegister.value;
+    const body = {
+      fullName: formValue.fullName,
+      email: formValue.email,
+      password: formValue.password,
+    }
+    this.authService.register(body).subscribe(res => {
+      if (res.code === 200) {
+        this.clickTab(1);
+      }
     })
   }
 

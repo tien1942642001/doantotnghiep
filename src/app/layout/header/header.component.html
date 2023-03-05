@@ -73,9 +73,21 @@
                         
                     </li>
                     <li>
-                        <a [routerLink]="'/auth/login'" class="login">
+                        <a *ngIf="!fullName" [routerLink]="'/auth/login'" class="login">
                             <span style="font-weight: 600;">{{'header.login.title' | translate}}</span>
                         </a>
+                        <div *ngIf="fullName">
+                            <span nz-dropdown [nzDropdownMenu]="menu" style="font-weight: 600; cursor: pointer;">{{fullName}}</span>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                                <ul nz-menu>
+                                  <li nz-menu-item (click)="navigateUserProfile(1)">Thông tin tài khoản</li>
+                                  <li nz-menu-item (click)="navigateUserProfile(2)">Đơn hàng của tôi</li>
+                                  <li nz-menu-item (click)="navigateUserProfile(3)">Ưu đãi của tôi</li>
+                                  <li nz-menu-item (click)="navigateUserProfile(4)">Thông tin đặc quyền thẻ</li>
+                                  <li nz-menu-item (click)="navigateUserProfile(5)">Đăng xuất</li>
+                                </ul>
+                              </nz-dropdown-menu>
+                        </div>
                     </li>
                 </ul>
             </div>

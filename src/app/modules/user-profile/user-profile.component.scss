@@ -1,0 +1,57 @@
+.user-setting-left {
+    .box-info {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 75px;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        position: relative;
+
+        .avatar {
+            width: 104px;
+            height: 104px;
+        }
+
+        .btn-edit {
+            position: absolute;
+            bottom: 0px;
+            right: -10px;
+            width: 40px;
+        }
+    }
+
+    .code span {
+        font-weight: 400;
+        color: #616971;
+    }
+
+    .menu-user-item {
+        padding: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        img {
+            max-height: 16px;
+            max-width: 16px;
+            margin-right: 10px;
+        }
+
+        &.active {
+            background: #f4f4f5!important;
+            border-radius: 8px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}

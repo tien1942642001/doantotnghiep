@@ -14,15 +14,36 @@ export class AuthService {
     private http: HttpClient
   ) {}
 
-  apiUrl = "https://platform.datacom.vn/flights/search";
+  isLoggedIn = false;
+  redirectUrl!: string;
+
+  // <div *ngIf="authService.isLoggedIn">
+  //   Đây là trang được bảo vệ bởi đăng nhập
+  // </div>
+  // <div *ngIf="!authService.isLoggedIn">
+  //   Bạn cần đăng nhập để truy cập trang này
+  // </div>
+
+  // export class MyProtectedPageComponent {
+  //   constructor(private authService: AuthService, private router: Router) {}
+  
+  //   ngOnInit() {
+  //     if (!this.authService.isLoggedIn) {
+  //       this.authService.redirectUrl = this.router.url;
+  //       this.router.navigate(['/login']);
+  //     }
+  //   }
+  // }
   
   login(body: any): Observable<any> {
     // return this.http.post(`${APIs.AUTH_LOGIN}`, {
-      return this.http.post(`http://localhost:8080/login`, {
-        username: body.username,
-        password: body.password
-    });
+      this.isLoggedIn = true;
+      return this.http.post(`${APIs.AUTH_LOGIN}`, body);
   };
+
+  logout(): void {
+    this.isLoggedIn = false;
+  }
 
   register(body: any): Observable<any> {
     return this.http.post(`${APIs.AUTH_REGISTER}`, body);
