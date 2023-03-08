@@ -35,10 +35,13 @@ export class AuthService {
   //   }
   // }
   
-  login(body: any): Observable<any> {
+  login(email: any, password: any): Observable<any> {
     // return this.http.post(`${APIs.AUTH_LOGIN}`, {
       this.isLoggedIn = true;
-      return this.http.post(`${APIs.AUTH_LOGIN}`, body);
+      return this.http.post(`${APIs.AUTH_LOGIN}`, {
+        email: email,
+        password: password,
+      });
   };
 
   logout(): void {

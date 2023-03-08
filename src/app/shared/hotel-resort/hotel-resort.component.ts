@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DisabledTimeFn } from 'ng-zorro-antd/date-picker';
+import handle from 'src/app/core/functions/handle';
 import { HomeService } from 'src/app/core/service/home.service';
 @Component({
   selector: 'app-hotel-resort',
@@ -51,6 +52,7 @@ export class HotelResortComponent implements OnInit {
         this.listOfSite = res.data;
       } else {
         // this.toast
+        handle.logout();
       }
     });
   }

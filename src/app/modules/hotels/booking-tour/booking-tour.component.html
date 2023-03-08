@@ -1,7 +1,7 @@
 <div class="hotel-search">
     <div class="container">
         <app-tour></app-tour>
-        <div *ngIf="!checkRoomSelect" class="hotel-list">
+        <div *ngIf="!checkTourSelect" class="hotel-list">
             <div class="content">
                 <div class="row">
                     <div class="col-lg-3"></div>
@@ -70,44 +70,35 @@
                         </ng-template>
                     </div>
                     <div class="col-lg-9">
-                        <div class="hotel-box-list">
-                            <div *ngFor="let item of hotelList" class="row hotel-box">
+                        <div class="tour-box-list">
+                            <div *ngFor="let item of tourList" class="row tour-box">
                                 <div class="col-md-4">
-                                    <div class="hotel-box-image">
+                                    <div class="tour-box-image">
                                         <div class="image-gallery">
-                                            <div class="swiper-container gallery-top">
-                                                <swiper
-                                                    [config]="config"
-                                                    (swiper)="onSwiper($event)"
-                                                    (slideChange)="onSlideChange()"
-                                                >
-                                                    <ng-template *ngFor="let slide of item.images" swiperSlide>
-                                                        <img src={{slide?.path}} alt={{slide?.name}}>
-                                                    </ng-template>
-                                                </swiper>
-                                            </div>
+                                            <img src={{item.path}} alt={{item.name}}>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8 d-flex flex-column justify-content-between">
-                                    <div class="hotel-box-content">
-                                        <h1 class="hotel-name">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
                                             <a class="" href="/">{{item.name}}</a>
                                         </h1>
-                                        <div class="hotel-address">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                            </svg>
-                                            {{item.address}}
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
                                         </div>
-                                        <div class="hotel-tag">
-                                            <div class="hotel-tag-box">Bãi biển riêng</div>
-                                            <div class="hotel-tag-box">Gần VinWonders</div>
-                                            <div class="hotel-tag-box">Gần Safari</div>
+                                        <div class="tour-clock">
+                                            <img src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                            3 ngày 2 đêm
                                         </div>
                                     </div>
-                                    <div class="hotel-box-bottom">
-                                        <div class="hotel-price">
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-price">
                                             <p class="flex-column-end">
                                                 Chỉ từ
                                                 <span class="flex-column-end price">
@@ -117,9 +108,9 @@
                                             </p>
                                             /Đêm
                                         </div>
-                                        <div class="hotel-button">
-                                            <div class="hotel-box-hidden"></div>
-                                            <!-- <button (click)="handleRoomTypeSelect(item)" nz-button class="hotel-pick">Đặt ngay</button> -->
+                                        <div class="tour-button">
+                                            <div class="tour-box-hidden"></div>
+                                            <!-- <button (click)="handleRoomTypeSelect(item)" nz-button class="tour-pick">Đặt ngay</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -129,13 +120,14 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="checkRoomSelect" class="room-list">
-            <div class="hotel-new-box">
-                <div class="hotel-box">
+        <div *ngIf="checkTourSelect" class="room-list">
+            
+            <div class="tour-new-box">
+                <div class="tour-box">
                     <div class="d-flex justify-content-between flex-column flex-lg-row">
                         <div class="col-md-4 pl-0">
-                            <div class="hotel-box-image">
-                                <div class="hotel-box-image">
+                            <div class="tour-box-image">
+                                <div class="tour-box-image">
                                     <div class="image-gallery">
                                         <div class="swiper-container gallery-top">
                                             <swiper
@@ -143,7 +135,7 @@
                                                 (swiper)="onSwiper($event)"
                                                 (slideChange)="onSlideChange()"
                                             >
-                                                <ng-template *ngFor="let slide of checkRoomSelect.images" swiperSlide>
+                                                <ng-template *ngFor="let slide of checkTourSelect.images" swiperSlide>
                                                     <img src={{slide?.path}} alt={{slide?.name}}>
                                                 </ng-template>
                                             </swiper>
@@ -153,26 +145,26 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <div class="hotel-box-content">
-                                <h1 class="hotel-name">
+                            <div class="tour-box-content">
+                                <h1 class="tour-name">
                                     <a class="title-link" href="https://vinpearl.com/vi/hotels/vinholidays-fiesta-phu-quoc">
-                                        {{checkRoomSelect.name}}
+                                        {{checkTourSelect.name}}
                                     </a>
                                 </h1>
-                                <div class="hotel-address">
+                                <div class="tour-address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                                     </svg>
-                                    {{checkRoomSelect.address}}
+                                    {{checkTourSelect.address}}
                                 </div>
                             </div>
-                            <div class="hotel-box-bottom">
-                                <p>{{checkRoomSelect.description}}</p>
+                            <div class="tour-box-bottom">
+                                <p>{{checkTourSelect.description}}</p>
                             </div>
-                            <div class="hotel-box-price-container">
+                            <div class="tour-box-price-container">
                                 <a class="text-detail" href="https://vinpearl.com/vi/hotels/vinholidays-1-phu-quoc?_ga=2.163222460.1873255178.1676686826-228671980.1667643429">
                                     {{'clickDetail' | translate }}
-                                    <img src="../../../../assets/images/icon/icon-hotel-detail.svg" alt="">
+                                    <img src="../../../../assets/images/icon/icon-tour-detail.svg" alt="">
                                 </a>
                             </div>
                         </div>
@@ -180,8 +172,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 hotel-detail-room">
-                    <div class="tab-list filter-hotel">
+                <div class="col-lg-8 tour-detail-room">
+                    <div class="tab-list filter-tour">
                         <div class="vpt-slick-room row">
                             <span class="title-filter-room">
                                 {{'filterRoom' | translate}}
@@ -189,8 +181,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div *ngFor="let item of roomTypeList" class="hotel-detail-room-box hotel_detail-room-box">
-                            <div class="hotel-detail-room-info">
+                        <div *ngFor="let item of roomTypeList" class="tour-detail-room-box tour_detail-room-box">
+                            <div class="tour-detail-room-info">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="image-gallery">
@@ -207,30 +199,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 hotel_detail-room-box__title">
+                                    <div class="col-md-6 tour_detail-room-box__title">
                                         <div>
                                             <h3>{{item.name}}</h3>
-                                            <div class="hotel_detail-room-box_info">
-                                                <span class="hotel_detail-room-box_info__guest">
+                                            <div class="tour_detail-room-box_info">
+                                                <span class="tour_detail-room-box_info__guest">
                                                     {{item.numberParent + item.numberChildren}} {{'guests' | translate}}
                                                 </span>
-                                                <span class="hotel_detail-room-box_info__area">
+                                                <span class="tour_detail-room-box_info__area">
                                                     <img src="../../../../assets/images/icon/resize.svg" alt="">
                                                     {{item.area}}m2
                                                 </span>
                                             </div>
-                                            <div class="hotel_detail-room-box_description">
-                                                <div class="hotel_detail-room-box_description__value">
+                                            <div class="tour_detail-room-box_description">
+                                                <div class="tour_detail-room-box_description__value">
                                                     {{item.description}}
                                                 </div>
-                                                <div class="hotel-box-view-popup d-flex align-items-end">
+                                                <div class="tour-box-view-popup d-flex align-items-end">
                                                     <span>{{'roomDetails' | translate}}</span>
                                                 </div>
                                             </div>
                                             <!-- <div class="view-rate">
                                                 <div></div>
                                                 <div class="text-right">
-                                                    <div class="hotel-box-price">
+                                                    <div class="tour-box-price">
                                                         <span class="standard-text">
                                                             {{'pricePublic' | translate}}
                                                             <span class="standard-text_value">
@@ -238,11 +230,11 @@
                                                                 <span>đ</span>
                                                             </span>
                                                         </span>
-                                                        <p class="font12_hotel">{{'/night'| translate}}</p>
+                                                        <p class="font12_tour">{{'/night'| translate}}</p>
                                                     </div>
                                                     <div class="btn-view-rate-wrap">
                                                         <p></p>
-                                                        <button class="hotel-pick">{{'btnSelect'| translate}}</button>
+                                                        <button class="tour-pick">{{'btnSelect'| translate}}</button>
                                                     </div>
                                                 </div>
                                             </div> -->
@@ -250,7 +242,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="hotel-detail-room-rates_action">
+                            <div class="tour-detail-room-rates_action">
                                 <div class="standard">
                                     <div *ngIf="item.service.length < 10" class="title">
                                         <div class="title">
@@ -263,7 +255,7 @@
                                 </div>
                                 <label nz-radio ngModel>Radio</label>
                             </div>
-                            <div class="hotel-detail-room-rates open">
+                            <div class="tour-detail-room-rates open">
                                 <div class="rates-box"></div>
                             </div>
                         </div>

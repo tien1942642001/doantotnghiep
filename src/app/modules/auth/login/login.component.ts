@@ -91,10 +91,26 @@ export class LoginComponent implements OnInit {
 
   login() {
     const body = this.formLogin.value;
-    this.authService.login(body).subscribe(res => {
+    var email = body.email;
+    var password = body.password;
+    var remember = body.remember;
+
+    if (remember) {
+      localStorage.setItem(constants.REMEMBER_ME, 'true');
+      localStorage.setItem(constants.EMAIL_REMEMBER, email);
+      localStorage.setItem(constants.PASSWORD_REMEMBER, btoa(password));
+    } else {
+      if (localStorage.getItem(constants.EMAIL_REMEMBER) && email != localStorage.getItem(constants.EMAIL_REMEMBER)) {
+        localStorage.setItem(constants.REMEMBER_ME, 'true');
+      } else {
+        localStorage.setItem(constants.REMEMBER_ME, 'false');
+      }
+    }
+    this.authService.login(email, password).subscribe(res => {
       if (res.code === 200) {
         // const redirectUrl = this.authService.redirectUrl || '/';
         localStorage.setItem(constants.FULLNAME, res.data.fullName);
+        localStorage.setItem(constants.TOKEN, res.data.token);
         this.location.back();
       }
     })

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TourService } from 'src/app/core/service/tour.service';
@@ -22,9 +22,9 @@ export class BookingTourComponent implements OnInit {
   siteId: any;
   hotelId: any;
   arrivalDate: any;
-  selectedHotel = null;
+  selectedSite = null;
   currentDate = new Date().getTime();
-  hotelList: any[] = [];
+  tourList: any[] = [];
   roomTypeList: any[] = [];
   pageSize: Number = 10;
   pageIndex: Number = 0;
@@ -66,7 +66,7 @@ export class BookingTourComponent implements OnInit {
     { value: 3, label: '22 ngày 21 đêm', checked: true },
   ];
 
-  checkRoomSelect: any;
+  checkTourSelect: any;
 
   config: SwiperOptions = {
     slidesPerView: 1,
@@ -91,7 +91,7 @@ export class BookingTourComponent implements OnInit {
       this.siteId = params['siteId'];
       this.hotelId = params['hotelId'];
       this.arrivalDate = params['arrivalDate'];
-      this.getAllTour(this.siteId);
+      this.getAllTour('', this.siteId);
     })
     this.tourService.getDetailTour(2).subscribe(res => {
       if (res.code === 200) {
@@ -102,11 +102,11 @@ export class BookingTourComponent implements OnInit {
     })
   }
 
-  getAllTour(siteId: Number) {
-    this.tourService.getAllTour(this.pageSize, this.pageIndex).subscribe(res => {
+  getAllTour(name: any, leavingToId: Number) {
+    this.tourService.getAllTour(name, leavingToId, this.pageSize, this.pageIndex).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
-        this.hotelList = res.data.content;
+        this.tourList = res.data.content;
       }
     });
   }
@@ -144,13 +144,14 @@ export class BookingTourComponent implements OnInit {
   }
 
   formGroup: FormGroup = new FormGroup({
-    selectedHotel: new FormControl(),
+    name: new FormControl('', Validators.required),
+    selectedSite: new FormControl('', Validators.required),
     rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
   });
 
   searchHotels () {
     const formValue = this.formGroup.value;
-    this.getAllTour(formValue.siteId);
+    this.getAllTour(formValue.name, formValue.selectedSite);
   }
 
   handleCheckFocus(name: any) {

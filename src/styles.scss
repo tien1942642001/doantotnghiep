@@ -15,7 +15,7 @@
    License: none (public domain)
 */
 
-html, body, div {
+html, body, div, p, ul, li {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -88,11 +88,11 @@ video {
     max-width: 100%;
 }
 
-@media (hover: hover) {
-    a:hover {
-        color: $main-color;
-    }
-}
+// @media (hover: hover) {
+//     a:hover {
+//         color: $main-color;
+//     }
+// }
 
 .container {
     max-width: 1140px;
@@ -131,6 +131,12 @@ img, svg {
     color: #222;
 }
 
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .g-bg-white {
     background-color: #fff!important;
 }
@@ -145,6 +151,10 @@ img, svg {
 
 .text-detail, .text-detail:focus, .text-detail:hover {
     color: #2a398c;
+}
+
+.highlight {
+    color: #f39f2d!important;
 }
 
 .text-detail:hover {
@@ -168,7 +178,7 @@ img, svg {
 
 	&:hover, &:focus {
 		border: 1px solid #e6a523;
-		background-color: #FFFFFF;
+		// background-color: #FFFFFF;
 		color: #e6a523;
 		cursor: pointer;
 	}
@@ -393,4 +403,21 @@ input:not(:placeholder-shown) {
 .ant-select-single .ant-select-selector .ant-select-selection-item {
     font-weight: 600;
     color: #222;
+}
+
+.ant-radio.ant-radio-checked .ant-radio-inner {
+    background-color: #e8952f;
+}
+
+.ant-radio.ant-radio-checked .ant-radio-inner:after, .user-setting .ant-radio.ant-radio-checked .ant-radio-inner:after {
+    background-color: #fff;
+}
+
+.ant-radio.ant-radio-checked .ant-radio-inner, .user-setting .ant-radio.ant-radio-checked .ant-radio-inner {
+    border-color: #e8952f;
+    background-color: #e8952f;
+}
+
+nz-date-picker {
+    width: 100%;
 }

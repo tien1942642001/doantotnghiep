@@ -226,160 +226,42 @@
 }
 
 ::ng-deep {
-    .ant-tabs>.ant-tabs-nav {
-        margin: 0;
-        padding-left: 12px;
-    }
-    
-    .ant-tabs-top>.ant-tabs-nav::before {
-        border: none;
-    }
+    #block-homepage-banner {
+        .ant-tabs>.ant-tabs-nav {
+            margin: 0;
+            padding-left: 12px;
+        }
+        
+        .ant-tabs-top>.ant-tabs-nav::before {
+            border: none;
+        }
 
-    .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab {
-        border-radius: 10px 10px 0 0;
-        background: rgba(47,46,65,.5);
-        color: #fff;
-        height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 15px;
-        margin-right: 6px !important;
-        border: none;
+        .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab {
+            border-radius: 10px 10px 0 0;
+            background: rgba(47,46,65,.5);
+            color: #fff;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            margin-right: 6px !important;
+            border: none;
 
-        &.ant-tabs-tab-active{
-            background-color: #fff;
-            
-            .ant-tabs-tab-btn {
-                color: #e8952f;
+            &.ant-tabs-tab-active{
+                background-color: #fff;
+                
+                .ant-tabs-tab-btn {
+                    color: #e8952f;
+                }
             }
         }
-    }
 
-    .ant-tabs-content-holder {
-        background: #FFF;
-        box-shadow: 0 7px 17px #45457f1a;
-        border-radius: 10px;
-    }
-
-    .ant-row.ant-form-item {
-        margin: 0;
-        padding: 16px !important;
-        // padding-left: 16px!important;
-        // padding-right: 13px!important;
-
-        &.active {
-            box-shadow: 3px 4px 30px -4px rgb(53 60 70 / 22%);
+        .ant-tabs-content-holder {
+            background: #FFF;
+            box-shadow: 0 7px 17px #45457f1a;
+            border-radius: 10px;
         }
-    }
-
-    .ant-form-item-label span{
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 16px;
-        color: #898994;
-    }
-
-    .custom-input .ant-form-item-control-input-content {
-        position: relative;
-    }
-
-    .custom-select-hotel .ant-select-selector .ant-select-selection-item {
-        font-weight: 600;
-        color: #353c46;
-    }
-
-    .custom-input .ant-form-item-control-input-content::before {
-        content: '';
-        width: 100%;
-        height: 22px;
-        position: absolute;
-        bottom: -21px;
-        z-index: 3;
-        background-color: #fff;
-    }
-
-    .custom-input .ant-form-item-control-input-content::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 100%;
-        border-bottom: 2px solid #e8952f;
-        bottom: 0;
-        z-index: 11;
-        transition: .3s;
-    }
-
-    .ant-select-selector {
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    .ant-select-item-option-content {
-        display: flex;
-        align-items: baseline;
-        border: 0;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        color: #353c46;
-        margin-bottom: 10px;
-        width: 100%;
-        white-space: unset;
-    }
-
-    .ant-select-dropdown {
-        width: 272px;
-        left: -16px;
-    }
-
-    .ant-picker-range .ant-picker-active-bar {
-        background: #e8952f;
-    }
-
-    .ant-picker-range-separator {
-        padding: 0;
-    }
-
-    .ant-picker-separator span {
-        display: none;
-    }
-
-    .ant-picker-separator::before {
-        content: "-";
-        position: absolute;
-        font-size: 15px;
-        white-space: nowrap;
-        font-weight: 600;
-        width: 100%;
-        text-align: center;
-    }
-
-    .vp-calc {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-custom {
-        width: 130px;
-        height: 50px;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        text-transform: unset;
-    }
-
-    .ant-picker-dropdown {
-        left: -24px;
-        top: 6px;
-    }
-
-    .btn-person-room {
-        color: #222!important;
-        border: none;
-        outline: none;
-        box-shadow: none;
     }
 }
 

@@ -11,6 +11,10 @@ const routes: Routes = [
     path: "my-order",
     component: UserProfileComponent,
   },
+  {
+    path: "my-order/:id",
+    component: UserProfileComponent,
+  },
 ];
 
 @NgModule({
