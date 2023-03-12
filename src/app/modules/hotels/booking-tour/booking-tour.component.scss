@@ -11,9 +11,10 @@
         cursor: pointer;
     }
 
-    .col-lg-9 .d-flex {
+    .col-lg-9 .col-md-7 {
         margin-bottom: 15px;
         font-weight: 500;
+        padding: 0 15px;
     }
 
     .tour-name {
@@ -25,6 +26,10 @@
         }
     }
 
+    // .tour-code, .tour-buy {
+    //     padding-top: 10px;
+    // }
+
     .tour-box-list {
         margin-left: 5px;
     }
@@ -35,16 +40,22 @@
     }
 
     .tour-box {
-        padding: 10px 0;
         background: #fff;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+
+        &-content {
+            padding-top: 10px;
+        }
+
+        .col-md-5 {
+            padding: 0;
+        }
     }
 
     .tour-tag {
         overflow: hidden;
         max-width: 100%;
         white-space: nowrap;
-        margin-top: 25px;
 
         &-box {
             display: inline-block;
@@ -60,20 +71,13 @@
     }
 
     .tour-price {
-        display: flex;
-        align-items: flex-end;
-        flex-direction: column;
+        margin-top: 20px;
 
-        p {
-            font-size: 14px;
-            margin-bottom: 0;
-
-            .price {
-                margin-left: 5px;
-                font-size: 20px;
-                color: #f39f2d;
-                font-weight: 700;
-            }
+        .price {
+            margin-left: 5px;
+            font-size: 18px;
+            color: #f39f2d;
+            font-weight: 500;
         }
     }
 
@@ -92,6 +96,10 @@
             border-color: #f39f2d;
         }
     }
+}
+
+.hotel-list {
+    margin-top: 15px;
 }
 
 .tour-new-box .tour-box {

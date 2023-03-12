@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 // import ngx-translate and the http loader
 import {LangChangeEvent, TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -28,6 +28,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { SharedModule } from './shared/share.module';
+import { AppInterceptor } from './core/interceptor/app.interceptor';
 
 registerLocaleData(vi);
 
@@ -68,6 +69,7 @@ registerLocaleData(vi);
     }),
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: NZ_I18N, useValue: vi_VN }
   ],
   bootstrap: [AppComponent]

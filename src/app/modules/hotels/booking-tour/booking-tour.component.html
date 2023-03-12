@@ -1,30 +1,10 @@
-<div class="hotel-search">
+<div style="padding-top: 15px; border-top: 1px solid #f3eadc;"></div>
+<div class="tour-search">
     <div class="container">
         <app-tour></app-tour>
-        <div *ngIf="!checkTourSelect" class="hotel-list">
+        <div *ngIf="!checkTourSelect" class="tour-list">
             <div class="content">
                 <div class="row">
-                    <div class="col-lg-3"></div>
-                    <div class="col-lg-9">
-                        <div class="d-flex justify-content-between flex-column flex-md-row">
-                            <span>{{'result.booking' | translate}}</span>
-                            <div class="select-sort">
-                                <nz-select
-                                    ngModel="jack"
-                                    [nzSuffixIcon]="customIcon"
-                                    class="custom-select"
-                                    [nzDropdownClassName]="''"
-                                >
-                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
-                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
-                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
-                                </nz-select>
-                                <ng-template #customIcon>
-                                    <img src="../../../../assets/icon/arrow-select.svg" alt="">
-                                </ng-template>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-3">
                         <nz-card nzTitle="Lọc kết quả" [nzExtra]="extraTemplate">
                             <nz-collapse
@@ -70,8 +50,270 @@
                         </ng-template>
                     </div>
                     <div class="col-lg-9">
+                        <div *ngIf="fullName" style="font-size: 16px;">
+                            <span style="font-weight: 600;">{{fullName}}</span>
+                            ơi, dưới đây là những kết quả phù hợp nhất cho bạn
+                        </div>
+                        <div class="d-flex justify-content-between flex-column flex-md-row">
+                            <h3 style="font-size: 16px; font-weight: 500; margin-top: 15px;">Có 212 kết quả tìm kiếm</h3>
+                            <div class="select-sort">
+                                <nz-select
+                                    ngModel="jack"
+                                    [nzSuffixIcon]="customIcon"
+                                    class="custom-select"
+                                    [nzDropdownClassName]="''"
+                                >
+                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
+                                </nz-select>
+                                <ng-template #customIcon>
+                                    <img src="../../../../assets/icon/arrow-select.svg" alt="">
+                                </ng-template>
+                            </div>
+                        </div>
                         <div class="tour-box-list">
-                            <div *ngFor="let item of tourList" class="row tour-box">
+                            <div class="row tour-box">
+                                <div class="col-md-5">
+                                    <div class="tour-box-image">
+                                        <div class="image-gallery">
+                                            <img style="min-height: 250px;" src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 d-flex flex-column justify-content-between">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
+                                            <a class="" href="/">[HCM - Đà Nẵng/ Hội An] Mayfest Combo</a>
+                                        </h1>
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                        </div>
+                                        
+                                        <div class="tour-price d-flex align-items-center justify-content-between">
+                                            <div class="tour-clock">
+                                                <img style="margin-right: 8px;" src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                3 ngày 2 đêm
+                                            </div>
+                                            <p class="price">
+                                                6.600.000
+                                                <span>đ</span>
+                                            </p>
+                                        </div>
+                                        <div class="tour-code">
+                                            <span>Mã SP: </span>
+                                            <span style="font-weight: 600; color: rgba(0,0,0,.65);">GN00677</span>
+                                        </div>
+                                        <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                            {{numberBuyer}} người mua
+                                        </div>
+                                    </div>
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-button">
+                                            <button (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tour-box">
+                                <div class="col-md-5">
+                                    <div class="tour-box-image">
+                                        <div class="image-gallery">
+                                            <img style="min-height: 250px;" src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 d-flex flex-column justify-content-between">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
+                                            <a class="" href="/">[HCM - Đà Nẵng/ Hội An] Mayfest Combo</a>
+                                        </h1>
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                        </div>
+                                        
+                                        <div class="tour-price d-flex align-items-center justify-content-between">
+                                            <div class="tour-clock">
+                                                <img style="margin-right: 8px;" src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                3 ngày 2 đêm
+                                            </div>
+                                            <p class="price">
+                                                6.600.000
+                                                <span>đ</span>
+                                            </p>
+                                        </div>
+                                        <div class="tour-code">
+                                            <span>Mã SP: </span>
+                                            <span style="font-weight: 600; color: rgba(0,0,0,.65);">GN00677</span>
+                                        </div>
+                                        <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                            {{numberBuyer}} người mua
+                                        </div>
+                                    </div>
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-button">
+                                            <button (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tour-box">
+                                <div class="col-md-5">
+                                    <div class="tour-box-image">
+                                        <div class="image-gallery">
+                                            <img style="min-height: 250px;" src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 d-flex flex-column justify-content-between">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
+                                            <a class="" href="/">[HCM - Đà Nẵng/ Hội An] Mayfest Combo</a>
+                                        </h1>
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                        </div>
+                                        
+                                        <div class="tour-price d-flex align-items-center justify-content-between">
+                                            <div class="tour-clock">
+                                                <img style="margin-right: 8px;" src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                3 ngày 2 đêm
+                                            </div>
+                                            <p class="price">
+                                                6.600.000
+                                                <span>đ</span>
+                                            </p>
+                                        </div>
+                                        <div class="tour-code">
+                                            <span>Mã SP: </span>
+                                            <span style="font-weight: 600; color: rgba(0,0,0,.65);">GN00677</span>
+                                        </div>
+                                        <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                            {{numberBuyer}} người mua
+                                        </div>
+                                    </div>
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-button">
+                                            <button (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tour-box">
+                                <div class="col-md-5">
+                                    <div class="tour-box-image">
+                                        <div class="image-gallery">
+                                            <img style="min-height: 250px;" src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 d-flex flex-column justify-content-between">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
+                                            <a class="" href="/">[HCM - Đà Nẵng/ Hội An] Mayfest Combo</a>
+                                        </h1>
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                        </div>
+                                        
+                                        <div class="tour-price d-flex align-items-center justify-content-between">
+                                            <div class="tour-clock">
+                                                <img style="margin-right: 8px;" src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                3 ngày 2 đêm
+                                            </div>
+                                            <p class="price">
+                                                6.600.000
+                                                <span>đ</span>
+                                            </p>
+                                        </div>
+                                        <div class="tour-code">
+                                            <span>Mã SP: </span>
+                                            <span style="font-weight: 600; color: rgba(0,0,0,.65);">GN00677</span>
+                                        </div>
+                                        <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                            {{numberBuyer}} người mua
+                                        </div>
+                                    </div>
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-button">
+                                            <button (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row tour-box">
+                                <div class="col-md-5">
+                                    <div class="tour-box-image">
+                                        <div class="image-gallery">
+                                            <img style="min-height: 250px;" src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 d-flex flex-column justify-content-between">
+                                    <div class="tour-box-content">
+                                        <div class="tour-tag">
+                                            <span class="tour-tag-box">Trả góp 0%</span>
+                                            <span class="tour-tag-box">Mayfest Combo</span>
+                                            <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                        </div>
+                                        <h1 class="tour-name">
+                                            <a class="" href="/">[HCM - Đà Nẵng/ Hội An] Mayfest Combo</a>
+                                        </h1>
+                                        <div class="tour-description">
+                                            ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                        </div>
+                                        
+                                        <div class="tour-price d-flex align-items-center justify-content-between">
+                                            <div class="tour-clock">
+                                                <img style="margin-right: 8px;" src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                3 ngày 2 đêm
+                                            </div>
+                                            <p class="price">
+                                                6.600.000
+                                                <span>đ</span>
+                                            </p>
+                                        </div>
+                                        <div class="tour-code">
+                                            <span>Mã SP: </span>
+                                            <span style="font-weight: 600; color: rgba(0,0,0,.65);">GN00677</span>
+                                        </div>
+                                        <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                            {{numberBuyer}} người mua
+                                        </div>
+                                    </div>
+                                    <div class="tour-box-bottom">
+                                        <div class="tour-button">
+                                            <button (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div *ngFor="let item of tourList" class="row tour-box">
                                 <div class="col-md-4">
                                     <div class="tour-box-image">
                                         <div class="image-gallery">
@@ -110,11 +352,11 @@
                                         </div>
                                         <div class="tour-button">
                                             <div class="tour-box-hidden"></div>
-                                            <!-- <button (click)="handleRoomTypeSelect(item)" nz-button class="tour-pick">Đặt ngay</button> -->
+                                            <button (click)="handleRoomTypeSelect(item)" nz-button class="tour-pick">Đặt ngay</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -147,7 +389,7 @@
                         <div class="col-md-8">
                             <div class="tour-box-content">
                                 <h1 class="tour-name">
-                                    <a class="title-link" href="https://vinpearl.com/vi/hotels/vinholidays-fiesta-phu-quoc">
+                                    <a class="title-link" href="https://vinpearl.com/vi/tours/vinholidays-fiesta-phu-quoc">
                                         {{checkTourSelect.name}}
                                     </a>
                                 </h1>
@@ -162,7 +404,7 @@
                                 <p>{{checkTourSelect.description}}</p>
                             </div>
                             <div class="tour-box-price-container">
-                                <a class="text-detail" href="https://vinpearl.com/vi/hotels/vinholidays-1-phu-quoc?_ga=2.163222460.1873255178.1676686826-228671980.1667643429">
+                                <a class="text-detail" href="https://vinpearl.com/vi/tours/vinholidays-1-phu-quoc?_ga=2.163222460.1873255178.1676686826-228671980.1667643429">
                                     {{'clickDetail' | translate }}
                                     <img src="../../../../assets/images/icon/icon-tour-detail.svg" alt="">
                                 </a>
@@ -206,9 +448,9 @@
                                                 <span class="tour_detail-room-box_info__guest">
                                                     {{item.numberParent + item.numberChildren}} {{'guests' | translate}}
                                                 </span>
-                                                <span class="tour_detail-room-box_info__area">
+                                                <span class="tour_detail-room-box_info__acreage">
                                                     <img src="../../../../assets/images/icon/resize.svg" alt="">
-                                                    {{item.area}}m2
+                                                    {{item.acreage}}m2
                                                 </span>
                                             </div>
                                             <div class="tour_detail-room-box_description">

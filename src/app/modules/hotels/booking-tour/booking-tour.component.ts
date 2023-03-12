@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import constants from 'src/app/core/constants/constants';
 import { TourService } from 'src/app/core/service/tour.service';
 
 // import Swiper core and required modules
@@ -19,6 +20,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export class BookingTourComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
+  fullName: any = localStorage.getItem(constants.FULLNAME);
   siteId: any;
   hotelId: any;
   arrivalDate: any;
@@ -31,6 +33,7 @@ export class BookingTourComponent implements OnInit {
   descriptionVn: any;
   inclusion: any;
   termsConditions: any;
+  numberBuyer: number = 10;
 
   roomList: any[] = [
     {
@@ -170,6 +173,10 @@ export class BookingTourComponent implements OnInit {
 
   onChangeService(value: object[]): void {
     console.log(value);
+  }
+
+  handleTourSelect(item: any) {
+
   }
 }
 

@@ -33,10 +33,10 @@
                                     nzShowSearch nzAllowClear
                                     [nzShowArrow]="false"
                                     nzPlaceHolder="Nhập khách sạn/điểm đến"
-                                    formControlName="selectedHotel"
-                                    [(ngModel)]="selectedHotel"
+                                    formControlName="siteId"
+                                    [(ngModel)]="siteId"
                                 >
-                                    <nz-option *ngFor="let item of hotelDefault" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
+                                    <nz-option *ngFor="let item of listOfSite" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
                                         <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_location' : 'icon_hotel_y'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">
                                         {{item.name}}
                                     </nz-option>
