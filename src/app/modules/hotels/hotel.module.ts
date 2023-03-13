@@ -22,40 +22,42 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from 'src/app/shared/share.module';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { FormatPrice } from 'src/app/core/pipe/number.pipe';
 
 @NgModule({
-  declarations: [
-    HotelComponent,
-    BookingSearchComponent,
-    BookingTourComponent,
-  ],
-  imports: [
-    CommonModule,
-    HotelRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NzIconModule,
-    NzTabsModule,
-    NzFormModule,
-    NzSelectModule,
-    NzDatePickerModule,
-    NzButtonModule,
-    NzDropDownModule,
-    NzToolTipModule,
-    NzCardModule,
-    NzCollapseModule,
-    NzCheckboxModule,
-    SharedModule,
-    SwiperModule,
-    NzRadioModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: appCreateTranslateLoader,
-        deps: [HttpClient],
-      },
-    }),
-  ],
+    declarations: [
+      HotelComponent,
+      BookingSearchComponent,
+      BookingTourComponent,
+      FormatPrice,
+    ],
+    imports: [
+        CommonModule,
+        HotelRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NzIconModule,
+        NzTabsModule,
+        NzFormModule,
+        NzSelectModule,
+        NzDatePickerModule,
+        NzButtonModule,
+        NzDropDownModule,
+        NzToolTipModule,
+        NzCardModule,
+        NzCollapseModule,
+        NzCheckboxModule,
+        SharedModule,
+        SwiperModule,
+        NzRadioModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: appCreateTranslateLoader,
+                deps: [HttpClient],
+            },
+        }),
+    ]
 })
 
 export class HotelModule {

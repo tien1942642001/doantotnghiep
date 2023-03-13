@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import constants from 'src/app/core/constants/constants';
 import { TourService } from 'src/app/core/service/tour.service';
 
@@ -23,6 +23,7 @@ export class BookingTourComponent implements OnInit {
   fullName: any = localStorage.getItem(constants.FULLNAME);
   siteId: any;
   hotelId: any;
+  tourId: any;
   arrivalDate: any;
   selectedSite = null;
   currentDate = new Date().getTime();
@@ -34,6 +35,8 @@ export class BookingTourComponent implements OnInit {
   inclusion: any;
   termsConditions: any;
   numberBuyer: number = 10;
+  showPeople: any;
+  showTotalPrice: boolean = false;
 
   roomList: any[] = [
     {
@@ -85,6 +88,7 @@ export class BookingTourComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private tourService: TourService,
     private sanitizer: DomSanitizer,
   ) { }
@@ -103,6 +107,8 @@ export class BookingTourComponent implements OnInit {
         this.termsConditions = this.sanitizer.bypassSecurityTrustHtml(res.data.termsConditions);
       }
     })
+
+    this.tourId = this.route.snapshot.params['id'];
   }
 
   getAllTour(name: any, leavingToId: Number) {
@@ -175,8 +181,20 @@ export class BookingTourComponent implements OnInit {
     console.log(value);
   }
 
-  handleTourSelect(item: any) {
+  handleTourSelect(id: Number) {
+    this.router.navigate([`/hotels/booking-tour/${id}`])
+  }
 
+  selectHotel(hotelId: any) {
+    this.showPeople = hotelId;
+  }
+
+  cancelHotel() {
+    this.showPeople = null;
+  }
+
+  showHideTotalPrice() {
+    this.showHideTotalPrice != this.showHideTotalPrice;
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from 'src/app/core/service/home.service';
 
 // import Swiper core and required modules
@@ -19,8 +19,9 @@ export class BookingSearchComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
   siteId: any;
-  hotelId: any;
+  routeHotel: any;
   arrivalDate: any;
+  leaveDate: any;
   selectedHotel = null;
   currentDate = new Date().getTime();
   hotelList: any[] = [];
@@ -68,21 +69,31 @@ export class BookingSearchComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private homeService: HomeService,
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.siteId = params['siteId'];
-      this.hotelId = params['hotelId'];
       this.arrivalDate = params['arrivalDate'];
       this.getAllHotel(this.siteId);
     })
+    this.routeHotel = this.route.snapshot.params['id'];
+    if (this.routeHotel) {
+      this.checkRoomSelect = true;
+      this.getAllRoomType(this.routeHotel);
+    }
   }
 
-  handleRoomTypeSelect(data: any) {
-    this.checkRoomSelect = data;
-    this.getAllRoomType(data.id);
+  handleRoomTypeSelect(id: any) {
+    this.router.navigate([`/hotels/booking-search/${id}`], {
+      queryParams: {
+        siteId: this.siteId,
+        arrivalDate: this.arrivalDate,
+        leaveDate: this.leaveDate,
+      }
+    })
   }
 
   getAllHotel(siteId: Number) {

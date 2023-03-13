@@ -64,10 +64,9 @@
                             nzTrigger="click"
                             [nzDropdownMenu]="menu"
                             nz-tooltip
-                            [nzTooltipTitle]="'1 phòng - 1 người lớn - 1 trẻ em'"
+                            [nzTooltipTitle]="'1 người lớn - 1 trẻ em'"
                         >
                             <span class="text-truncate font-input-search">
-                                <span class="btn-list-passenger">1 phòng</span>
                                 <span class="btn-list-passenger">1 người lớn</span>
                                 <span class="btn-list-passenger">1 trẻ em</span>
                             </span>
@@ -75,7 +74,7 @@
                         <p style="user-select: none;"></p>
                         <nz-dropdown-menu #menu="nzDropdownMenu">
                             <div class="dropdown-person">
-                                <div class="room-item d-flex align-items-center justify-content-between">
+                                <!-- <div class="room-item d-flex align-items-center justify-content-between">
                                     <p class="label">{{'search.hotel.form.label3' | translate}}</p>
                                     <div class="vp-calc">
                                         <button [disabled]="roomList.length == 1" (click)="onDecreaseRoom()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
@@ -86,9 +85,9 @@
                                             <img src="../../../assets/icon/icon_plus.svg" alt="plus">
                                         </button>
                                     </div>
-                                </div>
-                                <div class="room-detail" *ngFor="let room of roomList; let i = index">
-                                    <p class="label title">{{'search.hotelFlight.form.room' | translate}} {{i + 1}}</p>
+                                </div> -->
+                                <div class="room-detail">
+                                    <p class="label title">{{'search.hotelFlight.form.room' | translate}}</p>
                                     <div class="number-select">
                                         <div class="number-select--type">
                                             <div class="info">{{'search.hotelFlight.form.adults' | translate}}</div>

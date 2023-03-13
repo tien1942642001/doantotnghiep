@@ -14,7 +14,15 @@ const routes: Routes = [
     component: BookingSearchComponent,
   },
   {
+    path: "booking-search/:id",
+    component: BookingSearchComponent,
+  },
+  {
     path: "booking-tour",
+    component: BookingTourComponent,
+  },
+  {
+    path: "booking-tour/:id",
     component: BookingTourComponent,
   },
 ];

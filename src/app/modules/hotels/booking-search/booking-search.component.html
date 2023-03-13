@@ -76,7 +76,7 @@
                                     <div class="hotel-box-image">
                                         <div class="image-gallery">
                                             <div class="swiper-container gallery-top">
-                                                <swiper
+                                                <!-- <swiper
                                                     [config]="config"
                                                     (swiper)="onSwiper($event)"
                                                     (slideChange)="onSlideChange()"
@@ -84,7 +84,8 @@
                                                     <ng-template *ngFor="let slide of item.images" swiperSlide>
                                                         <img src={{slide?.path}} alt={{slide?.name}}>
                                                     </ng-template>
-                                                </swiper>
+                                                </swiper> -->
+                                                <img src={{item.path}} alt={{item.name}}>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +112,7 @@
                                             <p class="flex-column-end">
                                                 Chỉ từ
                                                 <span class="flex-column-end price">
-                                                    2.870.000
+                                                    {{item.priceMin | format}}
                                                     <span>đ</span>
                                                 </span>
                                             </p>
@@ -119,7 +120,7 @@
                                         </div>
                                         <div class="hotel-button">
                                             <div class="hotel-box-hidden"></div>
-                                            <button (click)="handleRoomTypeSelect(item)" nz-button class="hotel-pick">Đặt ngay</button>
+                                            <button (click)="handleRoomTypeSelect(item.id)" nz-button class="hotel-pick">Đặt ngay</button>
                                         </div>
                                     </div>
                                 </div>
@@ -212,6 +213,7 @@
                                             <h3>{{item.name}}</h3>
                                             <div class="hotel_detail-room-box_info">
                                                 <span class="hotel_detail-room-box_info__guest">
+                                                    <span nz-icon nzType="user" nzTheme="outline"></span>
                                                     {{item.numberParent + item.numberChildren}} {{'guests' | translate}}
                                                 </span>
                                                 <span class="hotel_detail-room-box_info__acreage">
@@ -252,7 +254,7 @@
                             </div>
                             <div class="hotel-detail-room-rates_action">
                                 <div class="standard">
-                                    <div *ngIf="item.service.length < 10" class="title">
+                                    <div *ngIf="item.service.length < 10 && item.service.length > 0" class="title">
                                         <div class="title">
                                             {{'standard' | translate}} (0{{item.service.length}})
                                         </div>

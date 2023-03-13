@@ -309,6 +309,11 @@ export class HeaderComponent implements OnInit {
     if (flat === 2) {
       this.route.navigate(["/user/my-order"])
     }
+    if (flat === 5) {
+      this.fullName = null;
+      localStorage.clear();
+      this.route.navigate(["/home"])
+    }
   }
 
 }
