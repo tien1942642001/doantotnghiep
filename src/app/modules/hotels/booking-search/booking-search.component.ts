@@ -28,6 +28,11 @@ export class BookingSearchComponent implements OnInit {
   roomTypeList: any[] = [];
   pageSize: Number = 10;
   pageIndex: Number = 0;
+  hotelDetail: any;
+  checkActive: boolean = false;
+  displayService: boolean = false;
+  numberService: any;
+  numberRoomType: any;
 
   roomList: any[] = [
     {
@@ -83,11 +88,16 @@ export class BookingSearchComponent implements OnInit {
     if (this.routeHotel) {
       this.checkRoomSelect = true;
       this.getAllRoomType(this.routeHotel);
+      this.homeService.getHotelDetail(this.routeHotel).subscribe(res => {
+        if (res.code == 200) {
+          this.hotelDetail = res.data
+        }
+      })
     }
   }
 
-  handleRoomTypeSelect(id: any) {
-    this.router.navigate([`/hotels/booking-search/${id}`], {
+  handleRoomTypeSelect(data: any) {
+    this.router.navigate([`/hotels/booking-search/${data.id}`], {
       queryParams: {
         siteId: this.siteId,
         arrivalDate: this.arrivalDate,
@@ -142,10 +152,6 @@ export class BookingSearchComponent implements OnInit {
     this.noChildren--;
   }
 
-  handleOk() {
-    console.log(123);
-  }
-
   formGroup: FormGroup = new FormGroup({
     selectedHotel: new FormControl(),
     rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
@@ -173,4 +179,45 @@ export class BookingSearchComponent implements OnInit {
   onChangeService(value: object[]): void {
     console.log(value);
   }
+
+  contents:any[] = [
+    {
+      id: 1,
+      name: "Không bao gồm bữa sáng",
+    },
+    {
+      id: 2,
+      name: "Không bao gồm bữa sáng",
+    },
+    {
+      id: 3,
+      name: "Không bao gồm bữa sáng",
+    },
+  ];
+
+  isVisible = false;
+
+  showDetailService() {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  selectRoomType(index: any) {
+    this.numberRoomType = index;
+    this.numberService = 0;
+  }
+
+  selectService(index: any) {
+    this.numberService = index;
+  }
+
 }

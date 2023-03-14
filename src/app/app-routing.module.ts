@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
+import { BookingReturnComponent } from './modules/booking-return/booking-return.component';
 import { HomeComponent } from './modules/home/home.component';
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 
@@ -38,8 +39,8 @@ const routes: Routes = [
         loadChildren: () => import('./modules/user-profile/user-profile.module').then(m => m.UserProfileModule)
       },
       {
-        path: 'vinpearl-golf',
-        component: HomeComponent,
+        path: 'booking-return',
+        component: BookingReturnComponent,
       },
       {
         path: 'dining',

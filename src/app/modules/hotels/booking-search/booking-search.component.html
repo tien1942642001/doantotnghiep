@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="hotel-button">
                                             <div class="hotel-box-hidden"></div>
-                                            <button (click)="handleRoomTypeSelect(item.id)" nz-button class="hotel-pick">Đặt ngay</button>
+                                            <button (click)="handleRoomTypeSelect(item)" nz-button class="hotel-pick">Đặt ngay</button>
                                         </div>
                                     </div>
                                 </div>
@@ -144,8 +144,8 @@
                                                 (swiper)="onSwiper($event)"
                                                 (slideChange)="onSlideChange()"
                                             >
-                                                <ng-template *ngFor="let slide of checkRoomSelect.images" swiperSlide>
-                                                    <img src={{slide?.path}} alt={{slide?.name}}>
+                                                <ng-template *ngFor="let slide of hotelDetail.images" swiperSlide>
+                                                    <img height="206px" src={{slide?.path}} alt={{slide?.name}}>
                                                 </ng-template>
                                             </swiper>
                                         </div>
@@ -157,18 +157,18 @@
                             <div class="hotel-box-content">
                                 <h1 class="hotel-name">
                                     <a class="title-link" href="https://vinpearl.com/vi/hotels/vinholidays-fiesta-phu-quoc">
-                                        {{checkRoomSelect.name}}
+                                        {{hotelDetail.name}}
                                     </a>
                                 </h1>
                                 <div class="hotel-address">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                         <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                                     </svg>
-                                    {{checkRoomSelect.address}}
+                                    {{hotelDetail.address}}
                                 </div>
                             </div>
-                            <div class="hotel-box-bottom">
-                                <p>{{checkRoomSelect.description}}</p>
+                            <div class="hotel-box-bottom hotel_detail-room-box_description__value">
+                                <p>{{hotelDetail.description}}</p>
                             </div>
                             <div class="hotel-box-price-container">
                                 <a class="text-detail" href="https://vinpearl.com/vi/hotels/vinholidays-1-phu-quoc?_ga=2.163222460.1873255178.1676686826-228671980.1667643429">
@@ -190,7 +190,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div *ngFor="let item of roomTypeList" class="hotel-detail-room-box hotel_detail-room-box">
+                        <div [class.active]="numberRoomType == idxRoomType" *ngFor="let roomType of roomTypeList; let idxRoomType = index;" class="hotel-detail-room-box hotel_detail-room-box">
                             <div class="hotel-detail-room-info">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -201,7 +201,7 @@
                                                     (swiper)="onSwiper($event)"
                                                     (slideChange)="onSlideChange()"
                                                 >
-                                                    <ng-template *ngFor="let slide of item.images" swiperSlide>
+                                                    <ng-template *ngFor="let slide of roomType.images" swiperSlide>
                                                         <img src={{slide?.path}} alt={{slide?.name}}>
                                                     </ng-template>
                                                 </swiper>
@@ -210,24 +210,30 @@
                                     </div>
                                     <div class="col-md-6 hotel_detail-room-box__title">
                                         <div>
-                                            <h3>{{item.name}}</h3>
+                                            <h3>{{roomType.name}}</h3>
                                             <div class="hotel_detail-room-box_info">
                                                 <span class="hotel_detail-room-box_info__guest">
                                                     <span nz-icon nzType="user" nzTheme="outline"></span>
-                                                    {{item.numberParent + item.numberChildren}} {{'guests' | translate}}
+                                                    {{roomType.numberParent + roomType.numberChildren}} {{'guests' | translate}}
                                                 </span>
                                                 <span class="hotel_detail-room-box_info__acreage">
                                                     <img src="../../../../assets/images/icon/resize.svg" alt="">
-                                                    {{item.acreage}}m2
+                                                    {{roomType.acreage}}m2
                                                 </span>
+                                                <div *ngIf="numberRoomType == idxRoomType" class="hotel-box-price-container">
+                                                    <div class="hotel-box-bottom hotel_detail-room-box_description__value">
+                                                        <p>{{hotelDetail.description}}</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-end">
+                                                        <span class="text-detail">
+                                                            Xem phòng
+                                                            <img src="../../../../assets/images/icon/icon-hotel-detail.svg" alt="">
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="hotel_detail-room-box_description">
-                                                <div class="hotel_detail-room-box_description__value">
-                                                    {{item.description}}
-                                                </div>
-                                                <div class="hotel-box-view-popup d-flex align-items-end">
-                                                    <span>{{'roomDetails' | translate}}</span>
-                                                </div>
+                                            <div class="flex-column-end">
+                                                <button (click)="selectRoomType(idxRoomType)" class="button-room">Chọn</button>
                                             </div>
                                             <!-- <div class="view-rate">
                                                 <div></div>
@@ -252,18 +258,49 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="hotel-detail-room-rates_action">
+                            <div *ngIf="numberRoomType == idxRoomType" class="hotel-detail-room-rates_action">
                                 <div class="standard">
-                                    <div *ngIf="item.service.length < 10 && item.service.length > 0" class="title">
-                                        <div class="title">
-                                            {{'standard' | translate}} (0{{item.service.length}})
-                                        </div>
+                                    <div *ngIf="roomType.service.length < 10 && roomType.service.length > 0" class="title">
+                                        {{'standard' | translate}} (0{{roomType.service.length}})
                                     </div>
-                                    <div *ngIf="item.service.length >= 10" class="title">
-                                        {{'standard' | translate}} ({{item.service.length}})
+                                    <div *ngIf="roomType.service.length >= 10" class="title">
+                                        {{'standard' | translate}} ({{roomType.service.length}})
                                     </div>
                                 </div>
-                                <label nz-radio ngModel>Radio</label>
+                                <div class="radio-button">
+                                    <div class="rate-info" *ngFor="let service of roomType.service; let idxService = index">
+                                        <div [class.active]="numberService == idxService" class="row rate-info-wrap">
+                                            <div (click)="selectService(idxService)" class="col col-md-12 title" style="cursor: pointer;">{{service.name}}</div>
+                                            <div class="col col-md-6 content">
+                                                <ul>
+                                                    <li *ngFor="let item of service.contents" class="d-flex align-items-center g-mb-5">
+                                                        <img *ngIf="item?.name?.includes('Bữa sáng')" src="../../../../assets/icon/b2abe8b0f56e45faa5d21e96c62e6922_MealPlan.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('Voucher Grandworld')" src="../../../../assets/icon/54a5a905d08047a1b9f3e81e4e99b089_Hotel Dis- Credit.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('hoàn/ hủy')" src="../../../../assets/icon/calendar-cancel.b2f8a00d.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('Vé VinWonders')" src="../../../../assets/icon/e911ab39130e4ebabec800ac3af34b30_Vinwonder.png" alt="">
+                                                        <p nz-tooltip nzTooltipTitle="{{item.name}}" class="rate-desc">{{item.name}}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col col-md-6">
+                                                <div class="flex-column-end">
+                                                    Giá công bố
+                                                    <span class="flex-column-end price">
+                                                        {{service.price | format}}
+                                                        <span>đ</span>
+                                                    </span>
+                                                    /Đêm
+                                                </div>
+                                                <div class="view-info">
+                                                    <span (click)="showDetailService()">
+                                                        <img src="../../../../assets/icon/UnionBlue.96adaf97.svg" alt="">
+                                                        Điều kiện gói
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="hotel-detail-room-rates open">
                                 <div class="rates-box"></div>
@@ -276,3 +313,10 @@
         </div>
     </div>
 </div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+    </ng-container>
+  </nz-modal>

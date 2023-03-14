@@ -108,6 +108,14 @@ video {
     @include flex(center, space-between);
 }
 
+button {
+    outline: none;
+    border: none;
+}
+
+.g-mb-5 {
+    margin-bottom: 5px;
+}
 
 img, svg {
   vertical-align: middle;

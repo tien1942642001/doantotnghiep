@@ -23,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from 'src/app/shared/share.module';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { FormatPrice } from 'src/app/core/pipe/number.pipe';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { FormatPrice } from 'src/app/core/pipe/number.pipe';
         NzSelectModule,
         NzDatePickerModule,
         NzButtonModule,
+        NzModalModule,
         NzDropDownModule,
         NzToolTipModule,
         NzCardModule,

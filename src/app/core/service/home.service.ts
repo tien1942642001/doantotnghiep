@@ -17,6 +17,12 @@ export class HomeService {
     return this.http.get(`${APIs.API_SEARCH_HOTEL}?page=${pageIndex}&size=${pageSize}&siteId=${siteId}`)
   }
 
+  getHotelDetail(hotelId: Number): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_HOTEL_DETAIL}/${hotelId}`)
+  }
+
   getAllSite(): Observable<any> {
     // const headers = handle.requestHeaders();
     // let options = {headers: headers};
