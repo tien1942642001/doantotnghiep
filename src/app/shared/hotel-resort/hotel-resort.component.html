@@ -64,11 +64,12 @@
                             nzTrigger="click"
                             [nzDropdownMenu]="menu"
                             nz-tooltip
-                            [nzTooltipTitle]="'1 người lớn - 1 trẻ em'"
+                            [nzTooltipTitle]="noParent + ' người lớn - ' + noChildren + ' trẻ em'"
                         >
                             <span class="text-truncate font-input-search">
-                                <span class="btn-list-passenger">1 người lớn</span>
-                                <span class="btn-list-passenger">1 trẻ em</span>
+                                <span class="btn-list-passenger">{{noParent}} người lớn </span>
+                                -
+                                <span class="btn-list-passenger"> {{noChildren}} trẻ em</span>
                             </span>
                         </button>
                         <p style="user-select: none;"></p>
@@ -92,11 +93,11 @@
                                         <div class="number-select--type">
                                             <div class="info">{{'search.hotelFlight.form.adults' | translate}}</div>
                                             <div class="vp-calc">
-                                                <button [disabled]="noChildren == 1" (click)="onDecreasePeople()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
+                                                <button [disabled]="noParent == 1" (click)="onDecrease(1)" class="btn-person left" nz-button nzType="primary" nzShape="circle">
                                                     <img src="../../../assets/icon/icon_minus.svg" alt="minus">
                                                 </button>
-                                                <input class="input-person" nz-input type="number" name="location" value={{noPeopel}} id="number">
-                                                <button [disabled]="noChildren == 8" (click)="onIncreasePeople()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
+                                                <input class="input-person" nz-input type="number" name="location" value={{noParent}} id="number">
+                                                <button [disabled]="noParent == 8" (click)="onIncrease(1)" class="btn-person right" nz-button nzType="primary" nzShape="circle">
                                                     <img src="../../../assets/icon/icon_plus.svg" alt="plus">
                                                 </button>
                                             </div>
@@ -104,11 +105,11 @@
                                         <div class="number-select--type">
                                             <div class="info">{{'search.hotelFlight.form.children' | translate}}</div>
                                             <div class="vp-calc">
-                                                <button [disabled]="noChildren == 1" (click)="onDecreaseChildren()" class="btn-person left" nz-button nzType="primary" nzShape="circle">
+                                                <button [disabled]="noChildren == 1" (click)="onDecrease(2)" class="btn-person left" nz-button nzType="primary" nzShape="circle">
                                                     <img src="../../../assets/icon/icon_minus.svg" alt="minus">
                                                 </button>
-                                                <input class="input-person" nz-input type="number" name="location" value="1" id="number">
-                                                <button [disabled]="noChildren == 8" (click)="onIncreaseChildren()" class="btn-person right" nz-button nzType="primary" nzShape="circle">
+                                                <input class="input-person" nz-input type="number" name="location" value={{noChildren}} id="number">
+                                                <button [disabled]="noChildren == 8" (click)="onIncrease(2)" class="btn-person right" nz-button nzType="primary" nzShape="circle">
                                                     <img src="../../../assets/icon/icon_plus.svg" alt="plus">
                                                 </button>
                                             </div>

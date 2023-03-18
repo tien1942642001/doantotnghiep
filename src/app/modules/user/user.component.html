@@ -1,0 +1,33 @@
+<div class="user-setting-left">
+    <div class="box-info">
+        <span>
+            <div class="info">
+                <img src="../../../assets/images/login/user.png" alt="avatar" class="avatar">
+                <img src="../../../assets/images/login/edit.png" alt="edit" class="btn-edit">
+            </div>
+            <div class="user-info">
+                <div class="fullname">{{fullName}}</div>
+                <div class="code">
+                    <span>Mã thẻ : </span>
+                </div>
+            </div>
+        </span>
+    </div>
+    <div class="content">
+        <p (click)="navigateUserProfile(1)" [className]="currentUrl == '/user/user-profile' ? 'menu-user-item active' : 'menu-user-item' ">
+            <img src="../../../assets/icon/user.svg" alt="">
+            Thông tin tài khoản
+        </p>
+        <p (click)="navigateUserProfile(2)" [className]="currentUrl == '/user/my-order' ? 'menu-user-item active' : 'menu-user-item' ">
+            <img src="../../../assets/icon/order.svg" alt="">
+            Đơn hàng của tôi
+        </p>
+        <p (click)="navigateUserProfile(3)" [className]="currentUrl == '/user/my-post' ? 'menu-user-item active' : 'menu-user-item' ">
+            <img src="../../../assets/icon/cost.svg" alt="">
+            Bài viết của tôi</p>
+        <p (click)="navigateUserProfile(4)" class="menu-user-item">
+            <img src="../../../assets/icon/Logout.svg" alt="">
+            Đăng xuất
+        </p>
+    </div>
+</div>

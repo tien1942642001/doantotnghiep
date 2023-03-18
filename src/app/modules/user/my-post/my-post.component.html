@@ -1,0 +1,32 @@
+<div class="user-profile">
+    <div class="container">
+        <div class="user-setting">
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="col-lg-30">
+                    <app-user></app-user>
+                </div>
+                <div class="col-lg-70">
+                    <nz-spin [nzSpinning]="isSpinning">
+                        <h1 class="title">Thông tin liên hệ</h1>
+                        <div class="row">
+                            <div *ngFor="let item of listOfData; let idx = index" class="col col-md-6">
+                                <div class="post">
+                                    <img class="img" src={{item.path}} alt="" />
+                                </div>
+                                <div class="post-footer">
+                                    <p class="post-footer-name">
+                                        Ngày đăng
+                                        <span class="post-published">{{item.publishedAt | date: 'dd/MM/yyyy'}}</span>
+                                    </p>
+                                    <a (click)="navigateBlog(item.id)">
+                                        <h5 class="post-title">{{item.name}}</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </nz-spin>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

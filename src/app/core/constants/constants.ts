@@ -7,4 +7,5 @@ export default {
     REMEMBER_ME: "fd888db0-09c4-4df4-a187-92574ec8ce87 ",
     EMAIL_REMEMBER: "35bc0d0f-4f8d-441c-bfc7-68bdc3b5bdd2",
     PASSWORD_REMEMBER: "562b7939-b8b0-45bf-aa1a-545f563ebf64",
+    CUSTOMER_ID: "12345678-b8b0-45bf-aa1a-545f563ebf64",
 }

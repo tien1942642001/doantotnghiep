@@ -51,4 +51,20 @@ export class AuthService {
   register(body: any): Observable<any> {
     return this.http.post(`${APIs.AUTH_REGISTER}`, body);
   };
+
+  detail(id: any): Observable<any> {
+    return this.http.get(`${APIs.API_CUSTOMER_DETAIL}/${id}`);
+  };
+
+  update(id: any, body: any): Observable<any> {
+    return this.http.put(`${APIs.API_CUSTOMER_UPDATE}/${id}`, body);
+  };
+
+  searchPost(customerId: any, page: any, size: any): Observable<any> {
+    return this.http.get(`${APIs.API_SEARCH_POST}?customerId=${customerId}&page=${page}&size=${size}`);
+  };
+
+  detailPost(id: any): Observable<any> {
+    return this.http.get(`${APIs.API_GET_DETAIL_POST}/${id}`);
+  };
 }

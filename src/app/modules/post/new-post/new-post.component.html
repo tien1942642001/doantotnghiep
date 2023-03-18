@@ -1,0 +1,120 @@
+<div class="new-post">
+    <div class="container">
+        <div class="row"> 
+        <form [nzLayout]="'vertical'" nz-form [formGroup]="formGroup" class="update-forms">
+                <h3 class="myaccount-content">Tạo bài viết</h3>
+                <div class="row">
+                    <div class="col col-md-12">
+                        <nz-form-item>
+                            <nz-form-label nzFor="name">Tiêu đề</nz-form-label>
+                            <nz-form-control>
+                                <nz-input-group [nzSuffix]="inputNameClear">
+                                    <input nz-input formControlName="name" id="name" />
+                                    <ng-template #inputNameClear>
+                                        <span
+                                            nz-icon
+                                            class="ant-input-clear-icon"
+                                            nzTheme="fill"
+                                            nzType="close-circle"
+                                            *ngIf="formGroup.controls['name'].value"
+                                            (click)="formGroup.controls['name'].setValue(null)"
+                                        ></span>
+                                    </ng-template>
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-md-8">
+                        <nz-form-item>
+                            <nz-form-label nzFor="uploadFile">Hình ảnh</nz-form-label>
+                            <nz-form-control>
+                                <div class="file-list" (click)="hiddenFileInput.click()">
+                                    <div class="name">{{fileListName.join(", ")}}</div>
+                                    <input #hiddenFileInput style="display: none;" type="file" class="custom-file-input" multiple id="uploadFile" (change)="onFileSelect($event)">
+                                    <img src="../../../../assets/icon/upload-file.svg" alt="upload-file">
+                                </div>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-md-4">
+                        <div class="frame-default" *ngIf="fileList.length == 0">
+                        </div>
+                        <p class="mt-1 text-center" *ngIf="fileList.length == 0">Hình ảnh</p>
+                        <div class="d-flex  align-items-center">
+                          <div>
+                                <img src={{imageInput[0]}} alt="">
+                                <p style="font-size: 16px;">{{fileList[0]?.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <nz-form-item>
+                            <nz-form-label nzFor="site">Khu vực</nz-form-label>
+                            <nz-form-control>
+                                <nz-select
+                                    [nzPlaceHolder]="'Chọn khu vực'"
+                                    formControlName="site"
+                                    nzAllowClear
+                                    (ngModelChange)="getHotel()"
+                                >
+                                    <nz-option *ngFor="let item of listOfSite" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                            <div *ngIf="this.formGroup.controls['site'].invalid && (this.formGroup.controls['site'].dirty || this.formGroup.controls['site'].touched)">
+                                <div class="error" *ngIf="this.formGroup.controls['site'].hasError('required')">
+                                    Vui lòng chọn khu vực
+                                </div>
+                            </div>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-md-6">
+                        <nz-form-item>
+                            <nz-form-label nzFor="hotel">Khách sạn</nz-form-label>
+                            <nz-form-control>
+                                <nz-select
+                                    [nzPlaceHolder]="'Chọn Khách sạn'"
+                                    formControlName="hotel"
+                                    nzAllowClear
+                                >
+                                    <nz-option *ngFor="let item of listOfHotel" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                            <div *ngIf="this.formGroup.controls['hotel'].invalid && (this.formGroup.controls['hotel'].dirty || this.formGroup.controls['hotel'].touched)">
+                                <div class="error" *ngIf="this.formGroup.controls['hotel'].hasError('required')">
+                                    Vui lòng chọn Khách sạn
+                                </div>
+                            </div>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-sm-12">
+                        <nz-form-item>
+                            <nz-form-label nzFor="content">Nội dung</nz-form-label>
+                            <nz-form-control>
+                                <ngx-editor-menu [editor]="contentEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                                <ngx-editor formControlName="content" [editor]="contentEditor" [disabled]="false"></ngx-editor>
+                            </nz-form-control>
+                            <div *ngIf="this.formGroup.controls['content'].invalid && (this.formGroup.controls['content'].dirty || this.formGroup.controls['content'].touched)">
+                                <div class="error" *ngIf="this.formGroup.controls['content'].hasError('required')">
+                                    Vui lòng nhập Nội dung
+                                </div>
+                            </div>
+                        </nz-form-item>
+                    </div>
+                    <div class="col col-sm-12">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button style="background-color: #9A9A9A; margin-right: 8px;" nz-button nzType="primary" (click)="onCancel()">
+                                Hủy
+                            </button>
+                            <button *ngIf="!postId" nz-button nzType="primary" (click)="savePost()">
+                                Thêm mới
+                            </button>
+                            <button *ngIf="postId" nz-button nzType="primary" (click)="savePost()">
+                                Cập nhật
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

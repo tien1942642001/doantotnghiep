@@ -1,0 +1,186 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="progress-bar-custom">
+                <div (click)="selectRoomAgagin()" class="select-room-again">
+                    <img src="../../../../assets/icon/fi-rr-angle-small-left.c7c34bf2.svg" alt="">
+                    Chọn phòng
+                </div>
+                <nz-steps [nzCurrent]="currentTab" nzSize="small">
+                    <nz-step nzTitle="Chọn phòng">Chọn phòng</nz-step>
+                    <nz-step nzTitle="Thanh toán">Thanh toán</nz-step>
+                </nz-steps>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="currentTab == 1" class="row">
+        <div class="col-lg-8">
+            <form nzLayout="vertical" class="payment-form" nz-form [formGroup]="validateForm">
+                <nz-card class="contact-info" nzTitle="Thông tin người đặt chỗ">
+                    <div class="ant-row">
+                        <div class="ant-col ant-col-md-24 gender">
+                            <nz-form-item>
+                                <nz-form-label nzRequired [nzSpan]="4" nzFor="gender">Danh xưng</nz-form-label>
+                                <nz-form-control [nzSpan]="16">
+                                    <nz-radio-group formControlName="gender">
+                                        <label nz-radio nzValue="A">Ông</label>
+                                        <label nz-radio nzValue="B">Bà</label>
+                                        <label nz-radio nzValue="C">Khác</label>
+                                      </nz-radio-group>
+                                </nz-form-control>
+                              </nz-form-item >
+                        </div>
+                        <div class="ant-col ant-col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired [nzSpan]="22" nzFor="name">Họ và tên</nz-form-label>
+                                <nz-form-control [nzSpan]="22">
+                                    <input placeholder="Nguyễn Văn A" nz-input formControlName="name" name="name" type="name" id="name">
+                                </nz-form-control>
+                            </nz-form-item >
+                        </div>
+                        <div class="ant-col ant-col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired [nzSpan]="22" nzFor="phone">Điện thoại</nz-form-label>
+                                <nz-form-control [nzSpan]="22">
+                                    <input nz-input formControlName="phone" name="phone" type="phone" id="phone">
+                                </nz-form-control>
+                            </nz-form-item >
+                        </div>
+                        <div class="ant-col ant-col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired [nzSpan]="22" nzFor="email">Email nhận thông tin đơn hàng</nz-form-label>
+                                <nz-form-control [nzSpan]="22">
+                                    <input placeholder="abc@xxx.com" nz-input formControlName="email" name="email" type="email" id="email">
+                                </nz-form-control>
+                            </nz-form-item >
+                        </div>
+                        <div class="ant-col ant-col-md-12">
+                            <nz-form-item>
+                                <nz-form-label nzRequired [nzSpan]="22" nzFor="phone">Vùng quốc gia</nz-form-label>
+                                <nz-form-control [nzSpan]="22">
+                                    <input nz-input>
+                                </nz-form-control>
+                            </nz-form-item >
+                        </div>
+                    </div>
+                    <div class="ant-row">
+                        <div class="ant-col ant-col-md-24">
+                            <div class="vpt-checkbox-hotel">
+                                <label nz-checkbox formControlName="checkResident">Tôi là khách lưu trú</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ant-row">
+                        <div class="ant-col ant-col-md-24">
+                            <div class="special-requirements">Yêu cầu đặc biệt</div>
+                            <nz-form-item>
+                                <span class="special-requirements-desc">Các yêu cầu đặc biệt không đảm bảo sẽ được đáp ứng - tuy nhiên, chúng tôi sẽ cố gắng hết sức để thực hiện</span>
+                                <nz-form-control [nzSpan]="20">
+                                    <nz-checkbox-wrapper (nzOnChange)="log($event)">
+                                        <div nz-row>
+                                            <div nz-col nzSpan="12">
+                                                <label class="special-requirements-checkbox" nz-checkbox nzValue="Tầng cao">Tầng cao</label>
+                                            </div>
+                                            <div nz-col nzSpan="12">
+                                                <label class="special-requirements-checkbox" nz-checkbox nzValue="Không hút thuốc">Không hút thuốc</label>
+                                            </div>
+                                            <div nz-col nzSpan="12">
+                                                <label class="special-requirements-checkbox" nz-checkbox nzValue="Hỗ trợ cho người khuyết tật">Hỗ trợ cho người khuyết tật</label>
+                                            </div>
+                                            <div nz-col nzSpan="12">
+                                                <label class="special-requirements-checkbox" nz-checkbox nzValue="Thời gian trả phòng linh hoạt">Thời gian trả phòng linh hoạt</label>
+                                            </div>
+                                        </div>
+                                      </nz-checkbox-wrapper>
+                                      <textarea formGroupName="textarea" placeholder="Hãy cho chúng tôi biết quý khách cần gì" rows="2" style="width: 100%;" nz-input></textarea>
+                                </nz-form-control>
+                            </nz-form-item >
+                        </div>
+                    </div>
+                </nz-card>
+                <nz-card nzTitle="Phương thức thanh toán">
+                    <nz-radio-group formGroupName="payment">
+                        <label class="payment-method" nz-radio nzValue="1">Thẻ/tài khoản ngân hàng (ATM nội địa/quốc tế)</label>
+                        <label class="payment-method" nz-radio nzValue="2">Thẻ tín dụng/ghi nợ quốc tế (Visa/Master/JCB)</label>
+                        <label class="payment-method" nz-radio nzValue="3">Thanh toán bằng mã QR</label>
+                        <label class="payment-method" nz-radio nzValue="4">Thanh toán bằng ví điện tử</label>
+                        <label class="payment-method" nz-radio nzValue="5">Thanh toán trả góp</label>
+                        <label class="payment-method" nz-radio nzValue="6">Thanh toán tại khách sạn</label>
+                      </nz-radio-group>
+                </nz-card>
+                <div class="check-policy">
+                    <span>
+                        Khi nhấp vào "Thanh toán", bạn đồng ý cung cấp các thông tin trên và đồng ý với các 
+                        <span><a href="/vi-VND/dieu-khoan/dieu-khoan-chung">điều khoản, điều kiện</a></span>
+                        và 
+                        <span><a href="/vi-VND/dieu-khoan/chinh-sach-quyen-rieng-tu">chính sách quyền riêng tư</a></span>
+                        của Vinpearl.    
+                    </span>
+                </div>
+                <div class="btn-groups flex-column-end">
+                    <button (click)="submitFormRoom()" class="btn-payment" nz-button nzType="primary">Thanh toán</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <app-hotel-summary [detailRoom]="detailRoom"></app-hotel-summary>
+        </div>
+    </div>
+    <div *ngIf="currentTab == 2" class="row">
+        <div class="depost__cars">
+            <div class="container">
+                <div class='depost__success row'>
+                    <div class="depost__success__left l-6">
+                        <div class="img">
+                            <img src="http://localhost:3000/images/thanks-page.png" alt="thank-page" />
+                        </div>
+                    </div>
+                    <div class="depost__success__right l-6">
+                        <h2>Đặt hàng thành công</h2>
+                        <p>
+                            Kính gửi Quý khách
+                            <strong> customer.nameText</strong>
+                        </p>
+                        <p style="margin-bottom: 15px">
+                            Cảm ơn Quý khách đã đặt mua xe VinFast tại Vinfastauto.com.
+                            <br />
+                            Chúng tôi xin thông báo tình trạng đơn hàng của Quý khách:
+                        </p>
+                        <p>
+                            <strong>Đơn hàng: </strong>
+                            <strong>VinFast customer.nameCar</strong>
+                        </p>
+                        <p style="margin-bottom: 15px">
+                            <strong>Trạng thái đơn hàng: </strong>
+                            <span style="color: #2c72c6; font-weight: 600">Đang xử lý</span>
+                        </p>
+                        <p>
+                            <strong>Phiên bản: </strong>
+                            <span>Tiêu Chuẩn</span>
+                        </p>
+                        <p>
+                            <strong>Số tiền đặt cọc: </strong>
+                            <span>customer.money đồng</span>
+                        </p>
+                        <p style="margin-bottom: 15px">
+                            <strong>Phương thức thanh toán: </strong>
+                            <span>customer.payment</span>
+                        </p>
+                        <p style="margin-bottom: 15px">Chúng tôi sẽ cập nhật tình trạng đơn hàng của Quý khách trong thời gian sớm nhất.</p>
+                        <p style="margin-bottom: 40px">Trân trọng!</p>
+                        <div class="group__button">
+                            <a href="/">Trở về trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nz-alert
+    nzType="error"
+    nzCloseable
+    nzBanner
+    nzMessage="Lỗi"
+    nzDescription="Đã có lỗi trong quá trình đặt phòng. Vui lòng thực hiện lại giao dịch"
+></nz-alert>

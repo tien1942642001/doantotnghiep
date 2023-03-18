@@ -17,6 +17,11 @@ export class HotelResortComponent implements OnInit {
   leaveDate: any;
   locationPlaceHolder: string = "";
   listOfSite: any[] = [];
+  hotelDefault: any[] = [];
+
+  noParent: any = 1;
+  noChildren: any = 1;
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,7 +40,8 @@ export class HotelResortComponent implements OnInit {
       this.siteId = parseInt(params['siteId']);
       this.arrivalDate = parseInt(params['arrivalDate']);
       this.leaveDate = parseInt(params['leaveDate']);
-      
+      this.noChildren = params['noChildren'] ? parseInt(params['noChildren']) : 1;
+      this.noParent = params['noParent'] ? parseInt(params['noParent']) : 1;
     })
 
     this.getAllSite();
@@ -123,44 +129,20 @@ export class HotelResortComponent implements OnInit {
   //   },
   // });
 
-  hotelDefault: any[] = [];
-
-  roomList: any[] = [
-    {
-      id: 1,
-      noPeopel: 1,
-      noChildren: 1,
-    },
-  ];
-  noPeopel: any = 1;
-  noChildren: any = 1;
-
-  onIncreaseRoom(idx: Number) {
-    if (idx == 0) {
-      this.roomList[0].noChildren
+  onIncrease(index: any) {
+    if (index == 1) {
+      this.noParent++;
+    } else {
+      this.noChildren++;
     }
-    let count = this.roomList.length;
-    this.roomList.push(count + 1);
   }
 
-  onIncreasePeople() {
-    this.noPeopel++;
-  }
-
-  onIncreaseChildren() {
-    this.noChildren++;
-  }
-
-  onDecreaseRoom() {
-    this.roomList.pop();
-  }
-
-  onDecreasePeople() {
-    this.noPeopel--;
-  }
-
-  onDecreaseChildren() {
-    this.noChildren--;
+  onDecrease(index: any) {
+    if (index == 1) {
+      this.noParent--;
+    } else {
+      this.noChildren--;
+    }
   }
 
   handleOk() {
@@ -180,14 +162,19 @@ export class HotelResortComponent implements OnInit {
       siteId: formValue.siteId,
       arrivalDate: formValue.rangePicker[0],
       leaveDate: formValue.rangePicker[1],
+      noParent: this.noParent,
+      noChildren: this.noChildren,
     }
-    if (this.router.url.includes("home")) {
-      this.router.navigate(['/hotels/booking-search'], {
-        queryParams: data
-      });
-    } else {
+    // if (this.router.url.includes("home")) {
+    //   this.router.navigate(['/hotels/search-hotel'], {
+    //     queryParams: data
+    //   });
+    // } else {
       
-    }
+    // }
+    this.router.navigate(['/hotels/search-hotel'], {
+      queryParams: data
+    });
   }
 
   handleCheckFocus(name: any) {

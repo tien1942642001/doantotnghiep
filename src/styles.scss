@@ -18,7 +18,7 @@
 html, body, div, p, ul, li {
 	margin: 0;
 	padding: 0;
-	border: 0;
+	// border: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
@@ -151,6 +151,22 @@ img, svg {
 
 .g-bg-primary {
     background-color: #f39f2d!important;
+}
+
+.g-color-primary {
+    color: #f39f2d!important;
+}
+
+.g-brd-primary {
+    border-color: #f39f2d!important;
+}
+
+.g-ml-20 {
+    margin-left: 20px;
+}
+
+.g-mt-10 {
+    margin-top: 10px;
 }
 
 .g-mt-30 {

@@ -1,0 +1,328 @@
+<div style="padding-top: 15px; border-top: 1px solid #f3eadc;"></div>
+<div class="tour-search">
+    <div class="container">
+        <app-tour></app-tour>
+        <div *ngIf="!tourId" class="tour-list">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <nz-card nzTitle="Lọc kết quả" [nzExtra]="extraTemplate">
+                            <nz-collapse [nzBordered]="false" [nzAccordion]="false">
+                                <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="'Loại sản phẩm'" [nzActive]="true"
+                                    [nzDisabled]="true" class="custom-borderless-collapse-panel">
+                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsService"
+                                        (ngModelChange)="onChangeService(checkOptionsService)">
+                                    </nz-checkbox-group>
+                                </nz-collapse-panel>
+                            </nz-collapse>
+                            <nz-collapse [nzBordered]="false" [nzAccordion]="false">
+                                <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="'Độ dài kì nghỉ'" [nzActive]="true"
+                                    [nzDisabled]="true" class="custom-borderless-collapse-panel">
+                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsAccommodation"
+                                        (ngModelChange)="onChangeService(checkOptionsAccommodation)">
+                                    </nz-checkbox-group>
+                                </nz-collapse-panel>
+                            </nz-collapse>
+                        </nz-card>
+                        <ng-template #extraTemplate>
+                            <p (click)="resetFilter()" class="btn-reset-filter">Đặt lại</p>
+                        </ng-template>
+                    </div>
+                    <div class="col-lg-9">
+                        <div *ngIf="fullName && tourList.length > 0" style="font-size: 16px;">
+                            <span style="font-weight: 600;">{{fullName}}</span>
+                            ơi, dưới đây là những kết quả phù hợp nhất cho bạn
+                        </div>
+                        <div class="d-flex justify-content-between flex-column flex-md-row">
+                            <h3 *ngIf="tourList.length > 0" style="font-size: 16px; font-weight: 500; margin-top: 15px;">
+                                Có {{tourList.length}} kết quả tìm kiếm
+                            </h3>
+                            <h3 *ngIf="tourList.length == 0" style="font-size: 20px; font-weight: 500; margin-top: 15px;">
+                                Không tìm thấy kết quả phù hợp. Vui lòng thay đổi thông tin tìm kiếm và thử lại.
+                            </h3>
+                            <div class="select-sort">
+                                <nz-select ngModel="jack" [nzSuffixIcon]="customIcon" class="custom-select"
+                                    [nzDropdownClassName]="''">
+                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
+                                </nz-select>
+                                <ng-template #customIcon>
+                                    <img src="../../../../assets/icon/arrow-select.svg" alt="">
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="tour-box-list">
+                            <div *ngFor="let item of tourList" class="row tour-box">
+                                <div class="row tour-box">
+                                    <div class="col-md-5">
+                                        <div class="tour-box-image">
+                                            <div class="image-gallery">
+                                                <img style="min-height: 250px;"
+                                                    src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 d-flex flex-column justify-content-between">
+                                        <div class="tour-box-content">
+                                            <div class="tour-tag">
+                                                <span class="tour-tag-box">Trả góp 0%</span>
+                                                <span class="tour-tag-box">Mayfest Combo</span>
+                                                <span class="tour-tag-box">3N2Đ - Bay Vietnam Airlines</span>
+                                            </div>
+                                            <h1 class="tour-name">
+                                                <a class="" href="/">{{item.name}}</a>
+                                            </h1>
+                                            <div class="tour-description">
+                                                ►VMB Vietnam Airlines►02 đêm phòng►Ăn sáng mỗi ngày
+                                            </div>
+    
+                                            <div class="tour-price d-flex align-items-center justify-content-between">
+                                                <div class="tour-clock">
+                                                    <img style="margin-right: 8px;"
+                                                        src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                                    <span *ngIf="item.lengthStayId == 1">1 ngày</span>
+                                                    <span *ngIf="item.lengthStayId == 2">2 ngày 1 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 3">3 ngày 2 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 4">4 ngày 3 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 5">5 ngày 4 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 6">6 ngày 4 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 7">6 ngày 5 đêm</span>
+                                                    <span *ngIf="item.lengthStayId == 8">22 ngày 21 đêm</span>
+                                                </div>
+                                                <p class="price">
+                                                    6.600.000
+                                                    <span>đ</span>
+                                                </p>
+                                            </div>
+                                            <div class="tour-code">
+                                                <span>Mã SP: </span>
+                                                <span style="font-weight: 600; color: rgba(0,0,0,.65);">{{item.code}}</span>
+                                            </div>
+                                            <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                                <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                                {{numberBuyer}} người mua
+                                            </div>
+                                        </div>
+                                        <div class="tour-box-bottom">
+                                            <div class="tour-button">
+                                                <button class="g-bg-primary" (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua
+                                                    ngay</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="tourId" class="tour-detail">
+            <nz-card>
+                <h4 class="title">{{tourDetail.name}}</h4>
+                <div class="row">
+                    <div class="col col-lg-8 detail-slider">
+                        <div class="image-gallery">
+                            <div class="swiper-container gallery-top">
+                                <swiper [config]="config" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
+                                    <ng-template *ngFor="let slide of tourDetail.images" swiperSlide>
+                                        <img src={{slide?.path}} alt={{slide?.name}}>
+                                    </ng-template>
+                                </swiper>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4">
+                        <div class="row tour-price">
+                            <div class="code">Mã SP: <span style="font-weight: 600;">{{tourDetail.code}}</span></div>
+                            <div class="price-detail">6.600.000 đ</div>
+                        </div>
+                        <div class="row justify-content-center align-items-center" style="margin: 0;">
+                            <div class="col-md-3 change-image">
+                                <img src="../../../../assets/images/home/daily-purchase.webp" alt="">
+                            </div>
+                            <div class="col-md-9" style="font-size: 13px; font-weight: 500;">
+                                Sản phẩm sắp hết!!! Đã có 
+                                <br/>
+                                <span style="color: rgb(243, 159, 45);">60 người</span> đặt sản phẩm này
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <button (click)="handleTourSelect(1)" class="g-bg-primary tour-select right">Chọn gói sản phẩm</button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <ul>
+                                <li class="g-mt-10">
+                                    <span class="custom-svg" nz-icon nzType="check" nzTheme="outline"></span>
+                                    <span style="margin-left: 5px;">Giá luôn tốt nhất</span>
+                                </li>
+                                <li class="g-mt-10">
+                                    <span class="custom-svg" nz-icon nzType="check" nzTheme="outline"></span>
+                                    <span style="margin-left: 5px;">Không phí thanh toán</span>
+                                </li>
+                                <li class="g-mt-10">
+                                    <span class="custom-svg" nz-icon nzType="check" nzTheme="outline"></span>
+                                    <span style="margin-left: 5px;">Xác nhận đơn hàng tức thì</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="contact row">
+                            <nz-divider></nz-divider>
+                            <div class="col col-lg-12">
+                                <a href=""><img src="../../../../assets/icon/hotline.a3b8674e.svg" alt=""></a>
+                                <span>Hotline </span> : <strong> 1900 23 23 89</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nz-card>
+            <div class="row">
+                <div class="experience-ticket-booking-item position-relative">
+                    <div class="row">
+                        <div class="col col-md-12">
+                            <nz-divider></nz-divider>
+                        </div>
+                        <div class="col col-md-8">
+                            <nz-card>
+                                <div *ngFor="let item of hotelList" class="row">
+                                    <div class="col col-md-6">
+                                        <div class="title-service">Combo 
+                                            <span *ngIf="item.tour.lengthStayId == 1">1N</span>
+                                            <span *ngIf="item.tour.lengthStayId == 2">2N1Đ</span>
+                                            <span *ngIf="item.tour.lengthStayId == 3">3N2Đ</span>
+                                            <span *ngIf="item.tour.lengthStayId == 4">4N3Đ</span>
+                                            <span *ngIf="item.tour.lengthStayId == 5">5N4Đ</span>
+                                            <span *ngIf="item.tour.lengthStayId == 6">6N4Đ</span>
+                                            <span *ngIf="item.tour.lengthStayId == 7">6N5Đ</span>
+                                            lưu trú tại 
+                                            {{item.hotel.name}}
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="price-detail" style="font-size: 24px; margin-right: 10px;">
+                                                <span>{{item.priceAdult| format}} đ</span>
+                                            </div>
+                                            <button *ngIf="showPeople != 1" (click)="selectHotel(1)" class="g-bg-primary tour-select">
+                                                Đặt mua
+                                            </button>
+                                            <button *ngIf="showPeople == 1" (click)="cancelHotel()" class="g-brd-primary cancel tour-select">
+                                                Hủy chọn
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-12">
+                                        <div class="ticket-booking-items">
+                                            <div class="quantity-ticket">
+                                                <div class="children">
+                                                    Trẻ em từ 2 đến dưới 4 tuổi
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="sale-price">3.960.000 đ</div>
+                                                    <div class="g-ml-20 text-center d-flex justify-content-center align-items-center">
+                                                        <button [disabled]="numberChildren <= 0" (click)="onDecreaseChildren()" nz-button nzType="primary">
+                                                            <span nz-icon nzType="minus" nzTheme="outline"></span>
+                                                        </button>
+                                                        <input type="text" class="text-center" [value]="numberChildren">
+                                                        <button (click)="onIncreaseChildren()" nz-button nzType="primary">
+                                                            <span nz-icon nzType="plus" nzTheme="outline"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="quantity-ticket">
+                                                <div class="person">
+                                                    Người lớn - Phòng tiêu chuẩn
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="sale-price">{{item.priceAdult| format}} đ</div>
+                                                    <div class="g-ml-20 text-center d-flex justify-content-center align-items-center">
+                                                        <button [disabled]="numberParent <= 0" (click)="onDecreaseParent()" nz-button nzType="primary">
+                                                            <span nz-icon nzType="minus" nzTheme="outline"></span>
+                                                        </button>
+                                                        <input type="text" class="text-center" [value]="numberParent">
+                                                        <button (click)="onIncreaseParent()" nz-button nzType="primary">
+                                                            <span nz-icon nzType="plus" nzTheme="outline"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-12">
+                                        <nz-divider></nz-divider>
+                                    </div>
+                                </div>
+                            </nz-card>
+                            <nz-divider></nz-divider>
+                            <nz-card>
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <nz-tabset nzType="card">
+                                            <nz-tab nzTitle="Mô tả">
+                                                <div [innerHTML]="tourDetail.description"></div>
+                                            </nz-tab>
+                                            <nz-tab nzTitle="Bao gồm">
+                                                <div [innerHTML]="tourDetail.inclusion"></div>
+                                            </nz-tab>
+                                            <nz-tab nzTitle="Điều khoản">
+                                                <div [innerHTML]="tourDetail.termsConditions"></div>
+                                            </nz-tab>
+                                            <nz-tab nzTitle="Chính sách hoàn huỷ">- Voucher không hoàn hủy đổi dịch vụ tính từ thời điểm quý khách nhận được thư Xác nhận đặt dịch vụ từ chúng tôi.</nz-tab>
+                                            <nz-tab nzTitle="Hướng dẫn sử dụng">Bước 01: Sau khi hoàn tất thanh toán, quý khách sẽ nhận được thông báo hiển thị đơn hàng thành công.
+    
+                                                Bước 02: Quý khách sẽ nhận được email xác nhận giao dịch thành công, kèm mã voucher để đặt dịch vụ. </nz-tab>
+                                          </nz-tabset>
+                                    </div>
+                                </div>
+                            </nz-card>
+                        </div>
+                        <div class="col col-md-4">
+                            <nz-card>
+                                <div class="ticket-detail">
+                                    <div *ngIf="!hideDetail" class="title">Chi tiết đơn hàng</div>
+                                    <div *ngIf="!hideDetail" class="ticket-detail-items">
+                                        <div class="name">Combo 3N2Đ lưu trú tại Vinpearl Resort & Spa Hội An</div>
+                                        <div class="row">
+                                            <div class="col-5">Trẻ em từ 2 đến dưới 4 tuổi</div>
+                                            <div class="col-2 text-right">x1</div>
+                                            <div class="col-5 text-right">
+                                                <span>3.960.000 đ</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sum">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="title">Tổng cộng</div>
+                                            <div class="price-detail" style="font-size: 24px;">
+                                                <span>6.600.000 đ</span>
+                                            </div>
+                                        </div>
+                                        <div (click)="showHideTotalPrice()" class="show-hide-total">
+                                            <span *ngIf="hideDetail" class="d-flex align-items-center">
+                                                Chi tiết
+                                                <span style="margin-left: 10px; font-size: 10px;" nz-icon nzType="down" nzTheme="outline"></span>
+                                            </span>
+                                            <span *ngIf="!hideDetail" class="d-flex align-items-center">
+                                                Thu gọn
+                                                <span style="margin-left: 10px; font-size: 10px;" nz-icon nzType="up" nzTheme="outline"></span>
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row align-items-stretch justify-content-between">
+                                    <button (click)="navigateBooking()" class="submitting" nz-button nzType="primary">Mua ngay</button>
+                                </div>
+                            </nz-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

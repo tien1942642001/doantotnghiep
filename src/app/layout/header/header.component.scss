@@ -8,6 +8,7 @@
     // left: 0;
     // right: 0;
     // z-index: 99;
+    border-bottom: 1px solid #e8ebed;
     background: #FFF;
 }
 
@@ -161,7 +162,7 @@
 .block-content {
     position: relative;
 
-    .booking-search {
+    .search-hotel {
         position: absolute;
         width: 100%;
         bottom: 0;

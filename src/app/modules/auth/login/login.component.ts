@@ -111,6 +111,7 @@ export class LoginComponent implements OnInit {
         // const redirectUrl = this.authService.redirectUrl || '/';
         localStorage.setItem(constants.FULLNAME, res.data.fullName);
         localStorage.setItem(constants.TOKEN, res.data.token);
+        localStorage.setItem(constants.CUSTOMER_ID, res.data.id);
         this.location.back();
       }
     })

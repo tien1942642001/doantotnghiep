@@ -31,7 +31,7 @@ export class TourComponent implements OnInit {
       }
     })
 
-    if (this.router.url.includes("hotels/booking-tour")) {
+    if (this.router.url.includes("hotels/search-tour")) {
       this.formTour.controls['siteId'].setValue(this.siteId);
       this.formTour.controls['searchName'].setValue(this.searchName);
     }
@@ -63,9 +63,9 @@ export class TourComponent implements OnInit {
   }
 
   searchBooking () {
-    console.log(this.formTour.value);
-    this.router.navigate(['hotels/booking-tour'], {
-      queryParams: {siteId: '1'}
+    const formValue = this.formTour.value;
+    this.router.navigate(['hotels/search-tour'], {
+      queryParams: {siteId: formValue.siteId}
     });
   }
 }

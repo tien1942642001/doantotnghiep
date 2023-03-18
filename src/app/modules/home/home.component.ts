@@ -128,4 +128,10 @@ export class HomeComponent implements OnInit {
     } 
   }
 
+  searchTour(id: any) {
+    this.route.navigate(['hotels/search-tour'], {
+      queryParams: {siteId: id}
+    });
+  }
+
 }

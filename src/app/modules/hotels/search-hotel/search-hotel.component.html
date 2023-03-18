@@ -1,0 +1,386 @@
+<div class="hotel-search">
+    <div class="container">
+        <app-hotel-resort></app-hotel-resort>
+        <div *ngIf="!checkRoomSelect" class="hotel-list">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-flex justify-content-between flex-column flex-md-row">
+                            <span style="font-size: 20px; font-weight: 500; margin-bottom: 12px;">
+                                Có {{formattedNumber(totalHotel)}} khách sạn tại 
+                                <span style="color: #e8952f;">Phu Quoc</span>
+                            </span>
+                            <div class="select-sort">
+                                <nz-select
+                                    ngModel="jack"
+                                    [nzSuffixIcon]="customIcon"
+                                    class="custom-select"
+                                    [nzDropdownClassName]="''"
+                                >
+                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
+                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
+                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
+                                </nz-select>
+                                <ng-template #customIcon>
+                                    <img src="../../../../assets/icon/arrow-select.svg" alt="">
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="hotel-box-list">
+                            <div *ngFor="let item of hotelList" class="row hotel-box">
+                                <div class="col-md-4">
+                                    <div class="hotel-box-image">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <!-- <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template *ngFor="let slide of item.images" swiperSlide>
+                                                        <img src={{slide?.path}} alt={{slide?.name}}>
+                                                    </ng-template>
+                                                </swiper> -->
+                                                <img src={{item.path}} alt={{item.name}}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-between">
+                                    <div class="hotel-box-content">
+                                        <h1 class="hotel-name">
+                                            <a class="" href="/">{{item.name}}</a>
+                                        </h1>
+                                        <div class="hotel-address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                            </svg>
+                                            {{item.address}}
+                                        </div>
+                                        <div class="hotel-tag">
+                                            <div class="hotel-tag-box">Bãi biển riêng</div>
+                                            <div class="hotel-tag-box">Gần VinWonders</div>
+                                            <div class="hotel-tag-box">Gần Safari</div>
+                                        </div>
+                                    </div>
+                                    <div class="hotel-box-bottom">
+                                        <div class="hotel-price">
+                                            <p class="flex-column-end">
+                                                Chỉ từ
+                                                <span class="flex-column-end price">
+                                                    {{item.priceMin | format}}
+                                                    <span>đ</span>
+                                                </span>
+                                            </p>
+                                            /Đêm
+                                        </div>
+                                        <div class="hotel-button">
+                                            <div class="hotel-box-hidden"></div>
+                                            <button (click)="handleRoomTypeSelect(item)" nz-button class="hotel-pick">Đặt ngay</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="checkRoomSelect" class="room-list">
+            <div class="hotel-new-box">
+                <div class="hotel-box">
+                    <div class="d-flex justify-content-between flex-column flex-lg-row">
+                        <div class="col-md-4 pl-0">
+                            <div class="hotel-box-image">
+                                <div class="hotel-box-image">
+                                    <div class="image-gallery">
+                                        <div class="swiper-container gallery-top">
+                                            <swiper
+                                                [config]="config"
+                                                (swiper)="onSwiper($event)"
+                                                (slideChange)="onSlideChange()"
+                                            >
+                                                <ng-template *ngFor="let slide of hotelDetail?.images" swiperSlide>
+                                                    <img height="206px" src={{slide?.path}} alt={{slide?.name}}>
+                                                </ng-template>
+                                            </swiper>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="hotel-box-content">
+                                <h1 class="hotel-name">
+                                    <a class="title-link" href="https://vinpearl.com/vi/hotels/vinholidays-fiesta-phu-quoc">
+                                        {{hotelDetail?.name}}
+                                    </a>
+                                </h1>
+                                <div class="hotel-address">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                    </svg>
+                                    {{hotelDetail?.address}}
+                                </div>
+                            </div>
+                            <div class="hotel-box-bottom hotel_detail-room-box_description__value">
+                                <p>{{hotelDetail?.description}}</p>
+                            </div>
+                            <div class="hotel-box-price-container">
+                                <a class="text-detail" href="https://vinpearl.com/vi/hotels/vinholidays-1-phu-quoc?_ga=2.163222460.1873255178.1676686826-228671980.1667643429">
+                                    {{'clickDetail' | translate }}
+                                    <img src="../../../../assets/images/icon/icon-hotel-detail.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 hotel-detail-room">
+                    <div class="tab-list filter-hotel">
+                        <div class="vpt-slick-room row">
+                            <span class="title-filter-room">
+                                {{'filterRoom' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div [class.active]="numberRoomType == idxRoomType" *ngFor="let roomType of roomTypeList; let idxRoomType = index;" class="hotel-detail-room-box hotel_detail-room-box">
+                            <div class="hotel-detail-room-info">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="image-gallery">
+                                            <div class="swiper-container gallery-top">
+                                                <swiper
+                                                    [config]="config"
+                                                    (swiper)="onSwiper($event)"
+                                                    (slideChange)="onSlideChange()"
+                                                >
+                                                    <ng-template *ngFor="let slide of roomType.images" swiperSlide>
+                                                        <img src={{slide?.path}} alt={{slide?.name}}>
+                                                    </ng-template>
+                                                </swiper>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 hotel_detail-room-box__title">
+                                        <div>
+                                            <h3>{{roomType.name}}</h3>
+                                            <div class="hotel_detail-room-box_info">
+                                                <span class="hotel_detail-room-box_info__guest">
+                                                    <span nz-icon nzType="user" nzTheme="outline"></span>
+                                                    {{roomType.numberPerson}} {{'guests' | translate}}
+                                                </span>
+                                                <span class="hotel_detail-room-box_info__acreage">
+                                                    <img src="../../../../assets/images/icon/resize.svg" alt="">
+                                                    {{roomType.acreage}}m2
+                                                </span>
+                                                <div *ngIf="numberRoomType == idxRoomType" class="hotel-box-price-container">
+                                                    <div class="hotel-box-bottom hotel_detail-room-box_description__value">
+                                                        <p>{{hotelDetail?.description}}</p>
+                                                    </div>
+                                                    <div class="d-flex align-items-end">
+                                                        <span class="text-detail">
+                                                            Xem phòng
+                                                            <img src="../../../../assets/images/icon/icon-hotel-detail.svg" alt="">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-column-end">
+                                                <button (click)="selectRoomType(idxRoomType)" class="button-room">Chọn</button>
+                                            </div>
+                                            <!-- <div class="view-rate">
+                                                <div></div>
+                                                <div class="text-right">
+                                                    <div class="hotel-box-price">
+                                                        <span class="standard-text">
+                                                            {{'pricePublic' | translate}}
+                                                            <span class="standard-text_value">
+                                                                {{item.service[0].priceVnd}}
+                                                                <span>đ</span>
+                                                            </span>
+                                                        </span>
+                                                        <p class="font12_hotel">{{'/night'| translate}}</p>
+                                                    </div>
+                                                    <div class="btn-view-rate-wrap">
+                                                        <p></p>
+                                                        <button class="hotel-pick">{{'btnSelect'| translate}}</button>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="numberRoomType == idxRoomType" class="hotel-detail-room-rates_action">
+                                <div class="standard">
+                                    <div *ngIf="roomType.service.length < 10 && roomType.service.length > 0" class="title">
+                                        {{'standard' | translate}} (0{{roomType.service.length}})
+                                    </div>
+                                    <div *ngIf="roomType.service.length >= 10" class="title">
+                                        {{'standard' | translate}} ({{roomType.service.length}})
+                                    </div>
+                                </div>
+                                <div class="radio-button">
+                                    <div class="rate-info" *ngFor="let service of roomType.service; let idxService = index">
+                                        <div [class.active]="numberService == idxService" class="row rate-info-wrap">
+                                            <div (click)="selectService(service, idxService)" class="col col-md-12 title" style="cursor: pointer;">{{service.name}}</div>
+                                            <div class="col col-md-6 content">
+                                                <ul>
+                                                    <li *ngFor="let item of service.contents" class="d-flex align-items-center g-mb-5">
+                                                        <img *ngIf="item?.name?.includes('Bữa sáng')" src="../../../../assets/icon/b2abe8b0f56e45faa5d21e96c62e6922_MealPlan.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('Voucher Grandworld')" src="../../../../assets/icon/54a5a905d08047a1b9f3e81e4e99b089_Hotel Dis- Credit.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('hoàn/ hủy')" src="../../../../assets/icon/calendar-cancel.b2f8a00d.png" alt="">
+                                                        <img *ngIf="item?.name?.includes('Vé VinWonders')" src="../../../../assets/icon/e911ab39130e4ebabec800ac3af34b30_Vinwonder.png" alt="">
+                                                        <p nz-tooltip nzTooltipTitle="{{item.name}}" class="rate-desc">{{item.name}}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col col-md-6">
+                                                <div class="flex-column-end">
+                                                    Giá công bố
+                                                    <span class="flex-column-end price">
+                                                        {{service.price | format}}
+                                                        <span>đ</span>
+                                                    </span>
+                                                    /Đêm
+                                                </div>
+                                                <div class="view-info">
+                                                    <span (click)="showDetailService()">
+                                                        <img src="../../../../assets/icon/UnionBlue.96adaf97.svg" alt="">
+                                                        Điều kiện gói
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-detail-room-rates open">
+                                <div class="rates-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 g-pl-6--lg">
+                    <!-- <app-hotel-summary
+                        [nameHotel]="hotelDetail?.name"
+                        [arrivalDate]="arrivalDate"
+                        [leaveDate]="leaveDate"
+                    ></app-hotel-summary> -->
+                    <div class="hotel-summary-wrap">
+                        <div class="title-hotel">
+                            <h3>Chuyến đi</h3>
+                            <div class="timer"></div>
+                        </div>
+                        <div class="hotel-summary">
+                            <div class="info-hotel">
+                                <div class="info-title">
+                                    {{hotelDetail?.name}}
+                                </div>
+                                <div class="info-date">
+                                    <div class="check-in">{{getDay(arrivalDate)}}, Th{{arrivalDate | date: 'MM dd, yyyy'}}</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                                    </svg>
+                                    <div class="check-in">{{getDay(leaveDate)}}, Th{{leaveDate | date: 'MM dd, yyyy'}}</div>
+                                </div>
+                                <div class="info-night">02 đêm</div>
+                            </div>
+                            <div *ngIf="serviceDetail" class="info-room">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <div class="info-room-detail">
+                                        Phòng
+                                        <span>x1 {{roomTypeList[numberRoomType].name}}</span>
+                                    </div>
+                                    <div class="edit-room">
+                                        <div class="edit-room_hotel">Chỉnh sửa</div>
+                                        <div class="price text-right d-flex">
+                                            {{serviceDetail?.price * numberPerson | format}}
+                                            đ
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <span class="number-person">{{noParent}} Người lớn</span>
+                                    <span class="number-person">, {{noChildren}} Trẻ em</span>
+                                </div>
+                            </div>
+                            <div *ngIf="serviceDetail" class="hotel-summary-total d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-column">
+                                    <span>Tổng cộng: </span>
+                                    <span class="number-person">(Bao gồm thuế phí)</span>
+                                </div>
+                                <div class="d-flex flex-column text-right">
+                                    <span class="total-price-hotel">
+                                        {{serviceDetail?.price * numberPerson | format}} 
+                                        đ
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="line-hotel"></div>
+                            <button *ngIf="!serviceDetail" nz-button [disabled]="true" class="hotel-summary-button disabled">Tiếp tục</button>
+                            <button (click)="navigateBooking()" *ngIf="serviceDetail" nz-button nzType="primary" class="hotel-summary-button">Tiếp tục</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nz-modal nzWrapClassName="vpt-modal-hotel-page" nzClassName="vpt-room-modal" [(nzVisible)]="isVisible" [nzCloseIcon]="customIcon" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-template #customIcon>
+        <span (click)="handleCancel()">
+            <img src="../../../../assets/icon/close.d5aa4cdc.svg" alt="">
+        </span>
+    </ng-template>
+    <ng-container *nzModalTitle>
+        <div class="ant-modal-title">Giá công bố tốt nhất</div>
+    </ng-container>
+    <ng-container *nzModalContent>
+        <ul class="row list-desc">
+            <li class="col col-md-6">
+                <!-- <img *ngIf="item?.name?.includes('Bữa sáng')" src="../../../../assets/icon/b2abe8b0f56e45faa5d21e96c62e6922_MealPlan.png" alt="">
+                <img *ngIf="item?.name?.includes('Voucher Grandworld')" src="../../../../assets/icon/54a5a905d08047a1b9f3e81e4e99b089_Hotel Dis- Credit.png" alt="">
+                <img *ngIf="item?.name?.includes('hoàn/ hủy')" src="../../../../assets/icon/calendar-cancel.b2f8a00d.png" alt="">
+                <img *ngIf="item?.name?.includes('Vé VinWonders')" src="../../../../assets/icon/e911ab39130e4ebabec800ac3af34b30_Vinwonder.png" alt=""> -->
+                <span>Không bao gồm bữa sáng</span>
+            </li>
+            <li class="col col-md-6">
+                <span>Không bao gồm bữa sáng</span>
+                Tặng 01 Voucher Grandworld trị giá 300.000 VND/Phòng/đêm, lưu trú trước 31/08/2023
+            </li>
+        </ul>
+        <div class="modal-card">
+            <div class="card-header">
+                <div class="card-title">Chi tiết gói giá</div>
+            </div>
+            <div class="ant-card-body">
+                <ul class="card-list">
+                    <li>Gói phòng không gồm bữa ăn</li>
+                    <li>Tặng 01 Voucher Grandworld trị giá 300.000 VND/Phòng/đêm, lưu trú trước 31/08/2023</li>
+                    <li>Tối đa 4 người trong một phòng (3 người lớn 1 trẻ em)</li>
+                    <li>Miễn phí cho trẻ em dưới 4 tuổi</li>
+                    <li>Trẻ em từ 4 - 11 tuổi và người lớn thứ 3 (từ 12 tuổi trở lên) vui lòng trả thêm phụ thu theo quy định của khách sạn</li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-card">
+            <div class="card-header">
+                <div class="card-title">Chính sách hoàn huỷ</div>
+            </div>
+            <div class="ant-card-body">
+                <ul class="card-list">
+                    <li>Không hoàn/ hủy</li>
+                </ul>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *nzModalFooter>
+        <button nz-button>Chọn</button>
+    </ng-container>
+  </nz-modal>

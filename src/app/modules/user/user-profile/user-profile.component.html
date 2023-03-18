@@ -1,0 +1,128 @@
+<div class="user-profile">
+    <div class="container">
+        <div class="user-setting">
+            <div class="d-flex flex-column flex-lg-row">
+                <div class="col-lg-30">
+                    <app-user></app-user>
+                </div>
+                <div class="col-lg-70">
+                    <nz-spin [nzSpinning]="isSpinning">
+                        <form nz-form [nzLayout]="'vertical'" [formGroup]="formUserProfile" class="form-user-profile" (ngSubmit)="submitForm()">
+                            <h1 class="title">Thông tin liên hệ</h1>
+                            <div class="row">
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Họ và tên</nz-form-label>
+                                        <nz-form-control>
+                                            <input type="text" class="custom-input" formControlName="fullName" nz-input [disabled]="true" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Số điện thoại</nz-form-label>
+                                        <nz-form-control>
+                                            <input class="custom-input" formControlName="phone" nz-input />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-12">
+                                    <nz-form-item>
+                                        <nz-form-label>Giới tính</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-radio-group formControlName="sex" >
+                                                <label nz-radio nzValue="0">Nam</label>
+                                                <label nz-radio nzValue="1">Nữ</label>
+                                                <label nz-radio nzValue="2">Khác</label>
+                                              </nz-radio-group>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Email</nz-form-label>
+                                        <nz-form-control>
+                                            <input class="custom-input" formControlName="email" nz-input [disabled]="true" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Địa chỉ</nz-form-label>
+                                        <nz-form-control>
+                                            <input class="custom-input" formControlName="address" nz-input [disabled]="true" />
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                            </div>
+                            <h1 class="title">Thông tin giấy tờ</h1>
+                            <div class="row">
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Giấy tờ tùy thân</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-select
+                                                formControlName="typeOfCccd"
+                                            >
+                                                <nz-option nzValue="cmnd" nzLabel="Chứng minh thư">Chứng minh thư</nz-option>
+                                                <nz-option nzValue="cccd" nzLabel="Căn cước công dân">Căn cước công dân</nz-option>
+                                                <nz-option nzValue="passport" nzLabel="Passport">Passport</nz-option>
+                                              </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Ngày sinh</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-date-picker formControlName="birthDate" (ngModelChange)="onChange($event)"></nz-date-picker>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Số CMND/CCCD/Hộ chiếu</nz-form-label>
+                                        <nz-form-control>
+                                            <input class="custom-input" formControlName="cccd" nz-input/>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Ngày cấp</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-date-picker formControlName="createdDateCccd" (ngModelChange)="onChange($event)"></nz-date-picker>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Có giá trị đến</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-date-picker formControlName="expiredDateCccd" (ngModelChange)="onChange($event)"></nz-date-picker>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-6">
+                                    <nz-form-item>
+                                        <nz-form-label>Quốc Tịch</nz-form-label>
+                                        <nz-form-control>
+                                            <nz-select formControlName="nationality">
+                                                <nz-option nzValue="vietnam" nzLabel="vietnam">Việt Nam</nz-option>
+                                              </nz-select>
+                                        </nz-form-control>
+                                    </nz-form-item>
+                                </div>
+                                <div class="col col-md-12">
+                                    <div class="btn-group">
+                                        <button (click)="updateCustomer()" style="width: 100px; height: 50px;" nz-button nzType="primary">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                      </nz-spin>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

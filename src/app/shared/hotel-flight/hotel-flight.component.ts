@@ -186,7 +186,7 @@ export class HotelFlightComponent implements OnInit {
 
   searchHotels () {
     console.log(this.formHotelFlight.value);
-    this.router.navigate(['/hotels/booking-search'], {
+    this.router.navigate(['/hotels/search-hotel'], {
       queryParams: {locationId: '1', hotelId: '2', arrivalDate: '3', }
     });
   }

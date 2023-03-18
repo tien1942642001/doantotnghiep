@@ -1,0 +1,239 @@
+.progress-bar-custom {
+    margin-top: 21px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.vpt-checkbox-hotel {
+    padding: 20px 0;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #e0e0e0;
+    border-width: 1px 0;
+    border-top: none;
+    margin-bottom: 15px;
+}
+
+.special-requirements {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 9px;
+
+    &-desc {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 25px;
+        color: #343a40;
+    }
+}
+
+.select-room-again {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2a398c;
+    cursor: pointer;
+}
+
+.btn-payment {
+    background: #e8952f;
+    border-radius: 56px;
+    padding: 0 64px;
+    width: auto;
+    height: 56px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    color: #fff;
+}
+
+.check-policy span:last-child a {
+    color: #3b9cf6!important;
+    text-decoration: underline;
+}
+
+::ng-deep {
+    .progress-bar-custom {
+        .ant-steps {
+            width: auto;
+            display: inline-block;
+        }
+
+        .ant-steps-item-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .ant-steps-item-icon {
+            width: 36px;
+            height: 36px;
+            background: #f5f6fa;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            &>.ant-steps-icon {
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFF;
+            }
+        }
+
+        .ant-steps-item-title {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 36px;
+            color: #616971!important;
+            padding: 0!important;
+        }
+
+        .ant-steps-item-finish .ant-steps-item-title {
+            color: #e8952f!important;
+        }
+        
+        .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon .ant-steps-icon {
+            color: #616971;
+        }
+
+        .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
+            background: #f5f6fa;
+        }
+
+        .ant-steps-item-finish .ant-steps-item-icon {
+            background: #e8952f;
+        }
+    }
+
+    .payment-form {
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .ant-card-body {
+            padding: 10px 17px;
+        }
+
+        .ant-card-head {
+            background: hsla(0,0%,87.8%,.2);
+            padding: 16px 19px 14px;
+        }
+        
+        .ant-card-head-title {
+            padding: 0;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            color: #343a40;
+        }
+
+        .ant-form-item-required {
+            flex-direction: row-reverse;
+
+            &::before {
+                margin-left: 4px;
+            }
+        }
+
+        .ant-row.ant-form-item {
+            margin-bottom: 8px;
+        }
+
+        .gender {
+            padding: 10px 0;
+        }
+
+        .gender .ant-row.ant-form-item {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .gender nz-form-label {
+            padding-bottom: 0;
+        }
+
+        .ant-form-item-control-input {
+            input, textarea {
+                padding: 10px 12px;
+                width: 100%;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px!important;
+                height: 44px!important;
+                font-weight: 500;
+                font-size: 15px!important;
+                color: #353c46;
+                outline: none;
+                resize: none;
+                overflow: hidden;
+                
+                &:focus {
+                    box-shadow: 0 0 0 2px rgba(24,144,255,.2);
+                    border-right-width: 1px!important;
+                }
+            }
+        }
+
+        .ant-checkbox-group {
+            width: 100%;
+            margin: 18px 0;
+        }
+
+        .ant-checkbox-wrapper-checked {
+            color: #e8952f!important;
+
+            .ant-checkbox-inner {
+                background-color: #e8952f!important;
+                border-color: #e8952f!important;
+            }
+        }
+
+        .special-requirements-checkbox {
+            font-weight: 500;
+            font-size: 14px;
+            color: #343a40;
+            margin-bottom: 12px;
+        }
+    }
+
+    .payment-method {
+        width: 100%;
+        padding: 14px!important;
+        margin-bottom: 8px;
+        font-weight: 500;
+        font-size: 16px;
+        color: #353c46!important;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        background: transparent;
+
+        &.ant-radio-wrapper-checked, &.ant-radio-inner {
+            color: #e8952f!important;
+            border-color: #e8952f;
+        }
+
+        & .ant-radio-inner {
+            width: 20px!important;
+            height: 20px!important;
+        }
+
+        .ant-radio.ant-radio-checked .ant-radio-inner:after {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            background: transparent!important;
+            border: 1px solid #fff!important;
+            border-left: 0!important;
+            border-radius: 0!important;
+            border-top: 0!important;
+            content: " ";
+            display: table;
+            height: 11px;
+            opacity: 1;
+            transform: rotate(45deg) scale(1) translate(-50%,-50%)!important;
+            transition: all .2s cubic-bezier(.12,.4,.29,1.46) .1s!important;
+            width: 5.5px;
+        }
+    }
+}

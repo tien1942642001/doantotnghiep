@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HotelComponent } from './hotel/hotel.component';
 import { HotelRoutingModule } from './hotel-routing.modules';
-import { BookingSearchComponent } from './booking-search/booking-search.component';
+import { SearchHotelComponent } from './search-hotel/search-hotel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
@@ -15,22 +15,27 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { BookingTourComponent } from './booking-tour/booking-tour.component';
+import { SearchTourComponent } from './search-tour/search-tour.component';
 import { SwiperModule } from 'swiper/angular';
 import { LangChangeEvent, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from 'src/app/shared/share.module';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { FormatPrice } from 'src/app/core/pipe/number.pipe';
+// import { FormatPrice } from 'src/app/core/pipe/number.pipe';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { BookingComponent } from './booking/booking.component';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 
 @NgModule({
     declarations: [
       HotelComponent,
-      BookingSearchComponent,
-      BookingTourComponent,
-      FormatPrice,
+      SearchHotelComponent,
+      SearchTourComponent,
+      // FormatPrice,
+      BookingComponent,
     ],
     imports: [
         CommonModule,
@@ -42,14 +47,17 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         NzFormModule,
         NzSelectModule,
         NzDatePickerModule,
+        NzAlertModule,
         NzButtonModule,
         NzModalModule,
         NzDropDownModule,
+        NzStepsModule,
         NzToolTipModule,
         NzCardModule,
         NzCollapseModule,
         NzCheckboxModule,
         SharedModule,
+        NzDividerModule,
         SwiperModule,
         NzRadioModule,
         TranslateModule.forRoot({

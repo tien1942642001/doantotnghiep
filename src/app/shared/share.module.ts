@@ -18,12 +18,16 @@ import { HotelFlightComponent } from './hotel-flight/hotel-flight.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
- 
+import { HotelSummaryComponent } from './hotel-summary/hotel-summary.component';
+import { FormatPrice } from '../core/pipe/number.pipe';
+
 @NgModule({
  declarations: [
    HotelResortComponent,
    HotelFlightComponent,
    TourComponent,
+   HotelSummaryComponent,
+   FormatPrice,
  ],
  imports: [
    CommonModule,
@@ -53,6 +57,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
    HotelResortComponent,
    HotelFlightComponent,
    TourComponent,
+   HotelSummaryComponent,
+   FormatPrice
  ]
 })
 export class SharedModule { }
