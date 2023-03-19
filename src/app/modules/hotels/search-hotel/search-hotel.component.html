@@ -8,7 +8,7 @@
                         <div class="d-flex justify-content-between flex-column flex-md-row">
                             <span style="font-size: 20px; font-weight: 500; margin-bottom: 12px;">
                                 Có {{formattedNumber(totalHotel)}} khách sạn tại 
-                                <span style="color: #e8952f;">Phu Quoc</span>
+                                <span style="color: #e8952f;">{{nameSite}}</span>
                             </span>
                             <div class="select-sort">
                                 <nz-select
@@ -103,7 +103,7 @@
                                                 (slideChange)="onSlideChange()"
                                             >
                                                 <ng-template *ngFor="let slide of hotelDetail?.images" swiperSlide>
-                                                    <img height="206px" src={{slide?.path}} alt={{slide?.name}}>
+                                                    <img height="240px" w src={{slide?.path}} alt={{slide?.name}}>
                                                 </ng-template>
                                             </swiper>
                                         </div>
@@ -160,7 +160,7 @@
                                                     (slideChange)="onSlideChange()"
                                                 >
                                                     <ng-template *ngFor="let slide of roomType.images" swiperSlide>
-                                                        <img src={{slide?.path}} alt={{slide?.name}}>
+                                                        <img style="width: 100%; height: 240px;" src={{slide?.path}} alt={{slide?.name}}>
                                                     </ng-template>
                                                 </swiper>
                                             </div>

@@ -185,6 +185,10 @@ img, svg {
     text-decoration: underline;
 }
 
+.position-relative {
+    position: relative !important;
+}
+
 .ant-form-item-control-input-content .ant-input {
 	min-height: 40px;
     border-radius: 4px;
@@ -442,6 +446,33 @@ input:not(:placeholder-shown) {
     background-color: #e8952f;
 }
 
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #e8952f !important;
+}
+
 nz-date-picker {
     width: 100%;
+}
+
+.ant-popover-title {
+    background-color: #c93027;
+    color: #FFF;
+    border-radius: 4px;
+    border: none;
+}
+
+.ant-popover-inner-content {
+    display: none;
+}
+
+.ant-popover-arrow-content::before {
+    background-color: #c93027;
+}
+
+.ant-input-affix-wrapper-status-error {
+	border-color: #E03 !important;
+}
+
+.error {
+	color: #E03;
 }

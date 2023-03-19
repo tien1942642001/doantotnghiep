@@ -17,6 +17,9 @@
                             [nzShowArrow]="false"
                             [nzPlaceHolder]="'search.hotel.form.placeholder1' | translate"
                             formControlName="siteId"
+                            nz-popover
+                            nzPopoverTitle="Trường bắt buộc nhập"
+                            [nzPopoverVisible]="this.formHotel.controls['siteId'].invalid && (this.formHotel.controls['siteId'].dirty || this.formHotel.controls['siteId'].touched) && this.formHotel.controls['siteId'].hasError('required')"
                         >
                             <nz-option *ngFor="let item of listOfSite" [nzLabel]="item.name" [nzValue]="item.id" nzCustomContent>
                                 <img src="../../../assets/icon/{{item.type == 'location' ? 'icon_hotel_y' : 'icon_location'}}.svg" width="13px" height="13px" style="margin-right: 10px;" alt="">

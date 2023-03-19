@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import constants from 'src/app/core/constants/constants';
+import { HomeService } from 'src/app/core/service/home.service';
 import { TourService } from 'src/app/core/service/tour.service';
 
 // import Swiper core and required modules
@@ -22,7 +23,7 @@ export class SearchTourComponent implements OnInit {
 
   fullName: any = localStorage.getItem(constants.FULLNAME);
   siteId: any;
-  hotelId: any;
+  hotelDetail: any;
   tourId: any;
   selectedSite = null;
   currentDate = new Date().getTime();
@@ -30,22 +31,15 @@ export class SearchTourComponent implements OnInit {
   roomTypeList: any[] = [];
   pageSize: Number = 10;
   pageIndex: Number = 0;
-  numberBuyer: number = 10;
+  numberBuyer: number = 0;
   showPeople: any;
   showTotalPrice: boolean = false;
   numberChildren: number = 0;
-  numberParent: number = 0;
+  noParent: number = 0;
+  noChildren: number = 0;
   tourDetail: any;
-  hotelList: any;
+  hotelList: any[] = [];
   hideDetail: boolean = false;
-
-  roomList: any[] = [
-    {
-      id: 1,
-      numberParent: 1,
-      numberChildren: 1,
-    },
-  ];
 
   checkOptionsService: any[] = [
     { value: 1, label: 'Tất cả', checked: true },
@@ -89,13 +83,12 @@ export class SearchTourComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tourService: TourService,
-    private sanitizer: DomSanitizer,
+    private homeService: HomeService,
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.siteId = params['siteId'] ? parseInt(params['siteId']) : '';
-      // this.hotelId = params['hotelId'];
       this.getAllTour('', this.siteId);
     })
     this.tourService.getDetailTour(2).subscribe(res => {
@@ -113,36 +106,27 @@ export class SearchTourComponent implements OnInit {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.tourList = res.data.content;
+        this.tourList.forEach(item => {
+          item.numberBuyer = item.numberOfPeople - item.remainingOfPeople
+        })
       }
     });
   }
 
-  onIncreaseRoom(idx: Number) {
-    if (idx == 0) {
-      this.roomList[0].numberChildren
+  onIncrease(index: any) {
+    if (index == 1) {
+      this.noParent++;
+    } else {
+      this.noChildren++;
     }
-    let count = this.roomList.length;
-    this.roomList.push(count + 1);
   }
 
-  onIncreaseParent() {
-    this.numberParent++;
-  }
-
-  onIncreaseChildren() {
-    this.numberChildren++;
-  }
-
-  onDecreaseRoom() {
-    this.roomList.pop();
-  }
-
-  onDecreaseParent() {
-    this.numberParent--;
-  }
-
-  onDecreaseChildren() {
-    this.numberChildren--;
+  onDecrease(index: any) {
+    if (index == 1) {
+      this.noParent--;
+    } else {
+      this.noChildren--;
+    }
   }
 
   handleOk() {
@@ -182,12 +166,15 @@ export class SearchTourComponent implements OnInit {
     this.router.navigate([`/hotels/search-tour/${id}`])
   }
 
-  selectHotel(hotelId: any) {
-    this.showPeople = hotelId;
+  selectHotel(index: any, data: any) {
+    this.showPeople = index;
+    this.hotelDetail = data;
   }
 
-  cancelHotel() {
+  cancelHotel(hotelId: any) {
     this.showPeople = null;
+    this.noChildren = 0;
+    this.noParent = 0;
   }
 
   showHideTotalPrice() {
@@ -195,7 +182,21 @@ export class SearchTourComponent implements OnInit {
   }
 
   navigateBooking() {
-    this.router.navigate(['/booking']);
+    const customerId = localStorage.getItem(constants.CUSTOMER_ID) || "";
+    const paymentAmount = this.hotelList[this.showPeople]?.priceChildren * this.noChildren + this.hotelList[this.showPeople]?.priceAdult * this.noParent;
+    const data = {
+      tourId: this.tourId,
+      hotelId: this.hotelDetail.hotel.id,
+      customerId: parseInt(customerId),
+      numberAdult: this.noParent,
+      numberChildren: this.noChildren,
+      description: "",
+      paymentAmount: paymentAmount,
+    }
+    this.homeService.saveDataTour(data);
+    this.router.navigate(['/hotels/booking'], {
+      queryParams: {type: 'tour'}
+    });
   }
 }
 

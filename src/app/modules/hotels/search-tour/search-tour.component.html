@@ -58,7 +58,7 @@
                                     <div class="col-md-5">
                                         <div class="tour-box-image">
                                             <div class="image-gallery">
-                                                <img style="min-height: 250px;"
+                                                <img style="height: 250px;"
                                                     src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png"
                                                     alt="">
                                             </div>
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="tour-code">
                                                 <span>Mã SP: </span>
-                                                <span style="font-weight: 600; color: rgba(0,0,0,.65);">{{item.code}}</span>
+                                                <span style="font-weight: 600; color: rgba(0,0,0,.65);">{{item.code || 'GN00677'}}</span>
                                             </div>
                                             <div *ngIf="numberBuyer != 0" class="tour-buy">
                                                 <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="tour-box-bottom">
                                             <div class="tour-button">
-                                                <button class="g-bg-primary" (click)="handleTourSelect(1)" nz-button class="tour-pick">Mua
+                                                <button class="g-bg-primary" (click)="handleTourSelect(item.id)" nz-button class="tour-pick">Mua
                                                     ngay</button>
                                             </div>
                                         </div>
@@ -121,13 +121,13 @@
         </div>
         <div *ngIf="tourId" class="tour-detail">
             <nz-card>
-                <h4 class="title">{{tourDetail.name}}</h4>
+                <h4 class="title">{{tourDetail?.name}}</h4>
                 <div class="row">
                     <div class="col col-lg-8 detail-slider">
                         <div class="image-gallery">
                             <div class="swiper-container gallery-top">
                                 <swiper [config]="config" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()">
-                                    <ng-template *ngFor="let slide of tourDetail.images" swiperSlide>
+                                    <ng-template *ngFor="let slide of tourDetail?.images" swiperSlide>
                                         <img src={{slide?.path}} alt={{slide?.name}}>
                                     </ng-template>
                                 </swiper>
@@ -136,7 +136,7 @@
                     </div>
                     <div class="col col-lg-4">
                         <div class="row tour-price">
-                            <div class="code">Mã SP: <span style="font-weight: 600;">{{tourDetail.code}}</span></div>
+                            <div class="code">Mã SP: <span style="font-weight: 600;">{{tourDetail?.code}}</span></div>
                             <div class="price-detail">6.600.000 đ</div>
                         </div>
                         <div class="row justify-content-center align-items-center" style="margin: 0;">
@@ -188,7 +188,7 @@
                         </div>
                         <div class="col col-md-8">
                             <nz-card>
-                                <div *ngFor="let item of hotelList" class="row">
+                                <div *ngFor="let item of hotelList; let idx = index;" class="row">
                                     <div class="col col-md-6">
                                         <div class="title-service">Combo 
                                             <span *ngIf="item.tour.lengthStayId == 1">1N</span>
@@ -204,31 +204,31 @@
                                     </div>
                                     <div class="col col-md-6">
                                         <div class="d-flex justify-content-end">
-                                            <div class="price-detail" style="font-size: 24px; margin-right: 10px;">
+                                            <div *ngIf="showPeople != idx" class="price-detail" style="font-size: 24px; margin-right: 10px;">
                                                 <span>{{item.priceAdult| format}} đ</span>
                                             </div>
-                                            <button *ngIf="showPeople != 1" (click)="selectHotel(1)" class="g-bg-primary tour-select">
+                                            <button *ngIf="showPeople != idx" (click)="selectHotel(idx, item)" nz-button class="g-bg-primary hotel-select">
                                                 Đặt mua
                                             </button>
-                                            <button *ngIf="showPeople == 1" (click)="cancelHotel()" class="g-brd-primary cancel tour-select">
+                                            <button *ngIf="showPeople == idx" (click)="cancelHotel(idx)" nz-button class="g-brd-primary cancel hotel-select">
                                                 Hủy chọn
                                             </button>
                                         </div>
                                     </div>
                                     <div class="col col-md-12">
-                                        <div class="ticket-booking-items">
+                                        <div *ngIf="showPeople == idx" class="ticket-booking-items">
                                             <div class="quantity-ticket">
                                                 <div class="children">
                                                     Trẻ em từ 2 đến dưới 4 tuổi
                                                 </div>
                                                 <div class="d-flex justify-content-end">
-                                                    <div class="sale-price">3.960.000 đ</div>
+                                                    <div class="sale-price">{{item.priceChildren| format}} đ</div>
                                                     <div class="g-ml-20 text-center d-flex justify-content-center align-items-center">
-                                                        <button [disabled]="numberChildren <= 0" (click)="onDecreaseChildren()" nz-button nzType="primary">
+                                                        <button [disabled]="noChildren <= 1" (click)="onDecrease(2)" nz-button nzType="default">
                                                             <span nz-icon nzType="minus" nzTheme="outline"></span>
                                                         </button>
-                                                        <input type="text" class="text-center" [value]="numberChildren">
-                                                        <button (click)="onIncreaseChildren()" nz-button nzType="primary">
+                                                        <input type="text" readonly class="text-center" [value]="noChildren">
+                                                        <button (click)="onIncrease(2)" nz-button nzType="primary">
                                                             <span nz-icon nzType="plus" nzTheme="outline"></span>
                                                         </button>
                                                     </div>
@@ -241,11 +241,11 @@
                                                 <div class="d-flex justify-content-end">
                                                     <div class="sale-price">{{item.priceAdult| format}} đ</div>
                                                     <div class="g-ml-20 text-center d-flex justify-content-center align-items-center">
-                                                        <button [disabled]="numberParent <= 0" (click)="onDecreaseParent()" nz-button nzType="primary">
+                                                        <button [disabled]="noParent <= 1" (click)="onDecrease(1)" nz-button nzType="default">
                                                             <span nz-icon nzType="minus" nzTheme="outline"></span>
                                                         </button>
-                                                        <input type="text" class="text-center" [value]="numberParent">
-                                                        <button (click)="onIncreaseParent()" nz-button nzType="primary">
+                                                        <input type="text" readonly class="text-center" [value]="noParent">
+                                                        <button (click)="onIncrease(1)" nz-button nzType="primary">
                                                             <span nz-icon nzType="plus" nzTheme="outline"></span>
                                                         </button>
                                                     </div>
@@ -264,13 +264,13 @@
                                     <div class="col col-md-12">
                                         <nz-tabset nzType="card">
                                             <nz-tab nzTitle="Mô tả">
-                                                <div [innerHTML]="tourDetail.description"></div>
+                                                <div [innerHTML]="tourDetail?.description"></div>
                                             </nz-tab>
                                             <nz-tab nzTitle="Bao gồm">
-                                                <div [innerHTML]="tourDetail.inclusion"></div>
+                                                <div [innerHTML]="tourDetail?.inclusion"></div>
                                             </nz-tab>
                                             <nz-tab nzTitle="Điều khoản">
-                                                <div [innerHTML]="tourDetail.termsConditions"></div>
+                                                <div [innerHTML]="tourDetail?.termsConditions"></div>
                                             </nz-tab>
                                             <nz-tab nzTitle="Chính sách hoàn huỷ">- Voucher không hoàn hủy đổi dịch vụ tính từ thời điểm quý khách nhận được thư Xác nhận đặt dịch vụ từ chúng tôi.</nz-tab>
                                             <nz-tab nzTitle="Hướng dẫn sử dụng">Bước 01: Sau khi hoàn tất thanh toán, quý khách sẽ nhận được thông báo hiển thị đơn hàng thành công.
@@ -286,12 +286,29 @@
                                 <div class="ticket-detail">
                                     <div *ngIf="!hideDetail" class="title">Chi tiết đơn hàng</div>
                                     <div *ngIf="!hideDetail" class="ticket-detail-items">
-                                        <div class="name">Combo 3N2Đ lưu trú tại Vinpearl Resort & Spa Hội An</div>
-                                        <div class="row">
+                                        <div class="name">Combo 
+                                            <span *ngIf="hotelList[showPeople]== 1">1N</span>
+                                            <span *ngIf="hotelList[showPeople]== 2">2N1Đ</span>
+                                            <span *ngIf="hotelList[showPeople]== 3">3N2Đ</span>
+                                            <span *ngIf="hotelList[showPeople]== 4">4N3Đ</span>
+                                            <span *ngIf="hotelList[showPeople]== 5">5N4Đ</span>
+                                            <span *ngIf="hotelList[showPeople]== 6">6N4Đ</span>
+                                            <span *ngIf="hotelList[showPeople]== 7">6N5Đ</span>
+                                            lưu trú tại 
+                                            {{hotelList[showPeople]?.hotel?.name}}
+                                        </div>
+                                        <div *ngIf="noChildren > 0" class="row">
                                             <div class="col-5">Trẻ em từ 2 đến dưới 4 tuổi</div>
-                                            <div class="col-2 text-right">x1</div>
+                                            <div class="col-2 text-right">x{{noChildren}}</div>
                                             <div class="col-5 text-right">
-                                                <span>3.960.000 đ</span>
+                                                <span>{{(hotelList[showPeople]?.priceChildren * noChildren) | format}} đ</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="noParent > 0" class="row">
+                                            <div class="col-5">Người lớn - Phòng tiêu chuẩn</div>
+                                            <div class="col-2 text-right">x{{noParent}}</div>
+                                            <div class="col-5 text-right">
+                                                <span>{{(hotelList[showPeople]?.priceAdult * noParent) | format}} đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +316,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="title">Tổng cộng</div>
                                             <div class="price-detail" style="font-size: 24px;">
-                                                <span>6.600.000 đ</span>
+                                                <span>{{(hotelList[showPeople]?.priceChildren * noChildren) + (hotelList[showPeople]?.priceAdult * noParent) | format}} đ</span>
                                             </div>
                                         </div>
                                         <div (click)="showHideTotalPrice()" class="show-hide-total">
@@ -307,7 +324,7 @@
                                                 Chi tiết
                                                 <span style="margin-left: 10px; font-size: 10px;" nz-icon nzType="down" nzTheme="outline"></span>
                                             </span>
-                                            <span *ngIf="!hideDetail" class="d-flex align-items-center">
+                                            <span *ngIf="!hideDetail" style="cursor: pointer;" class="d-flex align-items-center">
                                                 Thu gọn
                                                 <span style="margin-left: 10px; font-size: 10px;" nz-icon nzType="up" nzTheme="outline"></span>
                                             </span>
@@ -315,8 +332,8 @@
                                         
                                     </div>
                                 </div>
-                                <div class="d-flex flex-row align-items-stretch justify-content-between">
-                                    <button (click)="navigateBooking()" class="submitting" nz-button nzType="primary">Mua ngay</button>
+                                <div class="d-flex flex-row align-items-stretch justify-content-end">
+                                    <button [disabled]="!(noParent > 0 || noChildren > 0)" (click)="navigateBooking()" class="submitting hotel-select" nz-button nzType="primary">Mua ngay</button>
                                 </div>
                             </nz-card>
                         </div>

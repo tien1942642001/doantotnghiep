@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HotelSummaryComponent } from './hotel-summary/hotel-summary.component';
 import { FormatPrice } from '../core/pipe/number.pipe';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 @NgModule({
  declarations: [
@@ -42,6 +43,7 @@ import { FormatPrice } from '../core/pipe/number.pipe';
     NzDropDownModule,
     NzToolTipModule,
     NzCardModule,
+    NzPopoverModule,
     NzCollapseModule,
     NzCheckboxModule,
     TranslateModule.forChild({

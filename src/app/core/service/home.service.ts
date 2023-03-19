@@ -13,12 +13,19 @@ export class HomeService {
   private sharingDataRoom = new BehaviorSubject('');
   dataRoom = this.sharingDataRoom.asObservable();
 
+  private sharingDataTour = new BehaviorSubject('');
+  dataTour = this.sharingDataTour.asObservable();
+
   constructor(
     private http: HttpClient
   ) {}
 
   saveDataRoom(data: any) {
     this.sharingDataRoom.next(data);
+  }
+
+  saveDataTour(data: any) {
+    this.sharingDataTour.next(data);
   }
 
   getAllHotel(pageSize: Number, pageIndex: Number, siteId: Number): Observable<any> {
@@ -51,6 +58,12 @@ export class HomeService {
     return this.http.post(APIs.API_GET_BOOKING_HOTEL, data);
   }
 
+  bookingTour(data: any): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.post(APIs.API_GET_BOOKING_TOUR, data);
+  }
+
   addPost(formData: any): Observable<any> {
     const headers = handle.requestHeadersFormData();
     let options = {headers: headers};
@@ -75,4 +88,22 @@ export class HomeService {
   checkBookingRoomOk(id: any, body: any): Observable<any> {
     return this.http.put(`${APIs.API_CHECK_BOOKING_ROOM_OK}/${id}`, body);
   };
+
+  getBookingRoomDetail(id: Number): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.get(`${APIs.API_DETAIL_BOOKING_ROOM}/${id}`)
+  }
+
+  getBookingTourDetail(id: Number): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.get(`${APIs.API_DETAIL_BOOKING_TOUR}/${id}`)
+  }
+
+  getBookingRoomByPaymentCode(code: String): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.get(`${APIs.API_BOOKING_ROOM_BY_PAYMENT_CODE}/${code}`)
+  }
 }

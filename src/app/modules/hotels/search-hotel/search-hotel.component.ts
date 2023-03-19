@@ -37,6 +37,8 @@ export class SearchHotelComponent implements OnInit {
   numberRoomType: any;
   serviceDetail: any;
   numberPerson: any;
+  nameSite: any;
+  allSite: any[] = [];
 
   noParent: any = 1;
   noChildren: any = 1;
@@ -76,6 +78,13 @@ export class SearchHotelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.homeService.getAllSite().subscribe(res => {
+      if (res.code === 200) {
+        this.allSite = res.data;
+        this.nameSite = this.allSite.find((item: any) => item.id === this.siteId).name;
+      }
+    });
+
     this.route.queryParams.subscribe(params => {
       this.siteId = parseInt(params['siteId']);
       this.arrivalDate = params['arrivalDate'];
@@ -83,6 +92,7 @@ export class SearchHotelComponent implements OnInit {
       this.noParent = parseInt(params['noParent']);
       this.noChildren = parseInt(params['noChildren']);
       this.getAllHotel(this.siteId);
+      this.nameSite = this.allSite.find((item: any) => item.id === this.siteId).name;
     })
     this.routeHotel = this.route.snapshot.params['id'];
     if (this.routeHotel) {
@@ -232,7 +242,9 @@ export class SearchHotelComponent implements OnInit {
       paymentAmount: this.serviceDetail.price * this.numberPerson,
     }
     this.homeService.saveDataRoom(data);
-    this.router.navigate(['/hotels/booking']);
+    this.router.navigate(['/hotels/booking'], {
+      queryParams: {type: 'hotel'}
+    });
   }
 
   getDay(miliDate: any) {

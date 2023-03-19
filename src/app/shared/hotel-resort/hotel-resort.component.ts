@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DisabledTimeFn } from 'ng-zorro-antd/date-picker';
@@ -31,7 +31,12 @@ export class HotelResortComponent implements OnInit {
   ) { }
 
   formHotel: FormGroup = new FormGroup({
-    siteId: new FormControl(""),
+    siteId: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.maxLength(255),
+      ],
+    }),
     rangePicker: new FormControl([new Date(), new Date().setDate(new Date().getDate() + 2)]),
   });
 
@@ -151,7 +156,12 @@ export class HotelResortComponent implements OnInit {
 
   searchHotels () {
     const formValue = this.formHotel.value;
-    console.log(formValue);
+    if (this.formHotel.invalid) {
+      for (const control of Object.keys(this.formHotel.controls)) {
+        this.formHotel.controls[control].markAsTouched();
+      }
+      return;
+    }
     if (typeof (formValue.rangePicker[0]) === 'object') {
       formValue.rangePicker[0] = formValue.rangePicker[0].getTime();
     }
