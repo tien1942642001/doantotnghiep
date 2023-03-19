@@ -55,6 +55,7 @@ export class BookingComponent implements OnInit {
         })
       }
       if (this.paymentStatus) {
+        this.currentTab = 2;
         if (this.paymentStatus == "00") {
           this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
             if (res.code === 200) {
@@ -67,20 +68,8 @@ export class BookingComponent implements OnInit {
               })
             }
           })
-          this.currentTab = 2;
         } else if (this.paymentStatus == "24") {
           alert("Hủy đơn hàng thành công!");
-          this.currentTab = 2;
-          this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
-            if (res.code === 200) {
-              // this.homeService.checkBookingRoomOk(data.id, data).subscribe(res => {
-              //   console.log(res);
-              //   if (res.code === 200) {
-                  
-              //   }
-              // })
-            }
-          })
         }
       }
     })
