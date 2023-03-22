@@ -174,6 +174,9 @@ img, svg {
 }
 
 .text-detail, .text-detail:focus, .text-detail:hover {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
     color: #2a398c;
 }
 
@@ -382,7 +385,7 @@ input:not(:placeholder-shown) {
 
 // custom checkbox
 
-.custom-checkbox .ant-checkbox-wrapper {
+.custom-checkbox.ant-checkbox-wrapper, .custom-checkbox .ant-checkbox-wrapper {
     width: 100%;
     font-weight: 500;
     font-size: 13px;
@@ -396,6 +399,14 @@ input:not(:placeholder-shown) {
 .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
     background-color: #f39f2d!important;
     border-color: #f39f2d!important;
+}
+
+.custom-checkbox .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+    background-color: #f39f2d;
+}
+
+.custom-checkbox .ant-checkbox-input:focus+.ant-checkbox-inner, .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner {
+    border-color: #f39f2d;
 }
 
 // custom input
@@ -452,6 +463,7 @@ input:not(:placeholder-shown) {
 
 nz-date-picker {
     width: 100%;
+    height: 40px;
 }
 
 .ant-popover-title {

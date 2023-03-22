@@ -15,11 +15,14 @@ import { HomeService } from 'src/app/core/service/home.service';
 export class MyOrderComponent implements OnInit {
   currentUrl: any;
   fullName: any;
-  customerId: any;
+  customerId: any = localStorage.getItem(constants.CUSTOMER_ID);
   isSpinning = false;
   pageSize: any = 10;
   pageIndex: any = 0;
-  listOfData: any[] = [];
+  listOfDataHotel: any[] = [];
+  listOfDataTour: any[] = [];
+  totalItemHotel: any;
+  totalItemTour: any;
 
   constructor(
     private route: Router,
@@ -30,34 +33,38 @@ export class MyOrderComponent implements OnInit {
   ngOnInit(): void {
     const formData = this.formMyOrder.value;
       const startTime = formData.rangePicker[0] ? formData.rangePicker[0] : "";
-      const endTime = formData.rangePicker[0] ? formData.rangePicker[0] : "";
+      const endTime = formData.rangePicker[1] ? formData.rangePicker[1] : "";
+      const typeOfStatus = formData.typeOfStatus ? formData.typeOfStatus : "";
       if (formData.typeOfService == "1") {
-        this.homeService.searchBookingRoom(this.customerId, formData.code, formData.typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+        this.homeService.searchBookingRoom(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
           if (res.code === 200) {
-            this.listOfData = res.data.content;
+            this.listOfDataHotel = res.data.content;
+            this.totalItemHotel = res.data.totalElements;
           }
         })
       } else if (formData.typeOfService == "3") {
-        this.homeService.searchBookingTour(this.customerId, formData.code, formData.typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+        this.homeService.searchBookingTour(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
           if (res.code === 200) {
-            this.listOfData = res.data.content;
+            this.listOfDataTour = res.data.content;
+            this.totalItemTour = res.data.totalElements;
           }
         })
       } 
 
       this.formMyOrder.valueChanges.subscribe(selectedValue  => {
         const startTime = selectedValue.rangePicker[0] ? selectedValue.rangePicker[0] : "";
-        const endTime = selectedValue.rangePicker[0] ? selectedValue.rangePicker[0] : "";
+        const endTime = selectedValue.rangePicker[1] ? selectedValue.rangePicker[1] : "";
+        const typeOfStatus = formData.typeOfStatus ? formData.typeOfStatus : "";
         if (selectedValue.typeOfService == "1") {
-          this.homeService.searchBookingRoom(this.customerId, selectedValue.code, selectedValue.typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+          this.homeService.searchBookingRoom(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
             if (res.code === 200) {
-              this.listOfData = res.data.content;
+              this.listOfDataHotel = res.data.content;
             }
           })
         } else if (selectedValue.typeOfService == "3") {
-          this.homeService.searchBookingTour(this.customerId, selectedValue.code, selectedValue.typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+          this.homeService.searchBookingTour(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
             if (res.code === 200) {
-              this.listOfData = res.data.content;
+              this.listOfDataTour = res.data.content;
             }
           })
         }
@@ -79,7 +86,17 @@ export class MyOrderComponent implements OnInit {
   })
 
   navigateOderDetail(id: any) {
-    this.route.navigate([`/user/my-order/${id}`]);
+    const formData = this.formMyOrder.value;
+    let type;
+    if (formData.typeOfService == "1") {
+      type = "hotel";
+    } else if (formData.typeOfService == "3") {
+      type = "tour";
+    }
+
+    this.route.navigate([`/user/my-order/${id}`], {
+      queryParams: {type: type}
+    });
   }
 
 }

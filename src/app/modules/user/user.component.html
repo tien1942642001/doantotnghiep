@@ -14,18 +14,18 @@
         </span>
     </div>
     <div class="content">
-        <p (click)="navigateUserProfile(1)" [className]="currentUrl == '/user/user-profile' ? 'menu-user-item active' : 'menu-user-item' ">
+        <p class="menu-user-item" (click)="navigateUserProfile(1)" [class.active]="currentUrl.includes('user/user-profile')">
             <img src="../../../assets/icon/user.svg" alt="">
             Thông tin tài khoản
         </p>
-        <p (click)="navigateUserProfile(2)" [className]="currentUrl == '/user/my-order' ? 'menu-user-item active' : 'menu-user-item' ">
+        <p class="menu-user-item" (click)="navigateUserProfile(2)" [class.active]="currentUrl.includes('user/my-order')">
             <img src="../../../assets/icon/order.svg" alt="">
             Đơn hàng của tôi
         </p>
-        <p (click)="navigateUserProfile(3)" [className]="currentUrl == '/user/my-post' ? 'menu-user-item active' : 'menu-user-item' ">
+        <p class="menu-user-item" (click)="navigateUserProfile(3)" [class.active]="currentUrl.includes('user/my-post')">
             <img src="../../../assets/icon/cost.svg" alt="">
             Bài viết của tôi</p>
-        <p (click)="navigateUserProfile(4)" class="menu-user-item">
+        <p class="menu-user-item" (click)="navigateUserProfile(4)">
             <img src="../../../assets/icon/Logout.svg" alt="">
             Đăng xuất
         </p>

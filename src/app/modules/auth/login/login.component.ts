@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Location } from '@angular/common';
 import constants from 'src/app/core/constants/constants';
+import { REGEX_PATTERN } from 'src/app/core/constants/pattern';
 
 @Component({
   selector: 'app-login',
@@ -46,33 +47,41 @@ export class LoginComponent implements OnInit {
   buildForm() {
     this.formLogin = new FormGroup({
       email: new FormControl('', {
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(REGEX_PATTERN.EMAIL),
+        ]
       }),
       password: new FormControl('', {
         validators: [
           Validators.required,
-          Validators.pattern(''),
         ],
       }),
     });
 
     this.formRegister = new FormGroup({
       email: new FormControl('', {
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(REGEX_PATTERN.EMAIL),
+        ]
       }),
       fullName: new FormControl('', {
-        validators: [Validators.required]
+        validators: [
+          Validators.required,
+          Validators.maxLength(100),
+        ]
       }),
       password: new FormControl('', {
         validators: [
           Validators.required,
-          Validators.pattern(''),
         ],
       }),
       confirmPassword: new FormControl('', {
         validators: [
           Validators.required,
-          Validators.pattern(''),
         ],
       }),
     })
@@ -94,7 +103,12 @@ export class LoginComponent implements OnInit {
     var email = body.email;
     var password = body.password;
     var remember = body.remember;
-
+    if (this.formLogin.invalid) {
+      for (const control of Object.keys(this.formLogin.controls)) {
+        this.formLogin.controls[control].markAsTouched();
+      }
+      return;
+    }
     if (remember) {
       localStorage.setItem(constants.REMEMBER_ME, 'true');
       localStorage.setItem(constants.EMAIL_REMEMBER, email);
@@ -118,6 +132,12 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
+    if (this.formRegister.invalid) {
+      for (const control of Object.keys(this.formRegister.controls)) {
+        this.formRegister.controls[control].markAsTouched();
+      }
+      return;
+    }
     const formValue = this.formRegister.value;
     const body = {
       fullName: formValue.fullName,

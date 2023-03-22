@@ -73,10 +73,16 @@ export class HomeService {
     });
   };
 
+  searchPost(pageSize: Number, pageIndex: Number): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_SEARCH_POST}?page=${pageIndex}&size=${pageSize}`, options)
+  }
+
   searchBookingRoom(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_BOOKING_ROOM}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_SEARCH_BOOKING_ROOM}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}`, options)
   }
 
   searchBookingTour(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number): Observable<any> {
@@ -105,5 +111,11 @@ export class HomeService {
     // const headers = handle.requestHeaders();
     // let options = {headers: headers};
     return this.http.get(`${APIs.API_BOOKING_ROOM_BY_PAYMENT_CODE}/${code}`)
+  }
+
+  getBookingTourByPaymentCode(code: String): Observable<any> {
+    // const headers = handle.requestHeaders();
+    // let options = {headers: headers};
+    return this.http.get(`${APIs.API_BOOKING_TOUR_BY_PAYMENT_CODE}/${code}`)
   }
 }

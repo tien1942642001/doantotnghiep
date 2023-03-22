@@ -10,16 +10,31 @@
                             <nz-collapse [nzBordered]="false" [nzAccordion]="false">
                                 <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="'Loại sản phẩm'" [nzActive]="true"
                                     [nzDisabled]="true" class="custom-borderless-collapse-panel">
-                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsService"
-                                        (ngModelChange)="onChangeService(checkOptionsService)">
+                                    <label
+                                        class="custom-checkbox"
+                                        nz-checkbox
+                                        [(ngModel)]="allCheckedTypeOfTour"
+                                        (ngModelChange)="updateAllCheckedTypeOfTour()"
+                                        [nzIndeterminate]="indeterminateTypeOfTour"
+                                    >
+                                        Tất cả
+                                    </label>
+                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsTypeOfTour"
+                                        (ngModelChange)="updateSingleChecked()">
+                                        <label nz-checkbox *ngFor="let option of checkOptionsTypeOfTour" [nzValue]="option.value">
+                                            {{ option.label }}
+                                        </label>
                                     </nz-checkbox-group>
                                 </nz-collapse-panel>
                             </nz-collapse>
                             <nz-collapse [nzBordered]="false" [nzAccordion]="false">
                                 <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="'Độ dài kì nghỉ'" [nzActive]="true"
                                     [nzDisabled]="true" class="custom-borderless-collapse-panel">
-                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsAccommodation"
-                                        (ngModelChange)="onChangeService(checkOptionsAccommodation)">
+                                    <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsLengthStayIds"
+                                        (ngModelChange)="onChangeLengthStay($event)">
+                                        <label nz-checkbox *ngFor="let option of checkOptionsLengthStayIds" [nzValue]="option.value">
+                                            {{ option.label }}
+                                        </label>
                                     </nz-checkbox-group>
                                 </nz-collapse-panel>
                             </nz-collapse>
@@ -43,9 +58,9 @@
                             <div class="select-sort">
                                 <nz-select ngModel="jack" [nzSuffixIcon]="customIcon" class="custom-select"
                                     [nzDropdownClassName]="''">
-                                    <nz-option nzValue="jack" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
-                                    <nz-option nzValue="lucy" nzLabel="Giá thấp đến cao"></nz-option>
-                                    <nz-option nzValue="disabled" nzLabel="Giá cao đến thấp"></nz-option>
+                                    <nz-option nzValue="0" nzLabel="Gợi ý từ Vinpearl">Gợi ý từ Vinpearl</nz-option>
+                                    <nz-option nzValue="1" nzLabel="Giá thấp đến cao"></nz-option>
+                                    <nz-option nzValue="2" nzLabel="Giá cao đến thấp"></nz-option>
                                 </nz-select>
                                 <ng-template #customIcon>
                                     <img src="../../../../assets/icon/arrow-select.svg" alt="">

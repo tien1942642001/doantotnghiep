@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,6 +19,8 @@ export class BookingComponent implements OnInit {
   inputValue?: string;
   detailRoom: any;
   detailTour: any;
+  detaiBookingRoom: any;
+  detailBookingTour: any;
   subscription!: Subscription;
   paymentStatus: any;
   paymentCode: any;
@@ -30,6 +32,7 @@ export class BookingComponent implements OnInit {
     private location: Location,
     private homeService: HomeService,
     private authService: AuthService,
+    private el: ElementRef,
   ) { }
 
   ngOnInit(): void {
@@ -60,11 +63,13 @@ export class BookingComponent implements OnInit {
           this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
             if (res.code === 200) {
               const data = res.data;
-              this.homeService.checkBookingRoomOk(data.id, data).subscribe(res => {
+              this.detaiBookingRoom = data;
+              this.homeService.checkBookingRoomOk(this.paymentCode, data).subscribe(res => {
                 console.log(res);
-                if (res.code === 200) {
-                  
-                }
+              })
+            } else {
+              this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
+                console.log(res);
               })
             }
           })
@@ -83,7 +88,7 @@ export class BookingComponent implements OnInit {
           gender: String(data.sex),
           email: data.email,
           phone: data.phone,
-          nationality: "Việt Nam",
+          nationality: data.nationality,
           checkResident: true,
         })
       }
@@ -94,7 +99,6 @@ export class BookingComponent implements OnInit {
     gender: new FormControl('3', {
       validators: [
         Validators.required,
-        Validators.maxLength(255),
       ],
     }),
     name: new FormControl('', {
@@ -113,7 +117,7 @@ export class BookingComponent implements OnInit {
     phone: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.maxLength(255),
+        Validators.pattern(REGEX_PATTERN.PHONE),
       ],
     }),
     nationality: new FormControl('', {
@@ -131,13 +135,47 @@ export class BookingComponent implements OnInit {
     this.location.back();
   }
 
+  navigateHome() {
+    this.router.navigate(["/home"]);
+  }
+
   log(value: string[]): void {
     console.log(value);
+    this.detailRoom.description = value.join(", ");
   }
 
   submitForm() {
+    if (this.formHotel.invalid) {
+      for (const control of Object.keys(this.formHotel.controls)) {
+        this.formHotel.controls[control].markAsTouched();
+        if (this.formHotel.controls[control].invalid) {
+          const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + control + '"]');
+          invalidControl.focus();
+          break;
+       }
+      }
+      return;
+    }
+    const formValue = this.formHotel.value;
+    const data = {
+      fullName:  formValue.name,
+      phone:  formValue.phone,
+      email:  formValue.email,
+      sex:  formValue.gender,
+      nationality:  formValue.nationality,
+    }
+    this.authService.update(this.customerId, data).subscribe(res => {
+      if (res.code === 200) {
+        // this.toast.success()
+      }
+    })
+
     if (this.typeBooking == "hotel") {
-      this.detailRoom.description = "Đặt hàng tại Vinpearl";
+      // this.detailRoom.description = "Đặt hàng tại Vinpearl";
+      if (this.formHotel.value.textarea) {
+        this.detailRoom.description += ", " + this.formHotel.value.textarea;
+      }
+      console.log(this.detailRoom);
       this.homeService.bookingRoom(this.detailRoom).subscribe({
         next: res => {
           this.detailRoom = res;

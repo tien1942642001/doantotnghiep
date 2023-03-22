@@ -11,10 +11,10 @@ export class TourService {
     private http: HttpClient
   ) {}
 
-  getAllTour(name: any, siteId: any, pageSize: Number, pageIndex: Number): Observable<any> {
+  getAllTour(name: any, siteId: any, suitableIds: any, lengthStayIds: any, pageSize: Number, pageIndex: Number): Observable<any> {
     // const headers = handle.requestHeaders();
     // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_TOUR}?name=${name}&siteId=${siteId}&page=${pageIndex}&size=${pageSize}`)
+    return this.http.get(`${APIs.API_SEARCH_TOUR}?name=${name}&suitableIds=${suitableIds}&lengthStayIds=${lengthStayIds}&siteId=${siteId}&page=${pageIndex}&size=${pageSize}`)
   }
 
   getDetailTour(id: Number): Observable<any> {

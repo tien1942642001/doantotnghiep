@@ -15,6 +15,8 @@ import { MyOrderComponent } from './my-order/my-order.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserComponent } from './user.component';
 import { UserRoutingModule } from './user-routing.module';
+import { DetailOrderComponent } from './detail-order/detail-order.component';
+import { SharedModule } from 'src/app/shared/share.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { UserRoutingModule } from './user-routing.module';
     UserProfileComponent,
     MyPostComponent,
     MyOrderComponent,
+    DetailOrderComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { UserRoutingModule } from './user-routing.module';
     NzButtonModule,
     NzGridModule,
     NzInputModule,
+    SharedModule,
   ]
 })
 export class UserModule { }

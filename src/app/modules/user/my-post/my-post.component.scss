@@ -20,6 +20,11 @@
 }
 
 .user-setting-left {
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ced4da;
     .box-info {
         padding: 10px;
         display: flex;
@@ -208,6 +213,11 @@
   }
   
   .post {
+    border: 1px solid rgb(206, 212, 218);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 17px;
+    line-height: 20px;
     a {
       display: block;
     }

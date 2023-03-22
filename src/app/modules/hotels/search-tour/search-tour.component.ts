@@ -41,28 +41,60 @@ export class SearchTourComponent implements OnInit {
   hotelList: any[] = [];
   hideDetail: boolean = false;
 
-  checkOptionsService: any[] = [
-    { value: 1, label: 'Tất cả', checked: true },
-    { value: 2, label: 'Gói nghỉ dưỡng', checked: true },
-    { value: 3, label: 'VinWonders', checked: true },
-    { value: 4, label: 'Vận chuyển', checked: true },
-    { value: 5, label: 'Vinpearl Golf', checked: true },
+  suitableList: any[] = [];
+  lengthStayIdList: any[] = [];
+
+  allCheckedTypeOfTour = true;
+  indeterminateTypeOfTour = true;
+  
+  updateAllCheckedTypeOfTour(): void {
+    this.indeterminateTypeOfTour = false;
+    if (this.allCheckedTypeOfTour) {
+      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
+        ...item,
+        checked: true
+      }));
+    } else {
+      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
+        ...item,
+        checked: false
+      }));
+    }
+  }
+
+  updateSingleChecked(): void {
+    if (this.checkOptionsTypeOfTour.every(item => !item.checked)) {
+      this.allCheckedTypeOfTour = false;
+      this.indeterminateTypeOfTour = false;
+    } else if (this.checkOptionsTypeOfTour.every(item => item.checked)) {
+      this.allCheckedTypeOfTour = true;
+      this.indeterminateTypeOfTour = false;
+    } else {
+      this.indeterminateTypeOfTour = true;
+    }
+    console.log(this.checkOptionsTypeOfTour);
+  }
+
+  checkOptionsTypeOfTour: any[] = [
+    { value: 1, label: 'Gói nghỉ dưỡng', checked: true },
+    { value: 2, label: 'VinWonders', checked: true },
+    { value: 3, label: 'Vận chuyển', checked: true },
+    { value: 4, label: 'Vinpearl Golf', checked: true },
     { value: 5, label: 'Ẩm thực', checked: true },
-    { value: 5, label: 'Tour', checked: true },
-    { value: 5, label: 'Vé tham quan', checked: true },
-    { value: 5, label: 'Spa', checked: true },
+    { value: 6, label: 'Tour', checked: true },
+    { value: 7, label: 'Vé tham quan', checked: true },
+    { value: 8, label: 'Spa', checked: true },
   ];
 
-  checkOptionsAccommodation: any[] = [
-    { value: 1, label: 'Tất cả', checked: true },
-    { value: 2, label: '1 ngày', checked: true },
-    { value: 3, label: '2 ngày 1 đêm', checked: true },
+  checkOptionsLengthStayIds: any[] = [
+    { value: 1, label: '1 ngày', checked: true },
+    { value: 2, label: '2 ngày 1 đêm', checked: true },
     { value: 3, label: '3 ngày 2 đêm', checked: true },
-    { value: 3, label: '4 ngày 3 đêm', checked: true },
-    { value: 3, label: '5 ngày 4 đêm', checked: true },
-    { value: 3, label: '6 ngày 4 đêm', checked: true },
-    { value: 3, label: '6 ngày 5 đêm', checked: true },
-    { value: 3, label: '22 ngày 21 đêm', checked: true },
+    { value: 4, label: '4 ngày 3 đêm', checked: true },
+    { value: 5, label: '5 ngày 4 đêm', checked: true },
+    { value: 6, label: '6 ngày 4 đêm', checked: true },
+    { value: 7, label: '6 ngày 5 đêm', checked: true },
+    { value: 8, label: '22 ngày 21 đêm', checked: true },
   ];
 
   checkTourSelect: any;
@@ -89,7 +121,7 @@ export class SearchTourComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.siteId = params['siteId'] ? parseInt(params['siteId']) : '';
-      this.getAllTour('', this.siteId);
+      this.getAllTour('', this.siteId, this.suitableList, this.lengthStayIdList);
     })
     this.tourService.getDetailTour(2).subscribe(res => {
       if (res.code === 200) {
@@ -101,8 +133,8 @@ export class SearchTourComponent implements OnInit {
     this.tourId = this.route.snapshot.params['id'];
   }
 
-  getAllTour(name: any, leavingToId: Number) {
-    this.tourService.getAllTour(name, leavingToId, this.pageSize, this.pageIndex).subscribe(res => {
+  getAllTour(name: any, leavingToId: Number, suitableList: any, lengthStayIdList: any) {
+    this.tourService.getAllTour(name, leavingToId, suitableList, lengthStayIdList, this.pageSize, this.pageIndex).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.tourList = res.data.content;
@@ -139,10 +171,10 @@ export class SearchTourComponent implements OnInit {
     rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
   });
 
-  searchHotels () {
-    const formValue = this.formGroup.value;
-    this.getAllTour(formValue.name, formValue.selectedSite);
-  }
+  // searchHotels () {
+  //   const formValue = this.formGroup.value;
+  //   this.getAllTour(formValue.name, formValue.selectedSite);
+  // }
 
   handleCheckFocus(name: any) {
     if (name == "focus") {
@@ -158,8 +190,18 @@ export class SearchTourComponent implements OnInit {
     console.log("reset");
   }
 
-  onChangeService(value: object[]): void {
+  onChangeTypeOfTour(value: any): void {
     console.log(value);
+    console.log(this.checkOptionsLengthStayIds);
+    this.getAllTour('', this.siteId, value, this.lengthStayIdList);
+    this.suitableList = value;
+  }
+
+  onChangeLengthStay(value: any): void {
+    console.log(value);
+    console.log(this.checkOptionsLengthStayIds);
+    this.getAllTour('', this.siteId, this.lengthStayIdList, value);
+    this.lengthStayIdList = value;
   }
 
   handleTourSelect(id: Number) {

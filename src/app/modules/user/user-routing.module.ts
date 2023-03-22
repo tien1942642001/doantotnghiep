@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailOrderComponent } from './detail-order/detail-order.component';
 import { MyOrderComponent } from './my-order/my-order.component';
 import { MyPostComponent } from './my-post/my-post.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: "my-order/:id",
-    component: MyOrderComponent,
+    component: DetailOrderComponent,
   },
   {
     path: "my-post",

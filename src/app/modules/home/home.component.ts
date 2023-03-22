@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   showDropMoney: Boolean = false;
   showDropLanguage: Boolean = false;
   placementSelect: NzSelectPlacementType = 'bottomLeft';
-  currentDate = new Date().getTime()
+  currentDate = new Date().getTime();
+  listOfPost: any[] = [];
 
   bookingTypes: any[] = [
     {
@@ -101,7 +102,12 @@ export class HomeComponent implements OnInit {
       ]
     }
     ];
-    console.log(this.route.url);
+
+    this.homeService.searchPost(3, 0).subscribe(res => {
+      if (res.code == 200) {
+        this.listOfPost = res.data.content;
+      }
+    })
   }
 
   selectedIndexChange(idx: any) {
@@ -132,6 +138,14 @@ export class HomeComponent implements OnInit {
     this.route.navigate(['hotels/search-tour'], {
       queryParams: {siteId: id}
     });
+  }
+
+  navigatePostList() {
+    this.route.navigate(['/post/post-list']);
+  }
+
+  navigateDetailPost(id: any) {
+    this.route.navigate([`/post/detail/${id}`]);
   }
 
 }

@@ -1,1 +1,22 @@
-<p>post-list works!</p>
+<div class="post-list">
+    <div class="container">
+        <h2 class="homepage-title">Tất cả bài viết</h2>
+        <div class="row">
+            <div *ngFor="let item of listOfPost; let idx = index;" class="col col-md-4">
+                <a (click)="navigateDetailPost(item.id)">
+                    <!-- <div class='post-item'>
+                        <img class="post-image" src={{item.path}} alt="" />
+                        <h5 class="post-title">{{item.title}}</h5>
+                        <div class="post-excerpt">{{item.excerpt}}</div>
+                    </div> -->
+                    <div class="img-wrapper">
+                        <img src={{item.path}} alt="">
+                    </div>
+                    <div class="item-title three_dots_2">
+                        <a>{{item.name}}</a>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

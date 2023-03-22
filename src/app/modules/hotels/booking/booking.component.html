@@ -2,9 +2,13 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="progress-bar-custom">
-                <div (click)="selectRoomAgagin()" class="select-room-again">
+                <div *ngIf="currentTab == 1" (click)="selectRoomAgagin()" class="select-room-again">
                     <img src="../../../../assets/icon/fi-rr-angle-small-left.c7c34bf2.svg" alt="">
                     Chọn phòng
+                </div>
+                <div *ngIf="currentTab == 2" (click)="navigateHome()" class="select-room-again">
+                    <img src="../../../../assets/icon/fi-rr-angle-small-left.c7c34bf2.svg" alt="">
+                    Về Trang chủ
                 </div>
                 <nz-steps [nzCurrent]="currentTab" nzSize="small">
                     <nz-step nzTitle="Chọn phòng">Chọn phòng</nz-step>
@@ -28,7 +32,12 @@
                                         <label nz-radio nzValue="3">Khác</label>
                                       </nz-radio-group>
                                 </nz-form-control>
-                              </nz-form-item >
+                                <div *ngIf="this.formHotel.controls['gender'].invalid && (this.formHotel.controls['gender'].dirty || this.formHotel.controls['gender'].touched)">
+                                    <div class="error" *ngIf="this.formHotel.controls['gender'].hasError('required')">
+                                        Vui lòng chọn Danh xưng
+                                    </div>
+                                </div>
+                            </nz-form-item >
                         </div>
                         <div class="ant-col ant-col-md-12">
                             <nz-form-item>
@@ -52,6 +61,14 @@
                                 <nz-form-control [nzSpan]="22">
                                     <input nz-input formControlName="phone" name="phone" type="phone" id="phone">
                                 </nz-form-control>
+                                <div *ngIf="this.formHotel.controls['phone'].invalid && (this.formHotel.controls['phone'].dirty || this.formHotel.controls['phone'].touched)">
+                                    <div class="error" *ngIf="this.formHotel.controls['phone'].hasError('required')">
+                                        Vui lòng nhập Số điện thoại
+                                    </div>
+                                    <div class="error" *ngIf="this.formHotel.controls['phone'].hasError('pattern')">
+                                        Số điện thoại không đúng định dạng
+                                    </div>
+                                </div>
                             </nz-form-item >
                         </div>
                         <div class="ant-col ant-col-md-12">
@@ -60,13 +77,24 @@
                                 <nz-form-control [nzSpan]="22">
                                     <input placeholder="abc@xxx.com" nz-input formControlName="email" name="email" type="email" id="email">
                                 </nz-form-control>
+                                <div *ngIf="this.formHotel.controls['email'].invalid && (this.formHotel.controls['email'].dirty || this.formHotel.controls['email'].touched)">
+                                    <div class="error" *ngIf="this.formHotel.controls['email'].hasError('required')">
+                                        Vui lòng nhập Email
+                                    </div>
+                                    <div class="error" *ngIf="this.formHotel.controls['email'].hasError('maxLength')">
+                                        Độ dài Email tối đa 255 ký tự
+                                    </div>
+                                    <div class="error" *ngIf="this.formHotel.controls['email'].hasError('pattern')">
+                                      Email không đúng định dạng
+                                  </div>
+                                </div>
                             </nz-form-item >
                         </div>
                         <div class="ant-col ant-col-md-12">
                             <nz-form-item>
                                 <nz-form-label nzRequired [nzSpan]="22" nzFor="nationality">Vùng quốc gia</nz-form-label>
                                 <nz-form-control [nzSpan]="22">
-                                    <input nz-input>
+                                    <input formControlName="nationality" name="nationality" type="nationality" id="nationality"  nz-input>
                                 </nz-form-control>
                             </nz-form-item >
                         </div>
@@ -135,49 +163,190 @@
         </div>
     </div>
     <div *ngIf="currentTab == 2" class="row">
-        <div class="depost__cars">
-            <div class="container">
-                <div class='depost__success row'>
-                    <div class="depost__success__left l-6">
-                        <div class="img">
-                            <img src="http://localhost:3000/images/thanks-page.png" alt="thank-page" />
+        <div class="detail-order">
+            <div class="detail-order-title">Chi tiết đơn hàng</div>
+            <div class="detail-order-box">
+                <div class="detail-order-box-item">
+                    <span class="label">Mã đơn hàng:</span>
+                    <span class="value">{{detaiBookingRoom?.code}}</span>
+                </div>
+                <div class="detail-order-box-item">
+                    <span class="label">Trạng thái:</span>
+                    <span class="value">
+                        <span *ngIf="detaiBookingRoom?.paymentStatus == 0" class="my-order-status fail">Đã hủy</span>
+                        <span *ngIf="detaiBookingRoom?.paymentStatus == 1" class="my-order-status success">Thành công</span>
+                        <span *ngIf="detaiBookingRoom?.paymentStatus == 2" class="my-order-status pending">Đã hoàn</span>
+                        <span *ngIf="detaiBookingRoom?.paymentStatus == 3" class="my-order-status pending">Chờ xử lý</span>
+                    </span>
+                </div>
+                <div class="detail-order-box-item">
+                    <span class="label">Tổng tiền thanh toán:</span>
+                    <span class="value">{{detaiBookingRoom?.paymentAmount | format}} đ</span>
+                </div>
+            </div>
+            <div class="detail-order-title">Thông tin người đặt</div>
+            <div class="detail-order-box">
+                <div class="detail-order-box-item">
+                    <span class="label">Tên khách hàng:</span>
+                    <span class="value">{{detaiBookingRoom?.customer.fullName}}</span>
+                </div>
+                <div class="detail-order-box-item">
+                    <span class="label">Email khách hàng:</span>
+                    <span class="value">{{detaiBookingRoom?.customer.email}}</span>
+                </div>
+                <div class="detail-order-box-item">
+                    <span class="label">Số điện thoại:</span>
+                    <span class="value">{{detaiBookingRoom?.customer.phone}}</span>
+                </div>
+                <div class="detail-order-box-item">
+                    <span class="label">Thời gian giao dịch:</span>
+                    <span class="value">{{detaiBookingRoom?.paymentDate | date : "HH:mm dd/MM/YYYY"}}</span>
+                </div>
+            </div>
+            <div class="detail-order-title">Thông tin đơn hàng</div>
+            <div class="detail-order-box">
+                <div class="d-flex flex-column flex-md-row">
+                    <div class="item-image">
+                        <img [src]="detaiBookingRoom?.hotel.images[0].path" alt="">
+                    </div>
+                    <div class="name-desc">
+                        <div class="name">{{detaiBookingRoom?.hotel.name}}</div>
+                        <div class="desc">
+                            <div>{{detaiBookingRoom?.hotel.address}}</div>
+                            <div></div>
+                        </div>
+                        <div class="alert">
+                            <div></div>
+                            <div class="text-center">
+                                <div>Nhận phòng</div>
+                                <div style="font-size: 20px;">{{detaiBookingRoom?.checkIn | date: "dd/MM/YYYY"}}</div>
+                                <div>{{detaiBookingRoom?.checkIn | date: "HH:mm"}}</div>
+                            </div>
+                            <img src="../../../../assets/icon/Hotel.3f6dc87f.svg" alt="">
+                            <div>
+                                <div>Nhận phòng</div>
+                                <div style="font-size: 20px;">{{detaiBookingRoom?.checkOut | date: "dd/MM/YYYY"}}</div>
+                                <div>{{detaiBookingRoom?.checkOut | date: "HH:mm"}}</div>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="detail-order-box-item">
+                            <span class="label">Số lượng phòng:</span>
+                            <span class="value">01</span>
+                        </div>
+                        <div class="detail-order-box-item">
+                            <span class="label">Số lượng:</span>
+                            <span class="value">
+                                <span *ngIf="detaiBookingRoom?.numberAdult < 10 && detaiBookingRoom?.numberAdult > 0">{{detaiBookingRoom?.numberAdult}} Người lớn</span>
+                                <span *ngIf="detaiBookingRoom?.numberAdult >= 10">{{detaiBookingRoom?.numberAdult}} Người lớn</span>
+                                <span *ngIf="detaiBookingRoom?.numberChildren < 10 && detaiBookingRoom?.numberChildren > 0">, {{detaiBookingRoom?.numberChildren}} Trẻ em</span>
+                                <span *ngIf="detaiBookingRoom?.numberChildren >= 10">, {{detaiBookingRoom?.numberChildren}} Người lớn</span>
+                            </span>
                         </div>
                     </div>
-                    <div class="depost__success__right l-6">
-                        <h2>Đặt hàng thành công</h2>
-                        <p>
-                            Kính gửi Quý khách
-                            <strong> customer.nameText</strong>
-                        </p>
-                        <p style="margin-bottom: 15px">
-                            Cảm ơn Quý khách đã đặt mua xe VinFast tại Vinfastauto.com.
-                            <br />
-                            Chúng tôi xin thông báo tình trạng đơn hàng của Quý khách:
-                        </p>
-                        <p>
-                            <strong>Đơn hàng: </strong>
-                            <strong>VinFast customer.nameCar</strong>
-                        </p>
-                        <p style="margin-bottom: 15px">
-                            <strong>Trạng thái đơn hàng: </strong>
-                            <span style="color: #2c72c6; font-weight: 600">Đang xử lý</span>
-                        </p>
-                        <p>
-                            <strong>Phiên bản: </strong>
-                            <span>Tiêu Chuẩn</span>
-                        </p>
-                        <p>
-                            <strong>Số tiền thanh toán: </strong>
-                            <span>customer.money đồng</span>
-                        </p>
-                        <p style="margin-bottom: 15px">
-                            <strong>Phương thức thanh toán: </strong>
-                            <span>customer.payment</span>
-                        </p>
-                        <p style="margin-bottom: 15px">Chúng tôi sẽ cập nhật tình trạng đơn hàng của Quý khách trong thời gian sớm nhất.</p>
-                        <p style="margin-bottom: 40px">Trân trọng!</p>
-                        <div class="group__button">
-                            <a href="/">Trở về trang chủ</a>
+                </div>
+                <div class="content">
+                    <hr>
+                    <div class="title">
+                        1x {{detaiBookingRoom?.hotel.name}}
+                    </div>
+                    <div style="color: #2a398c;">
+                        {{detaiBookingRoom?.hotel.name}}
+                    </div>
+                    <div class="detail-order-box-item">
+                        <span class="label">Tên gói:</span>
+                        <span class="value">{{detaiBookingRoom?.service.name}}</span>
+                    </div>
+                    <div class="detail-order-box-item">
+                        <span class="label">Thông tin gói phòng:</span>
+                        <span class="value">{{detaiBookingRoom?.service.name}}</span>
+                    </div>
+                    <div class="detail-order-box-item">
+                        <span class="label">Số lượng:</span>
+                        <span class="value">
+                            <span class="value">
+                                <span *ngIf="detaiBookingRoom?.numberAdult < 10 && detaiBookingRoom?.numberAdult > 0">{{detaiBookingRoom?.numberAdult}} Người lớn</span>
+                                <span *ngIf="detaiBookingRoom?.numberAdult >= 10">{{detaiBookingRoom?.numberAdult}} Người lớn</span>
+                                <span *ngIf="detaiBookingRoom?.numberChildren < 10 && detaiBookingRoom?.numberChildren > 0">, {{detaiBookingRoom?.numberChildren}} Trẻ em</span>
+                                <span *ngIf="detaiBookingRoom?.numberChildren >= 10">, {{detaiBookingRoom?.numberChildren}} Người lớn</span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="detail-order-box-item">
+                        <span class="label">Chính sách hoàn hủy:</span>
+                        <span class="value">Không hoàn/ hủy</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="typeBooking == 'tour'" class="detail-order-box">
+                <div class="d-flex flex-column flex-md-row">
+                    <div class="item-image">
+                        <img [src]="detaiBookingRoom?.hotel.images[0].path" alt="">
+                    </div>
+                    <div class="name-desc">
+                        <div class="name">{{detaiBookingRoom?.hotel.name}}</div>
+                        <div class="desc">
+                            <div>Bao gồm: </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="content">
+                    <div class="title">
+                        Địa điểm áp dụng:
+                    </div>
+                    <div style="color: #2a398c;">
+                        {{detaiBookingRoom?.hotel.name}}
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="icon">
+                            <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
+                        </div>
+                        <div class="date-value">
+                            <span>Ngày đến: </span>
+                            <span style="font-weight: 600;">17/12/2022</span>
+                        </div>
+                        <div> - </div>
+                        <div class="date-value">
+                            <span>Ngày về: </span>
+                            <span style="font-weight: 600;">20/12/2022</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="icon">
+                            <img src="../../../../assets/images/icon/feather_calendar.c217ce06.svg" alt="">
+                        </div>
+                        <div class="date-value">
+                            <span>Ngày đặt trước: </span>
+                            <span style="font-weight: 600;">15 ngày trước ngày sử dụng dịch vụ</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="icon">
+                            <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
+                        </div>
+                        <div class="date-value">
+                            <span>Hạn sử dụng: </span>
+                            <span style="font-weight: 600;">27/11/2022</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="icon">
+                            <img src="../../../../assets/images/icon/3 User.c77913ee.svg" alt="">
+                        </div>
+                        <div class="date-value">
+                            <span>Số lượng: </span>
+                            <span style="font-weight: 600;">{{detaiBookingRoom?.numberAdult + detaiBookingRoom?.numberChildren}}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="icon">
+                            <img src="../../../../assets/images/icon/Barcode.182ad4c7.svg" alt="">
+                        </div>
+                        <div class="date-value">
+                            <span>Mã kiểm tra: </span>
+                            <span style="font-weight: 600;"></span>
                         </div>
                     </div>
                 </div>

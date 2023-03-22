@@ -29,6 +29,7 @@ export default {
   API_DETAIL_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/detail',
 
   API_BOOKING_ROOM_BY_PAYMENT_CODE: environment.BASE_PATH_DOMAIN + '/booking-room/findByPaymentCode',
+  API_BOOKING_TOUR_BY_PAYMENT_CODE: environment.BASE_PATH_DOMAIN + '/booking-tour/findByPaymentCode',
 
   //post
   API_SEARCH_POST: environment.BASE_PATH_DOMAIN + '/post/search',

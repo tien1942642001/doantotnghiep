@@ -237,3 +237,122 @@
         }
     }
 }
+
+.detail-order {
+    font-weight: 500;
+    font-size: 14px;
+    color: #353c46;
+    &-title {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        color: #343a40;
+    }
+
+    &-box {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 25px;
+        margin-top: 18px;
+        margin-bottom: 22px;
+
+        &-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+                color: #898994;
+                white-space: nowrap;
+                margin-right: 10px;
+            }
+
+            .value {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+                color: #353c46;
+                text-align: right;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .item-image {
+            width: 200px;
+            min-width: 200px;
+            height: 236px;
+            margin-right: 23px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                background: #60276e;
+                border-radius: 6px;
+            }
+        }
+
+        .name {
+            color: #343a40;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .desc {
+            // height: 212px;
+            // overflow: hidden;
+            // position: relative;
+        }
+
+        hr {
+            border-top: 1px solid #e5eaee;
+            margin: 16px 0;
+        }
+
+        .content {
+            margin-bottom: 21px;
+
+            .icon {
+                max-width: 35px;
+                min-width: 35px;
+                display: inline-block;
+            }
+
+            .date-value {
+                display: flex;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    .my-order-status {
+        &.fail {
+            color: #dc502c;
+        }
+        &.success {
+            color: #198754;
+        }
+        &.pending {
+            color: #E5B217;
+        }
+    }
+
+    .alert {
+        background: #f8f8f8;
+        border-radius: 8px;
+        padding: 14px;
+        margin: 13px 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .name-desc {
+        width: 100%;
+    }
+}

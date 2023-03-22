@@ -236,6 +236,7 @@ export class SearchHotelComponent implements OnInit {
       customerId: parseInt(customerId),
       roomTypeId: this.roomTypeList[this.numberRoomType].id,
       serviceId: this.serviceDetail.id,
+      hotelId: this.hotelDetail.id,
       numberAdult: this.noParent,
       numberChildren: this.noChildren,
       description: "",
