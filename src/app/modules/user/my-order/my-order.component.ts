@@ -19,6 +19,7 @@ export class MyOrderComponent implements OnInit {
   isSpinning = false;
   pageSize: any = 10;
   pageIndex: any = 0;
+  sort: any = 'id,desc';
   listOfDataHotel: any[] = [];
   listOfDataTour: any[] = [];
   totalItemHotel: any;
@@ -35,15 +36,24 @@ export class MyOrderComponent implements OnInit {
       const startTime = formData.rangePicker[0] ? formData.rangePicker[0] : "";
       const endTime = formData.rangePicker[1] ? formData.rangePicker[1] : "";
       const typeOfStatus = formData.typeOfStatus ? formData.typeOfStatus : "";
+      const data = {
+        customerId: this.customerId,
+        status: typeOfStatus,
+        startTime: startTime,
+        endTime: startTime,
+        page: 0,
+        size: 10,
+        sort: 'id,desc',
+      }
       if (formData.typeOfService == "1") {
-        this.homeService.searchBookingRoom(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+        this.homeService.searchBookingRoom(data).subscribe(res => {
           if (res.code === 200) {
             this.listOfDataHotel = res.data.content;
             this.totalItemHotel = res.data.totalElements;
           }
         })
       } else if (formData.typeOfService == "3") {
-        this.homeService.searchBookingTour(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+        this.homeService.searchBookingTour(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex, this.sort).subscribe(res => {
           if (res.code === 200) {
             this.listOfDataTour = res.data.content;
             this.totalItemTour = res.data.totalElements;
@@ -55,21 +65,31 @@ export class MyOrderComponent implements OnInit {
         const startTime = selectedValue.rangePicker[0] ? selectedValue.rangePicker[0] : "";
         const endTime = selectedValue.rangePicker[1] ? selectedValue.rangePicker[1] : "";
         const typeOfStatus = formData.typeOfStatus ? formData.typeOfStatus : "";
+        const data = {
+          customerId: this.customerId,
+          code: selectedValue.code,
+          typeOfStatus: typeOfStatus,
+          startTime: startTime,
+          endTime: startTime,
+          page: this.pageIndex,
+          pageSize: this.pageSize,
+          sort: this.sort,
+        }
         if (selectedValue.typeOfService == "1") {
-          this.homeService.searchBookingRoom(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+          this.homeService.searchBookingRoom(data).subscribe(res => {
             if (res.code === 200) {
               this.listOfDataHotel = res.data.content;
             }
           })
         } else if (selectedValue.typeOfService == "3") {
-          this.homeService.searchBookingTour(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex).subscribe(res => {
+          this.homeService.searchBookingTour(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex, this.sort).subscribe(res => {
             if (res.code === 200) {
               this.listOfDataTour = res.data.content;
             }
           })
         }
         // else if (formData.typeOfService == 2) {
-        //   this.homeService.searchBookingTour(this.customerId, formData.code, formData.typeOfStatus, this.pageSize, this.pageIndex).subscribe(res => {
+        //   this.homeService.searchBookingTour(this.customerId, formData.code, formData.typeOfStatus, this.pageSize, this.pageIndex, this.sort).subscribe(res => {
         //     if (res.code === 200) {
         //       this.listOfData = res.data.content;
         //     }

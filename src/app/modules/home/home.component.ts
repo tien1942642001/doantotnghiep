@@ -3,6 +3,7 @@ import { NzSelectPlacementType } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
 import { HomeService } from 'src/app/core/service/home.service';
 import { Router } from '@angular/router';
+import { AirrlineService } from 'src/app/core/service/airline.service';
 
 @Component({
   selector: 'app-home',
@@ -51,7 +52,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private homeService: HomeService,
-    private route: Router, 
+    private route: Router,
+    private airrlineService: AirrlineService,
   ) {
     if (localStorage.getItem('lang')) {
       translate.use(localStorage.getItem('lang')!);
@@ -60,8 +62,8 @@ export class HomeComponent implements OnInit {
       translate.use('vi');
     }
   }
-
   ngOnInit(): void {
+    
     this.nav_list = [
       {
         name: "Đặt dịch vụ",
@@ -108,6 +110,12 @@ export class HomeComponent implements OnInit {
         this.listOfPost = res.data.content;
       }
     })
+
+    this.airrlineService.getFlightSchedule('HAN', 'PQC', '2022-03-24').subscribe(
+      (response: any) => {
+        // this.flightSchedule = response;
+      }
+    );
   }
 
   selectedIndexChange(idx: any) {

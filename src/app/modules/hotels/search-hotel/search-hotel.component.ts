@@ -78,21 +78,18 @@ export class SearchHotelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.homeService.getAllSite().subscribe(res => {
-      if (res.code === 200) {
-        this.allSite = res.data;
-        this.nameSite = this.allSite.find((item: any) => item.id === this.siteId).name;
-      }
-    });
-
     this.route.queryParams.subscribe(params => {
+      this.homeService.getAllSite().subscribe(res => {
+        if (res.code === 200) {
+          this.nameSite = res.data.find((item: any) => item.id === this.siteId).name;
+        }
+      });
       this.siteId = parseInt(params['siteId']);
       this.arrivalDate = params['arrivalDate'];
       this.leaveDate = params['leaveDate'];
       this.noParent = parseInt(params['noParent']);
       this.noChildren = parseInt(params['noChildren']);
       this.getAllHotel(this.siteId);
-      this.nameSite = this.allSite.find((item: any) => item.id === this.siteId).name;
     })
     this.routeHotel = this.route.snapshot.params['id'];
     if (this.routeHotel) {

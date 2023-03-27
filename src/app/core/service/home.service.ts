@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 
@@ -53,15 +53,15 @@ export class HomeService {
   }
 
   bookingRoom(data: any): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.post(APIs.API_GET_BOOKING_HOTEL, data);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.post(APIs.API_GET_BOOKING_HOTEL, data, options);
   }
 
   bookingTour(data: any): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.post(APIs.API_GET_BOOKING_TOUR, data);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.post(APIs.API_GET_BOOKING_TOUR, data, options);
   }
 
   addPost(formData: any): Observable<any> {
@@ -79,20 +79,52 @@ export class HomeService {
     return this.http.get(`${APIs.API_SEARCH_POST}?page=${pageIndex}&size=${pageSize}`, options)
   }
 
-  searchBookingRoom(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number): Observable<any> {
+  searchBookingRoom(data: any): Observable<any> {
     const headers = handle.requestHeaders();
-    let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_BOOKING_ROOM}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}`, options)
+    let queryParams = new HttpParams();
+    if (data.customerId) {
+      queryParams = queryParams.append("customerId",data.customerId);
+    }
+    if (data.code) {
+      queryParams = queryParams.append("code",data.code);
+    }
+    if (data.status) {
+      queryParams = queryParams.append("status",data.status);
+    }
+    if (data.startTime) {
+      queryParams = queryParams.append("startTime",data.startTime);
+    }
+    if (data.endTime) {
+      queryParams = queryParams.append("endTime",data.endTime);
+    }
+    if (data.page || data.page == 0) {
+      queryParams = queryParams.append("page",data.page);
+    }
+    if (data.size) {
+      queryParams = queryParams.append("size",data.size);
+    }
+    if (data.sort) {
+      queryParams = queryParams.append("sort",data.sort);
+    }
+    let options = {
+      headers: headers,
+      params: queryParams,
+    };
+    return this.http.get(`${APIs.API_SEARCH_BOOKING_ROOM}`, options)
   }
 
-  searchBookingTour(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number): Observable<any> {
+  searchBookingTour(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number, sort: any): Observable<any> {
     // const headers = handle.requestHeaders();
     // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_BOOKING_TOUR}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}`)
+    return this.http.get(`${APIs.API_SEARCH_BOOKING_TOUR}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}&sort=${sort}`)
   }
 
   checkBookingRoomOk(id: any, body: any): Observable<any> {
     return this.http.put(`${APIs.API_CHECK_BOOKING_ROOM_OK}/${id}`, body);
+  };
+
+  checkBookingTourOk(id: any, body: any): Observable<any> {
+    return this.http.put(`${APIs.API_CHECK_BOOKING_TOUR_OK}/${id}`, body);
   };
 
   getBookingRoomDetail(id: Number): Observable<any> {

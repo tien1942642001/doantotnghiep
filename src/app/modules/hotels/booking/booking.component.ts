@@ -7,6 +7,7 @@ import { REGEX_PATTERN } from 'src/app/core/constants/pattern';
 import { HomeService } from 'src/app/core/service/home.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import constants from 'src/app/core/constants/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-booking',
@@ -19,7 +20,7 @@ export class BookingComponent implements OnInit {
   inputValue?: string;
   detailRoom: any;
   detailTour: any;
-  detaiBookingRoom: any;
+  detailBookingRoom: any;
   detailBookingTour: any;
   subscription!: Subscription;
   paymentStatus: any;
@@ -33,6 +34,7 @@ export class BookingComponent implements OnInit {
     private homeService: HomeService,
     private authService: AuthService,
     private el: ElementRef,
+    private toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -57,19 +59,24 @@ export class BookingComponent implements OnInit {
           }
         })
       }
+      // vnp_TxnRef=Hotelf98b537e1cc6475a8d6495e3d91bf6be
       if (this.paymentStatus) {
         this.currentTab = 2;
-        if (this.paymentStatus == "00") {
+        if (this.paymentStatus == "00" && this.paymentCode.includes("Hotel")) {
           this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
             if (res.code === 200) {
-              const data = res.data;
-              this.detaiBookingRoom = data;
+              const data = res.data;   
               this.homeService.checkBookingRoomOk(this.paymentCode, data).subscribe(res => {
-                console.log(res);
+                this.detailBookingRoom = data;
               })
-            } else {
-              this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
-                console.log(res);
+            }
+          })
+        } else if (this.paymentStatus == "00" && this.paymentCode.includes("Tour")) {
+          this.homeService.getBookingTourByPaymentCode(this.paymentCode).subscribe(res => {
+            if (res.code === 200) {
+              const data = res.data;
+              this.homeService.checkBookingTourOk(this.paymentCode, data).subscribe(res => {
+                this.detailBookingTour = data;
               })
             }
           })
@@ -80,6 +87,9 @@ export class BookingComponent implements OnInit {
     })
 
     this.customerId = localStorage.getItem(constants.CUSTOMER_ID);
+    if (!this.customerId) {
+      this.router.navigate(['/auth/login']);
+    }
     this.authService.detail(this.customerId).subscribe((res => {
       if (res.code === 200) {
         const data = res.data;
@@ -176,6 +186,7 @@ export class BookingComponent implements OnInit {
         this.detailRoom.description += ", " + this.formHotel.value.textarea;
       }
       console.log(this.detailRoom);
+      this.detailRoom.customerId = this.customerId;
       this.homeService.bookingRoom(this.detailRoom).subscribe({
         next: res => {
           this.detailRoom = res;
@@ -195,7 +206,13 @@ export class BookingComponent implements OnInit {
           window.location.href = res.data.url;
         },
         error: error => {
-          console.log(error);
+          if (error.error.detailError.includes("Phòng trong khách sạn đã hết, vui lòng chọn khách sạn khác")) {
+            // this.toast.error("Phòng trong khách sạn đã hết, vui lòng chọn khách sạn khác", "Thông báo");
+            alert("Phòng trong khách sạn đã hết, vui lòng chọn khách sạn khác");
+            setTimeout(() => {
+              this.location.back();
+            }, 3000);
+          }
         }
       })
     }

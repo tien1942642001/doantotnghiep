@@ -27,7 +27,7 @@ export class TourComponent implements OnInit {
         this.siteId = parseInt(params['siteId']);
       }
       if (params['searchName']) {
-        this.searchName = parseInt(params['searchName']);
+        this.searchName = params['searchName'];
       }
     })
 
@@ -65,7 +65,10 @@ export class TourComponent implements OnInit {
   searchBooking () {
     const formValue = this.formTour.value;
     this.router.navigate(['hotels/search-tour'], {
-      queryParams: {siteId: formValue.siteId}
+      queryParams: {
+        siteId: formValue.siteId,
+        searchName: formValue.searchName,
+      }
     });
   }
 }

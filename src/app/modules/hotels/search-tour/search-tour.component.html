@@ -20,7 +20,7 @@
                                         Tất cả
                                     </label>
                                     <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsTypeOfTour"
-                                        (ngModelChange)="updateSingleChecked()">
+                                        (ngModelChange)="updateSingleCheckedTypeOfTour()">
                                         <label nz-checkbox *ngFor="let option of checkOptionsTypeOfTour" [nzValue]="option.value">
                                             {{ option.label }}
                                         </label>
@@ -31,7 +31,7 @@
                                 <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="'Độ dài kì nghỉ'" [nzActive]="true"
                                     [nzDisabled]="true" class="custom-borderless-collapse-panel">
                                     <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptionsLengthStayIds"
-                                        (ngModelChange)="onChangeLengthStay($event)">
+                                        (ngModelChange)="updateSingleCheckedTypeOfTour()">
                                         <label nz-checkbox *ngFor="let option of checkOptionsLengthStayIds" [nzValue]="option.value">
                                             {{ option.label }}
                                         </label>
@@ -74,8 +74,8 @@
                                         <div class="tour-box-image">
                                             <div class="image-gallery">
                                                 <img style="height: 250px;"
-                                                    src="https://booking-static.vinpearl.com/tours/0305911a853f4ce1aaba5ce78cfecbde_MicrosoftTeams-image%20(1)_Xuan-vivu.png"
-                                                    alt="">
+                                                    src={{item.path}}
+                                                    alt="lỗi">
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@
                                                     <span *ngIf="item.lengthStayId == 8">22 ngày 21 đêm</span>
                                                 </div>
                                                 <p class="price">
-                                                    6.600.000
+                                                    {{item.priceMin | format}}
                                                     <span>đ</span>
                                                 </p>
                                             </div>
@@ -115,9 +115,9 @@
                                                 <span>Mã SP: </span>
                                                 <span style="font-weight: 600; color: rgba(0,0,0,.65);">{{item.code || 'GN00677'}}</span>
                                             </div>
-                                            <div *ngIf="numberBuyer != 0" class="tour-buy">
+                                            <div *ngIf="item.numberBuyer != 0" class="tour-buy">
                                                 <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
-                                                {{numberBuyer}} người mua
+                                                {{item.numberBuyer}} người mua
                                             </div>
                                         </div>
                                         <div class="tour-box-bottom">
@@ -152,16 +152,20 @@
                     <div class="col col-lg-4">
                         <div class="row tour-price">
                             <div class="code">Mã SP: <span style="font-weight: 600;">{{tourDetail?.code}}</span></div>
-                            <div class="price-detail">6.600.000 đ</div>
+                            <div class="price-detail">{{tourDetail.priceAdultMin | format}} đ</div>
                         </div>
                         <div class="row justify-content-center align-items-center" style="margin: 0;">
                             <div class="col-md-3 change-image">
                                 <img src="../../../../assets/images/home/daily-purchase.webp" alt="">
                             </div>
-                            <div class="col-md-9" style="font-size: 13px; font-weight: 500;">
+                            <div *ngIf="tourDetail?.remainingOfPeople <= 5 && tourDetail?.remainingOfPeople > 0" class="col-md-9" style="font-size: 13px; font-weight: 500;">
                                 Sản phẩm sắp hết!!! Đã có 
                                 <br/>
-                                <span style="color: rgb(243, 159, 45);">60 người</span> đặt sản phẩm này
+                                <span style="color: rgb(243, 159, 45);">{{tourDetail?.numberOfPeople - tourDetail?.remainingOfPeople}} người</span> đặt sản phẩm này
+                            </div>
+                            <div *ngIf="tourDetail?.remainingOfPeople == 0" class="col-md-9" style="font-size: 13px; font-weight: 500;">
+                                Sản phẩm đã hết!!! Quý khách vui lòng chọn tour khác 
+                                <br/>
                             </div>
                         </div>
                         <div class="row">
@@ -243,7 +247,7 @@
                                                             <span nz-icon nzType="minus" nzTheme="outline"></span>
                                                         </button>
                                                         <input type="text" readonly class="text-center" [value]="noChildren">
-                                                        <button (click)="onIncrease(2)" nz-button nzType="primary">
+                                                        <button [disabled]="noChildren + noParent >= tourDetail?.remainingOfPeople" (click)="onIncrease(2)" nz-button nzType="primary">
                                                             <span nz-icon nzType="plus" nzTheme="outline"></span>
                                                         </button>
                                                     </div>
@@ -260,7 +264,7 @@
                                                             <span nz-icon nzType="minus" nzTheme="outline"></span>
                                                         </button>
                                                         <input type="text" readonly class="text-center" [value]="noParent">
-                                                        <button (click)="onIncrease(1)" nz-button nzType="primary">
+                                                        <button [disabled]="noChildren + noParent >= tourDetail?.remainingOfPeople" (click)="onIncrease(1)" nz-button nzType="primary">
                                                             <span nz-icon nzType="plus" nzTheme="outline"></span>
                                                         </button>
                                                     </div>

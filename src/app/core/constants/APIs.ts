@@ -21,6 +21,7 @@ export default {
   
   //booking room, tour
   API_CHECK_BOOKING_ROOM_OK: environment.BASE_PATH_DOMAIN + '/booking-room/check-payment-room-ok',
+  API_CHECK_BOOKING_TOUR_OK: environment.BASE_PATH_DOMAIN + '/booking-tour/check-payment-tour-ok',
   
   API_SEARCH_BOOKING_ROOM: environment.BASE_PATH_DOMAIN + '/booking-room/search',
   API_SEARCH_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/search',

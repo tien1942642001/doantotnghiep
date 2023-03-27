@@ -22,59 +22,6 @@ export class SearchTourComponent implements OnInit {
   @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
   fullName: any = localStorage.getItem(constants.FULLNAME);
-  siteId: any;
-  hotelDetail: any;
-  tourId: any;
-  selectedSite = null;
-  currentDate = new Date().getTime();
-  tourList: any[] = [];
-  roomTypeList: any[] = [];
-  pageSize: Number = 10;
-  pageIndex: Number = 0;
-  numberBuyer: number = 0;
-  showPeople: any;
-  showTotalPrice: boolean = false;
-  numberChildren: number = 0;
-  noParent: number = 0;
-  noChildren: number = 0;
-  tourDetail: any;
-  hotelList: any[] = [];
-  hideDetail: boolean = false;
-
-  suitableList: any[] = [];
-  lengthStayIdList: any[] = [];
-
-  allCheckedTypeOfTour = true;
-  indeterminateTypeOfTour = true;
-  
-  updateAllCheckedTypeOfTour(): void {
-    this.indeterminateTypeOfTour = false;
-    if (this.allCheckedTypeOfTour) {
-      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
-        ...item,
-        checked: true
-      }));
-    } else {
-      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
-        ...item,
-        checked: false
-      }));
-    }
-  }
-
-  updateSingleChecked(): void {
-    if (this.checkOptionsTypeOfTour.every(item => !item.checked)) {
-      this.allCheckedTypeOfTour = false;
-      this.indeterminateTypeOfTour = false;
-    } else if (this.checkOptionsTypeOfTour.every(item => item.checked)) {
-      this.allCheckedTypeOfTour = true;
-      this.indeterminateTypeOfTour = false;
-    } else {
-      this.indeterminateTypeOfTour = true;
-    }
-    console.log(this.checkOptionsTypeOfTour);
-  }
-
   checkOptionsTypeOfTour: any[] = [
     { value: 1, label: 'Gói nghỉ dưỡng', checked: true },
     { value: 2, label: 'VinWonders', checked: true },
@@ -99,6 +46,84 @@ export class SearchTourComponent implements OnInit {
 
   checkTourSelect: any;
 
+  siteId: any;
+  searchName: any;
+  hotelDetail: any;
+  tourId: any;
+  selectedSite = null;
+  currentDate = new Date().getTime();
+  tourList: any[] = [];
+  roomTypeList: any[] = [];
+  pageSize: Number = 10;
+  pageIndex: Number = 0;
+  remainingOfPeople: number = 0;
+  showPeople: any;
+  showTotalPrice: boolean = false;
+  numberChildren: number = 0;
+  noParent: number = 0;
+  noChildren: number = 0;
+  tourDetail: any;
+  hotelList: any[] = [];
+  hideDetail: boolean = false;
+
+  suitableList: any[] = this.checkOptionsTypeOfTour.map(item => item.value);
+  lengthStayIdList: any[] = this.checkOptionsLengthStayIds.map(item => item.value);
+  typeOfTourIdList: any[] = this.checkOptionsTypeOfTour.map(item => item.value);
+
+  allCheckedTypeOfTour = true;
+  indeterminateTypeOfTour = true;
+  
+  updateAllCheckedTypeOfTour(): void {
+    this.indeterminateTypeOfTour = false;
+    if (this.allCheckedTypeOfTour) {
+      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
+        ...item,
+        checked: true
+      }));
+      const data = {
+        name: "",
+        leavingToId: this.siteId,
+        suitables: this.suitableList,
+        typeOfTours: this.typeOfTourIdList,
+        lengthStayIds: this.lengthStayIdList,
+        pageSize: 10,
+        pageIndex: 0,
+      };
+      this.getAllTour(data);
+    } else {
+      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
+        ...item,
+        checked: false
+      }));
+    }
+  }
+
+  selectTypeOfTour: any[] = [];
+
+  updateSingleCheckedTypeOfTour(): void {
+    this.selectTypeOfTour = this.checkOptionsTypeOfTour.filter(item => item.checked).map(item1 => item1.value);
+    if (this.checkOptionsTypeOfTour.every(item => !item.checked)) {
+      this.allCheckedTypeOfTour = false;
+      this.indeterminateTypeOfTour = false;
+    } else if (this.checkOptionsTypeOfTour.every(item => item.checked)) {
+      this.allCheckedTypeOfTour = true;
+      this.indeterminateTypeOfTour = false;
+    } else {
+      this.indeterminateTypeOfTour = true;
+    }
+    console.log(this.checkOptionsTypeOfTour);
+    const data = {
+      name: "",
+      leavingToId: this.siteId,
+      suitables: this.suitableList,
+      typeOfTours: this.selectTypeOfTour,
+      lengthStayIds: this.lengthStayIdList,
+      pageSize: 10,
+      pageIndex: 0,
+    };
+    this.getAllTour(data);
+  }
+
   config: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 15,
@@ -121,20 +146,39 @@ export class SearchTourComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.siteId = params['siteId'] ? parseInt(params['siteId']) : '';
-      this.getAllTour('', this.siteId, this.suitableList, this.lengthStayIdList);
+      this.searchName = params['searchName'];
+      const data = {
+        name: this.searchName,
+        siteId: this.siteId,
+        suitables: this.suitableList,
+        lengthStayIds: this.lengthStayIdList,
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex,
+      };
+      this.getAllTour(data);
     })
-    this.tourService.getDetailTour(2).subscribe(res => {
-      if (res.code === 200) {
-        this.tourDetail = res.data[0].tour;
-        this.hotelList = res.data;
-      }
-    })
-
+    
     this.tourId = this.route.snapshot.params['id'];
+    if (this.tourId) {
+      this.tourService.getDetailTour(this.tourId).subscribe(res => {
+        if (res.code === 200) {
+          this.tourDetail = res.data[0].tour;
+          this.hotelList = res.data;
+          let priceAdultMin = 0;
+          priceAdultMin = this.hotelList[0].priceAdult;
+          this.hotelList.forEach(item => {
+            if (item.priceAdult < priceAdultMin) {
+              priceAdultMin = item.priceAdult;
+            }
+            this.tourDetail.priceAdultMin = priceAdultMin;
+          })
+        }
+      })
+    }
   }
 
-  getAllTour(name: any, leavingToId: Number, suitableList: any, lengthStayIdList: any) {
-    this.tourService.getAllTour(name, leavingToId, suitableList, lengthStayIdList, this.pageSize, this.pageIndex).subscribe(res => {
+  getAllTour(data: any) {
+    this.tourService.getAllTour(data).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.tourList = res.data.content;
@@ -188,20 +232,6 @@ export class SearchTourComponent implements OnInit {
 
   resetFilter() {
     console.log("reset");
-  }
-
-  onChangeTypeOfTour(value: any): void {
-    console.log(value);
-    console.log(this.checkOptionsLengthStayIds);
-    this.getAllTour('', this.siteId, value, this.lengthStayIdList);
-    this.suitableList = value;
-  }
-
-  onChangeLengthStay(value: any): void {
-    console.log(value);
-    console.log(this.checkOptionsLengthStayIds);
-    this.getAllTour('', this.siteId, this.lengthStayIdList, value);
-    this.lengthStayIdList = value;
   }
 
   handleTourSelect(id: Number) {

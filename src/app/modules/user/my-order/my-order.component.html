@@ -45,9 +45,9 @@
                                         <nz-form-item>
                                             <nz-form-control>
                                                 <nz-select [nzAllowClear]="true" formControlName="typeOfStatus">
-                                                    <nz-option nzValue="0" nzLabel="Không thành công">Không thành công</nz-option>
+                                                    <nz-option nzValue="0" nzLabel="Đã hủy">Đã hủy</nz-option>
                                                     <nz-option nzValue="1" nzLabel="Thành công">Thành công</nz-option>
-                                                    <nz-option nzValue="2" nzLabel="Đã hủy">Đã hủy</nz-option>
+                                                    <nz-option nzValue="2" nzLabel="Không thành công">Không thành công</nz-option>
                                                     <nz-option nzValue="3" nzLabel="Đã hoàn">Đã hoàn</nz-option>
                                                     <nz-option nzValue="4" nzLabel="Chờ xử lý">Chờ xử lý</nz-option>
                                                 </nz-select>
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="ant-row my-order-bottom">
                                         <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
-                                            <a (click)="navigateOderDetail(1)" class="text-detail">
+                                            <a (click)="navigateOderDetail(item.id)" class="text-detail">
                                                 Xem chi tiết đơn hàng
                                                 <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
                                             </a>

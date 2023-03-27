@@ -29,6 +29,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { SharedModule } from './shared/share.module';
 import { AppInterceptor } from './core/interceptor/app.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(vi);
 
@@ -59,6 +60,7 @@ registerLocaleData(vi);
     NzDropDownModule,
     NzToolTipModule,
     SharedModule,
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
