@@ -16,6 +16,8 @@ export class DetailOrderComponent implements OnInit {
   id: any;
   detailData: any;
   type: any;
+  numberDay: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +37,7 @@ export class DetailOrderComponent implements OnInit {
       this.homeService.getBookingTourDetail(this.id).subscribe(res => {
         if (res.code === 200) {
           this.detailData = res.data;
+          this.numberDay = Math.round((new Date(res.data?.tour.startDate).getTime() - new Date(res.data?.paymentDate).getTime())/ 86400000);
         }
       })
     }

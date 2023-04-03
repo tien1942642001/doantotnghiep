@@ -124,13 +124,16 @@
                         <div *ngIf="type == 'tour'" class="detail-order-box">
                             <div class="d-flex flex-column flex-md-row">
                                 <div class="item-image">
-                                    <img [src]="detailData?.hotel.images[0].path" alt="">
+                                    <img [src]="detailData?.tour.images[0]?.path" alt="">
                                 </div>
                                 <div class="name-desc">
-                                    <div class="name">{{detailData?.hotel.name}}</div>
-                                    <div class="desc">
-                                        <div>Bao gồm: </div>
-                                        <div></div>
+                                    <div class="name">{{detailData?.tour.name}}</div>
+                                    <div>
+                                        <div class="include">Bao gồm: </div>
+                                        <div class="include1" [innerHTML]="detailData?.tour.inclusion.slice(0, 800)"></div>
+                                    </div>
+                                    <div class="show-more">
+                                      <div class="btn">Xem thêm</div>
                                     </div>
                                 </div>
                             </div>
@@ -140,56 +143,51 @@
                                     Địa điểm áp dụng:
                                 </div>
                                 <div style="color: #2a398c;">
-                                    {{detailData?.hotel.name}}
+                                    {{detailData?.room?.roomTypes?.hotel?.name}}
                                 </div>
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap g-mt-10">
                                     <div class="icon">
                                         <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
                                     </div>
                                     <div class="date-value">
-                                        <span>Ngày đến: </span>
-                                        <span style="font-weight: 600;">17/12/2022</span>
-                                    </div>
-                                    <div> - </div>
-                                    <div class="date-value">
-                                        <span>Ngày về: </span>
-                                        <span style="font-weight: 600;">20/12/2022</span>
+                                        <span>Giai đoạn áp dụng: </span>
+                                        <span style="font-weight: 600; margin-left: 5px;">{{detailData?.tour.startDate | date: 'dd/MM/yyyy'}} - {{detailData?.tour.endDate | date: 'dd/MM/yyyy'}}</span>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap g-mt-10">
                                     <div class="icon">
                                         <img src="../../../../assets/images/icon/feather_calendar.c217ce06.svg" alt="">
                                     </div>
                                     <div class="date-value">
                                         <span>Ngày đặt trước: </span>
-                                        <span style="font-weight: 600;">15 ngày trước ngày sử dụng dịch vụ</span>
+                                        <span style="font-weight: 600; margin-left: 5px;">{{numberDay}} ngày trước ngày sử dụng dịch vụ</span>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap g-mt-10">
                                     <div class="icon">
                                         <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
                                     </div>
                                     <div class="date-value">
                                         <span>Hạn sử dụng: </span>
-                                        <span style="font-weight: 600;">27/11/2022</span>
+                                        <span style="font-weight: 600; margin-left: 5px;">{{detailData?.tour.expirationDate | date: 'dd/MM/yyyy'}}</span>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap g-mt-10">
                                     <div class="icon">
                                         <img src="../../../../assets/images/icon/3 User.c77913ee.svg" alt="">
                                     </div>
                                     <div class="date-value">
                                         <span>Số lượng: </span>
-                                        <span style="font-weight: 600;">{{detailData?.numberAdult + detailData?.numberChildren}}</span>
+                                        <span style="font-weight: 600; margin-left: 5px;">{{detailData?.numberAdult + detailData?.numberChildren}}</span>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-wrap">
+                                <div class="d-flex flex-wrap g-mt-10">
                                     <div class="icon">
                                         <img src="../../../../assets/images/icon/Barcode.182ad4c7.svg" alt="">
                                     </div>
                                     <div class="date-value">
                                         <span>Mã kiểm tra: </span>
-                                        <span style="font-weight: 600;"></span>
+                                        <span style="font-weight: 600; margin-left: 5px;"></span>
                                     </div>
                                 </div>
                             </div>

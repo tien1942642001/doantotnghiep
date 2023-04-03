@@ -82,14 +82,14 @@ export class HomeService {
   searchBookingRoom(data: any): Observable<any> {
     const headers = handle.requestHeaders();
     let queryParams = new HttpParams();
-    if (data.customerId) {
+    if (data.customerId || data.customerId == 0) {
       queryParams = queryParams.append("customerId",data.customerId);
     }
     if (data.code) {
       queryParams = queryParams.append("code",data.code);
     }
-    if (data.status) {
-      queryParams = queryParams.append("status",data.status);
+    if (data.status || data.status == '0') {
+      queryParams = queryParams.append("status",parseInt(data.status));
     }
     if (data.startTime) {
       queryParams = queryParams.append("startTime",data.startTime);

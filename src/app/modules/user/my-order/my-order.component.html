@@ -86,7 +86,7 @@
                                                 <div class="name">{{item.hotel?.name}}</div>
                                                 <div>
                                                     <p class="title">Giai đoạn: {{item.checkIn | date: 'dd/MM/yyyy'}} - {{item.checkOut | date: 'dd/MM/yyyy'}}</p>
-                                                    <p class="title">Số lượng: 
+                                                    <p class="title">Số lượng:
                                                         <span *ngIf="item.numberAdult < 10 && item.numberAdult > 0">{{item.numberAdult}} Người lớn</span>
                                                         <span *ngIf="item.numberAdult >= 10">{{item.numberAdult}} Người lớn</span>
                                                         <span *ngIf="item.numberChildren < 10 && item.numberChildren > 0">, {{item.numberChildren}} Trẻ em</span>
@@ -105,7 +105,7 @@
                                         </div>
                                         <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
                                             <div class="total-money">
-                                                Tổng tiền: 
+                                                Tổng tiền:
                                                 <span> {{item.paymentAmount | format}} đ</span>
                                             </div>
                                         </div>
@@ -133,14 +133,15 @@
                                     <div class="row">
                                         <div class="col-auto my-order-item-content">
                                             <div class="my-order-item-image">
-                                                <img src="../../../assets/images/home/06f7f5d95c8847c5a948eb9afcdb342e_5 (1) (1)_Hanoi-PQ-.jpg" alt="">
+                                                <img src={{item.tour.images[0]?.path}} alt="">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="my-order-item-info">
                                                 <div class="name">{{item.tour.name}}</div>
                                                 <div>
-                                                    <p class="title">Ngày sử dụng: {{item.tour.date | date: 'dd/MM/yyyy'}}</p>
+                                                    <p class="title">Giai đoạn áp dụng: {{item.tour.startDate | date: 'dd/MM/yyyy'}} - {{item.tour.endDate | date: 'dd/MM/yyyy'}}</p>
+                                                    <p class="title">Hạn sử dụng: {{item.tour.expirationDate | date: 'dd/MM/yyyy'}}</p>
                                                     <p class="title">Số lượng: {{item.numberAdult + item.numberChildren}}</p>
                                                 </div>
                                             </div>
@@ -148,14 +149,14 @@
                                     </div>
                                     <div class="ant-row my-order-bottom">
                                         <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
-                                            <a (click)="navigateOderDetail(1)" class="text-detail">
+                                            <a (click)="navigateOderDetail(item.id)" class="text-detail">
                                                 Xem chi tiết đơn hàng
                                                 <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
                                             </a>
                                         </div>
                                         <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
                                             <div class="total-money">
-                                                Tổng tiền: 
+                                                Tổng tiền:
                                                 <span> {{item.paymentAmount | format}} đ</span>
                                             </div>
                                         </div>

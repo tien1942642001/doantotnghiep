@@ -97,7 +97,7 @@
         padding: 6.5px 12px;
         width: 100%;
     }
-    
+
     .input-code {
         border-radius: 25px;
     }
@@ -165,6 +165,14 @@
             color: #343a40;
             font-size: 16px;
             font-weight: 600;
+
+            &-desc {
+              .include {
+                text-transform: uppercase;
+                margin-top: 9px;
+                color: #969aa2;
+              }
+            }
         }
 
         .desc {
