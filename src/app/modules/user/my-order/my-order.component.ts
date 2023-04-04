@@ -40,7 +40,7 @@ export class MyOrderComponent implements OnInit {
         customerId: this.customerId,
         status: typeOfStatus,
         startTime: startTime,
-        endTime: startTime,
+        endTime: endTime,
         page: 0,
         size: 10,
         sort: 'id,desc',
@@ -53,38 +53,48 @@ export class MyOrderComponent implements OnInit {
           }
         })
       } else if (formData.typeOfService == "3") {
-        this.homeService.searchBookingTour(this.customerId, formData.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex, this.sort).subscribe(res => {
+        this.homeService.searchBookingTour(data).subscribe(res => {
           if (res.code === 200) {
             this.listOfDataTour = res.data.content;
             this.totalItemTour = res.data.totalElements;
           }
         })
-      } 
+      }
 
       this.formMyOrder.valueChanges.subscribe(selectedValue  => {
-        const startTime = selectedValue.rangePicker[0] ? selectedValue.rangePicker[0] : "";
-        const endTime = selectedValue.rangePicker[1] ? selectedValue.rangePicker[1] : "";
-        const typeOfStatus = formData.typeOfStatus ? formData.typeOfStatus : "";
+        let selectStartTime;
+        let selectEndTime;
+        if (typeof (selectedValue.rangePicker[0]) == "object" && selectedValue.rangePicker[0] != null) {
+          selectStartTime = selectedValue.rangePicker[0].getTime();
+        }
+        if (typeof (selectedValue.rangePicker[1]) == "object" && selectedValue.rangePicker[1] != null) {
+          selectEndTime = selectedValue.rangePicker[1].getTime();
+        }
+        const startTime = selectStartTime ? selectStartTime : "";
+        const endTime = selectEndTime ? selectEndTime : "";
+        const typeOfStatus = selectedValue.typeOfStatus ? selectedValue.typeOfStatus : "";
         const data = {
           customerId: this.customerId,
           code: selectedValue.code,
-          typeOfStatus: typeOfStatus,
+          status: typeOfStatus,
           startTime: startTime,
-          endTime: startTime,
+          endTime: endTime,
           page: this.pageIndex,
-          pageSize: this.pageSize,
+          size: this.pageSize,
           sort: this.sort,
         }
         if (selectedValue.typeOfService == "1") {
           this.homeService.searchBookingRoom(data).subscribe(res => {
             if (res.code === 200) {
               this.listOfDataHotel = res.data.content;
+              this.totalItemHotel = res.data.totalElements;
             }
           })
         } else if (selectedValue.typeOfService == "3") {
-          this.homeService.searchBookingTour(this.customerId, selectedValue.code, typeOfStatus, startTime, endTime, this.pageSize, this.pageIndex, this.sort).subscribe(res => {
+          this.homeService.searchBookingTour(data).subscribe(res => {
             if (res.code === 200) {
               this.listOfDataTour = res.data.content;
+              this.totalItemTour = res.data.totalElements;
             }
           })
         }
@@ -117,6 +127,10 @@ export class MyOrderComponent implements OnInit {
     this.route.navigate([`/user/my-order/${id}`], {
       queryParams: {type: type}
     });
+  }
+
+  navigateHome() {
+    this.route.navigate([`/home`]);
   }
 
 }

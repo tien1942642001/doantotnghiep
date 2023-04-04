@@ -4,6 +4,8 @@ import { Observable, BehaviorSubject } from "rxjs";
 
 import APIs from "../constants/APIs";
 import handle from "../functions/handle";
+import axios from "axios";
+import constants from "../constants/constants";
 
 @Injectable({
   providedIn: 'root',
@@ -29,27 +31,27 @@ export class HomeService {
   }
 
   getAllHotel(pageSize: Number, pageIndex: Number, siteId: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_HOTEL}?page=${pageIndex}&size=${pageSize}&siteId=${siteId}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_SEARCH_HOTEL}?page=${pageIndex}&size=${pageSize}&siteId=${siteId}`, options)
   }
 
   getHotelDetail(hotelId: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_GET_HOTEL_DETAIL}/${hotelId}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_HOTEL_DETAIL}/${hotelId}`, options)
   }
 
   getAllSite(): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(APIs.API_SEARCH_SITE);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(APIs.API_SEARCH_SITE, options);
   }
 
   getAllRoomType(pageSize: Number, pageIndex: Number, hotelId: Number, numberPerson: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_ROOM_TYPE}?page=${pageIndex}&size=${pageSize}&hotelId=${hotelId}&numberPerson=${numberPerson}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_SEARCH_ROOM_TYPE}?page=${pageIndex}&size=${pageSize}&hotelId=${hotelId}&numberPerson=${numberPerson}`, options)
   }
 
   bookingRoom(data: any): Observable<any> {
@@ -64,14 +66,29 @@ export class HomeService {
     return this.http.post(APIs.API_GET_BOOKING_TOUR, data, options);
   }
 
-  addPost(formData: any): Observable<any> {
-    const headers = handle.requestHeadersFormData();
-    let options = {headers: headers};
-    return this.http.post(`${APIs.API_ADD_POST}`, formData, {
-      reportProgress: true,
-      observe: 'events'
+  // addPost(formData: any): Observable<any> {
+  //   const headers = handle.requestHeadersFormData();
+  //   let options = {
+  //     headers: headers,
+  //     reportProgress: true,
+  //     observe: 'events'
+  //   };
+  //   return this.http.post(`${APIs.API_ADD_POST}`, formData, {
+  //     headers: headers,
+  //     reportProgress: true,
+  //     observe: 'events'
+  //   });
+  // };
+
+  addPost(formData: any) {
+    return axios.post(`${APIs.API_ADD_POST}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem(constants.TOKEN) as string}`,
+      }
     });
-  };
+};
 
   searchPost(pageSize: Number, pageIndex: Number): Observable<any> {
     const headers = handle.requestHeaders();
@@ -113,41 +130,73 @@ export class HomeService {
     return this.http.get(`${APIs.API_SEARCH_BOOKING_ROOM}`, options)
   }
 
-  searchBookingTour(customerId: any, code: any, status: any, startTime: any, endTime: any, pageSize: Number, pageIndex: Number, sort: any): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_BOOKING_TOUR}?customerId=${customerId}&code=${code}&status=${status}&startTime=${startTime}&endTime=${endTime}&page=${pageIndex}&size=${pageSize}&sort=${sort}`)
+  searchBookingTour(data: any): Observable<any> {
+    const headers = handle.requestHeaders();
+    let queryParams = new HttpParams();
+    if (data.customerId || data.customerId == 0) {
+      queryParams = queryParams.append("customerId",data.customerId);
+    }
+    if (data.code) {
+      queryParams = queryParams.append("code",data.code);
+    }
+    if (data.status || data.status == '0') {
+      queryParams = queryParams.append("status",parseInt(data.status));
+    }
+    if (data.startTime) {
+      queryParams = queryParams.append("startTime",data.startTime);
+    }
+    if (data.endTime) {
+      queryParams = queryParams.append("endTime",data.endTime);
+    }
+    if (data.page || data.page == 0) {
+      queryParams = queryParams.append("page",data.page);
+    }
+    if (data.size) {
+      queryParams = queryParams.append("size",data.size);
+    }
+    if (data.sort) {
+      queryParams = queryParams.append("sort",data.sort);
+    }
+    let options = {
+      headers: headers,
+      params: queryParams,
+    };
+    return this.http.get(`${APIs.API_SEARCH_BOOKING_TOUR}`, options)
   }
 
   checkBookingRoomOk(id: any, body: any): Observable<any> {
-    return this.http.put(`${APIs.API_CHECK_BOOKING_ROOM_OK}/${id}`, body);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.put(`${APIs.API_CHECK_BOOKING_ROOM_OK}/${id}`, body, options);
   };
 
   checkBookingTourOk(id: any, body: any): Observable<any> {
-    return this.http.put(`${APIs.API_CHECK_BOOKING_TOUR_OK}/${id}`, body);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.put(`${APIs.API_CHECK_BOOKING_TOUR_OK}/${id}`, body, options);
   };
 
   getBookingRoomDetail(id: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_DETAIL_BOOKING_ROOM}/${id}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_DETAIL_BOOKING_ROOM}/${id}`, options)
   }
 
   getBookingTourDetail(id: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_DETAIL_BOOKING_TOUR}/${id}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_DETAIL_BOOKING_TOUR}/${id}`, options)
   }
 
   getBookingRoomByPaymentCode(code: String): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_BOOKING_ROOM_BY_PAYMENT_CODE}/${code}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_BOOKING_ROOM_BY_PAYMENT_CODE}/${code}`, options)
   }
 
   getBookingTourByPaymentCode(code: String): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_BOOKING_TOUR_BY_PAYMENT_CODE}/${code}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_BOOKING_TOUR_BY_PAYMENT_CODE}/${code}`, options)
   }
 }

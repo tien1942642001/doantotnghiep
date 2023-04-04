@@ -1,176 +1,193 @@
 <div class="user-profile">
-    <div class="container">
-        <div class="user-setting">
-            <div class="d-flex flex-column flex-lg-row">
-                <div class="col-lg-30">
-                    <app-user></app-user>
-                </div>
-                <div class="col-lg-70">
-                    <nz-spin [nzSpinning]="isSpinning">
-                        <div class="my-order-filter">
-                            <form nz-form [formGroup]="formMyOrder" class="form-user-profile">
-                                <h1 class="title">Đơn hàng của tôi</h1>
-                                <div class="row">
-                                    <div class="col col-md-6">
-                                        <nz-form-item>
-                                            <nz-form-control>
-                                                <input class="custom-input input-code" formControlName="code" placeholder="Mã đơn hàng" nz-input [disabled]="true" />
-                                            </nz-form-control>
-                                        </nz-form-item>
-                                    </div>
-                                    <div class="col col-md-6">
-                                        <nz-form-item>
-                                            <nz-form-control>
-                                                <nz-range-picker
-                                                    formControlName="rangePicker"
-                                                    nzFormat="dd/MM/yyyy"
-                                                    [nzAllowClear]="false"
-                                                >
-                                                </nz-range-picker>
-                                            </nz-form-control>
-                                        </nz-form-item>
-                                    </div>
-                                    <div class="col col-md-6">
-                                        <nz-form-item>
-                                            <nz-form-control>
-                                                <nz-select formControlName="typeOfService">
-                                                    <nz-option nzValue="1" nzLabel="Khách sạn & Nghỉ dưỡng">Khách sạn & Nghỉ dưỡng</nz-option>
-                                                    <nz-option nzValue="2" nzLabel="Khách sạn & Vé máy bay">Khách sạn & Vé máy bay</nz-option>
-                                                    <nz-option nzValue="3" nzLabel="Tour & Trải nghiệm">Tour & Trải nghiệm</nz-option>
-                                                </nz-select>
-                                            </nz-form-control>
-                                        </nz-form-item>
-                                    </div>
-                                    <div class="col col-md-6">
-                                        <nz-form-item>
-                                            <nz-form-control>
-                                                <nz-select [nzAllowClear]="true" formControlName="typeOfStatus">
-                                                    <nz-option nzValue="0" nzLabel="Đã hủy">Đã hủy</nz-option>
-                                                    <nz-option nzValue="1" nzLabel="Thành công">Thành công</nz-option>
-                                                    <nz-option nzValue="2" nzLabel="Không thành công">Không thành công</nz-option>
-                                                    <nz-option nzValue="3" nzLabel="Đã hoàn">Đã hoàn</nz-option>
-                                                    <nz-option nzValue="4" nzLabel="Chờ xử lý">Chờ xử lý</nz-option>
-                                                </nz-select>
-                                            </nz-form-control>
-                                        </nz-form-item>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="my-order-data">
-                            <div *ngIf="formMyOrder.value.typeOfService == 1" class="my-order-list">
-                                <div class="total-item">
-                                    <span *ngIf="totalItemHotel < 10">Có 0{{totalItemHotel}} kết quả </span>
-                                    <span *ngIf="totalItemHotel >= 10">Có {{totalItemHotel}} kết quả </span>
-                                </div>
-                                <div *ngFor="let item of listOfDataHotel; let idx = index" class="my-order-item">
-                                    <div nz-row class="my-order-top">
-                                        <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-18">
-                                            <span class="title">Mã đơn hàng: {{item.code}} | {{item.hotel?.site.name}}</span>
-                                        </div>
-                                        <div style="text-align: right;" class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6">
-                                            <span *ngIf="item.paymentStatus == 0" class="my-order-status fail">Đã hủy</span>
-                                            <span *ngIf="item.paymentStatus == 1" class="my-order-status success">Thành công</span>
-                                            <span *ngIf="item.paymentStatus == 2" class="my-order-status pending">Đã hoàn</span>
-                                            <span *ngIf="item.paymentStatus == 3" class="my-order-status pending">Chờ xử lý</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-auto my-order-item-content">
-                                            <div class="my-order-item-image">
-                                                <img src={{item.hotel?.images[0].path}} alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="my-order-item-info">
-                                                <div class="name">{{item.hotel?.name}}</div>
-                                                <div>
-                                                    <p class="title">Giai đoạn: {{item.checkIn | date: 'dd/MM/yyyy'}} - {{item.checkOut | date: 'dd/MM/yyyy'}}</p>
-                                                    <p class="title">Số lượng:
-                                                        <span *ngIf="item.numberAdult < 10 && item.numberAdult > 0">{{item.numberAdult}} Người lớn</span>
-                                                        <span *ngIf="item.numberAdult >= 10">{{item.numberAdult}} Người lớn</span>
-                                                        <span *ngIf="item.numberChildren < 10 && item.numberChildren > 0">, {{item.numberChildren}} Trẻ em</span>
-                                                        <span *ngIf="item.numberChildren >= 10">, {{item.numberChildren}} Người lớn</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ant-row my-order-bottom">
-                                        <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
-                                            <a (click)="navigateOderDetail(item.id)" class="text-detail">
-                                                Xem chi tiết đơn hàng
-                                                <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
-                                            <div class="total-money">
-                                                Tổng tiền:
-                                                <span> {{item.paymentAmount | format}} đ</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="formMyOrder.value.typeOfService == 3" class="my-order-list">
-                                <div class="total-item">
-                                    <span *ngIf="totalItemTour < 10">Có 0{{totalItemTour}} kết quả </span>
-                                    <span *ngIf="totalItemTour >= 10">Có {{totalItemTour}} kết quả </span>
-                                </div>
-                                <div *ngFor="let item of listOfDataTour; let idx = index" class="my-order-item">
-                                    <div nz-row class="my-order-top">
-                                        <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-18">
-                                            <span class="title">Mã đơn hàng: {{item.code}} | {{item.code}}</span>
-                                        </div>
-                                        <div style="text-align: right;" class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6">
-                                            <!-- <span class="my-order-status fail">Không thành công</span> -->
-                                            <span *ngIf="item.paymentStatus == 0" class="my-order-status fail">Đã hủy</span>
-                                            <span *ngIf="item.paymentStatus == 1" class="my-order-status success">Thành công</span>
-                                            <span *ngIf="item.paymentStatus == 2" class="my-order-status pending">Đã hoàn</span>
-                                            <span *ngIf="item.paymentStatus == 3" class="my-order-status pending">Chờ xử lý</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-auto my-order-item-content">
-                                            <div class="my-order-item-image">
-                                                <img src={{item.tour.images[0]?.path}} alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="my-order-item-info">
-                                                <div class="name">{{item.tour.name}}</div>
-                                                <div>
-                                                    <p class="title">Giai đoạn áp dụng: {{item.tour.startDate | date: 'dd/MM/yyyy'}} - {{item.tour.endDate | date: 'dd/MM/yyyy'}}</p>
-                                                    <p class="title">Hạn sử dụng: {{item.tour.expirationDate | date: 'dd/MM/yyyy'}}</p>
-                                                    <p class="title">Số lượng: {{item.numberAdult + item.numberChildren}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ant-row my-order-bottom">
-                                        <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
-                                            <a (click)="navigateOderDetail(item.id)" class="text-detail">
-                                                Xem chi tiết đơn hàng
-                                                <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
-                                            <div class="total-money">
-                                                Tổng tiền:
-                                                <span> {{item.paymentAmount | format}} đ</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="totalItemTour == 0 || totalItemHotel == 0" class="my-order-empty d-flex justify-content-center">
-                            <img src="../../../../assets/images/icon/empty-page.6fb3601e.png" alt="empty">
-                            <p>Không tìm thấy kết quả phù hợp</p>
-                        </div>
-                    </nz-spin>
-                </div>
-            </div>
+  <div class="container">
+    <div class="user-setting">
+      <div class="d-flex flex-column flex-lg-row">
+        <div class="col-lg-30">
+          <app-user></app-user>
         </div>
+        <div class="col-lg-70">
+          <nz-spin [nzSpinning]="isSpinning">
+            <div class="my-order-filter">
+              <form nz-form [formGroup]="formMyOrder" class="form-user-profile">
+                <h1 class="title">Đơn hàng của tôi</h1>
+                <div class="row">
+                  <div class="col col-md-6">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <input class="custom-input input-code" formControlName="code" placeholder="Mã đơn hàng" nz-input
+                          [disabled]="true" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col col-md-6">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-range-picker formControlName="rangePicker" nzFormat="dd/MM/yyyy" [nzAllowClear]="false">
+                        </nz-range-picker>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col col-md-6">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-select formControlName="typeOfService">
+                          <nz-option nzValue="1" nzLabel="Khách sạn & Nghỉ dưỡng">Khách sạn & Nghỉ dưỡng</nz-option>
+                          <nz-option nzValue="2" nzLabel="Khách sạn & Vé máy bay">Khách sạn & Vé máy bay</nz-option>
+                          <nz-option nzValue="3" nzLabel="Tour & Trải nghiệm">Tour & Trải nghiệm</nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col col-md-6">
+                    <nz-form-item>
+                      <nz-form-control>
+                        <nz-select [nzAllowClear]="true" formControlName="typeOfStatus">
+                          <nz-option nzValue="0" nzLabel="Đã hủy">Đã hủy</nz-option>
+                          <nz-option nzValue="1" nzLabel="Thành công">Thành công</nz-option>
+                          <nz-option nzValue="2" nzLabel="Không thành công">Không thành công</nz-option>
+                          <nz-option nzValue="3" nzLabel="Đã hoàn">Đã hoàn</nz-option>
+                          <nz-option nzValue="4" nzLabel="Chờ xử lý">Chờ xử lý</nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="my-order-data">
+              <div *ngIf="formMyOrder.value.typeOfService == 1" class="my-order-list">
+                <div *ngIf="totalItemHotel == 0" class="my-order-empty">
+                  <div class="d-flex align-items-center justify-content-center flex-column">
+                    <img src="../../../../assets/images/icon/empty-page.6fb3601e.png" alt="empty">
+                    <p>Không tìm thấy kết quả phù hợp</p>
+                  </div>
+                  <div class="btn-buy">
+                    <button (click)="navigateHome()" nz-button nzType="primary">Đặt mua ngay</button>
+                  </div>
+                </div>
+                <div class="total-item">
+                  <span *ngIf="totalItemHotel < 10 && totalItemHotel > 0">Có 0{{totalItemHotel}} kết quả </span>
+                  <span *ngIf="totalItemHotel >= 10">Có {{totalItemHotel}} kết quả </span>
+                </div>
+                <div *ngFor="let item of listOfDataHotel; let idx = index" class="my-order-item">
+                  <div nz-row class="my-order-top">
+                    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-18">
+                      <span class="title">Mã đơn hàng: {{item.code}} | {{item.hotel?.site.name}}</span>
+                    </div>
+                    <div style="text-align: right;"
+                      class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6">
+                      <span *ngIf="item.paymentStatus == 0" class="my-order-status fail">Đã hủy</span>
+                      <span *ngIf="item.paymentStatus == 1" class="my-order-status success">Thành công</span>
+                      <span *ngIf="item.paymentStatus == 2" class="my-order-status pending">Đã hoàn</span>
+                      <span *ngIf="item.paymentStatus == 3" class="my-order-status pending">Chờ xử lý</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-auto my-order-item-content">
+                      <div class="my-order-item-image">
+                        <img src={{item.hotel?.images[0].path}} alt="">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="my-order-item-info">
+                        <div class="name">{{item.hotel?.name}}</div>
+                        <div>
+                          <p class="title">Giai đoạn: {{item.checkIn | date: 'dd/MM/yyyy'}} - {{item.checkOut | date:
+                            'dd/MM/yyyy'}}</p>
+                          <p class="title">Số lượng:
+                            <span *ngIf="item.numberAdult < 10 && item.numberAdult > 0">{{item.numberAdult}} Người
+                              lớn</span>
+                            <span *ngIf="item.numberAdult >= 10">{{item.numberAdult}} Người lớn</span>
+                            <span *ngIf="item.numberChildren < 10 && item.numberChildren > 0">, {{item.numberChildren}}
+                              Trẻ em</span>
+                            <span *ngIf="item.numberChildren >= 10">, {{item.numberChildren}} Người lớn</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ant-row my-order-bottom">
+                    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
+                      <a (click)="navigateOderDetail(item.id)" class="text-detail">
+                        Xem chi tiết đơn hàng
+                        <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
+                      </a>
+                    </div>
+                    <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
+                      <div class="total-money">
+                        Tổng tiền:
+                        <span> {{item.paymentAmount | format}} đ</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="formMyOrder.value.typeOfService == 3" class="my-order-list">
+                <div *ngIf="totalItemTour == 0" class="my-order-empty">
+                  <div class="d-flex align-items-center justify-content-center flex-column">
+                    <img src="../../../../assets/images/icon/empty-page.6fb3601e.png" alt="empty">
+                    <p>Không tìm thấy kết quả phù hợp</p>
+                  </div>
+                  <div class="btn-buy">
+                    <button (click)="navigateHome()" nz-button nzType="primary">Đặt mua ngay</button>
+                  </div>
+                </div>
+                <div class="total-item">
+                  <span *ngIf="totalItemTour < 10 && totalItemTour > 0">Có 0{{totalItemTour}} kết quả </span>
+                  <span *ngIf="totalItemTour >= 10">Có {{totalItemTour}} kết quả </span>
+                </div>
+                <div *ngFor="let item of listOfDataTour; let idx = index" class="my-order-item">
+                  <div nz-row class="my-order-top">
+                    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-18">
+                      <span class="title">Mã đơn hàng: {{item.code}} | {{item.code}}</span>
+                    </div>
+                    <div style="text-align: right;"
+                      class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-6">
+                      <!-- <span class="my-order-status fail">Không thành công</span> -->
+                      <span *ngIf="item.paymentStatus == 0" class="my-order-status fail">Đã hủy</span>
+                      <span *ngIf="item.paymentStatus == 1" class="my-order-status success">Thành công</span>
+                      <span *ngIf="item.paymentStatus == 2" class="my-order-status pending">Đã hoàn</span>
+                      <span *ngIf="item.paymentStatus == 3" class="my-order-status pending">Chờ xử lý</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-auto my-order-item-content">
+                      <div class="my-order-item-image">
+                        <img src={{item.tour.images[0]?.path}} alt="">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="my-order-item-info">
+                        <div class="name">{{item.tour.name}}</div>
+                        <div>
+                          <p class="title">Giai đoạn áp dụng: {{item.tour.startDate | date: 'dd/MM/yyyy'}} -
+                            {{item.tour.endDate | date: 'dd/MM/yyyy'}}</p>
+                          <p class="title">Hạn sử dụng: {{item.tour.expirationDate | date: 'dd/MM/yyyy'}}</p>
+                          <p class="title">Số lượng: {{item.numberAdult + item.numberChildren}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ant-row my-order-bottom">
+                    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-16 ant-col-lg-16 ant-col-xl-16">
+                      <a (click)="navigateOderDetail(item.id)" class="text-detail">
+                        Xem chi tiết đơn hàng
+                        <img src="../../../assets/icon/feather_chevron-right.ab3b7e1f.svg" alt="">
+                      </a>
+                    </div>
+                    <div class="ant-col align-text ant-col-xs-24 ant-col-sm-24 ant-col-md-8 ant-col-lg-8 ant-col-xl-8">
+                      <div class="total-money">
+                        Tổng tiền:
+                        <span> {{item.paymentAmount | format}} đ</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nz-spin>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

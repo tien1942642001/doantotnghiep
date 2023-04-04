@@ -20,7 +20,19 @@
             <form nzLayout="vertical" [formGroup]="formLogin" nz-form>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="email" nz-input placeholder="{{'login.email' | translate}}" />
+                  <nz-input-group [nzSuffix]="inputNameClear">
+                    <input formControlName="email" nz-input placeholder="{{'login.email' | translate}}" />
+                    <ng-template #inputNameClear>
+                        <span
+                            nz-icon
+                            class="ant-input-clear-icon"
+                            nzTheme="fill"
+                            nzType="close-circle"
+                            *ngIf="formLogin.controls['email'].value"
+                            (click)="formLogin.controls['email'].setValue(null)"
+                        ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
                 <div *ngIf="this.formLogin.controls['email'].invalid && (this.formLogin.controls['email'].dirty || this.formLogin.controls['email'].touched)">
                   <div class="error" *ngIf="this.formLogin.controls['email'].hasError('required')">
@@ -36,13 +48,22 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="password" nz-input placeholder="{{'login.password' | translate}}" />
-                  <div *ngIf="this.formLogin.controls['password'].invalid && (this.formLogin.controls['password'].dirty || this.formLogin.controls['password'].touched)">
-                    <div class="error" *ngIf="this.formLogin.controls['password'].hasError('required')">
-                        Vui lòng nhập Mật khẩu
-                    </div>
-                  </div>
+                  <nz-input-group [nzSuffix]="passwordTemplateLogin">
+                    <input formControlName="password" nz-input placeholder="{{'login.password' | translate}}" />
+                    <ng-template #passwordTemplateLogin>
+                      <span
+                        nz-icon
+                        [nzType]="passwordVisibleLogin ? 'eye-invisible' : 'eye'"
+                        (click)="passwordVisibleLogin = !passwordVisibleLogin"
+                      ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
+                <div *ngIf="this.formLogin.controls['password'].invalid && (this.formLogin.controls['password'].dirty || this.formLogin.controls['password'].touched)">
+                  <div class="error" *ngIf="this.formLogin.controls['password'].hasError('required')">
+                      Vui lòng nhập Mật khẩu
+                  </div>
+                </div>
               </nz-form-item>
               <div class="tab__footer d-flex justify-content-center flex-column">
                 <button (click)="login()" class="btn" nz-button nzType="primary">{{'login.title' | translate}}</button>
@@ -56,10 +77,22 @@
             </form>
           </div>
           <div *ngIf="currentTab == 2" class="tab__signin">
-            <form [formGroup]="formRegister" nz-form>
+            <form nzLayout="vertical" [formGroup]="formRegister" nz-form>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="email" nz-input placeholder="{{'register.email' | translate}}" />
+                  <nz-input-group [nzSuffix]="inputNameClear">
+                    <input formControlName="email" nz-input placeholder="{{'register.email' | translate}}" />
+                    <ng-template #inputNameClear>
+                        <span
+                            nz-icon
+                            class="ant-input-clear-icon"
+                            nzTheme="fill"
+                            nzType="close-circle"
+                            *ngIf="formRegister.controls['email'].value"
+                            (click)="formRegister.controls['email'].setValue(null)"
+                        ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
                 <div *ngIf="this.formRegister.controls['email'].invalid && (this.formRegister.controls['email'].dirty || this.formRegister.controls['email'].touched)">
                   <div class="error" *ngIf="this.formRegister.controls['email'].hasError('required')">
@@ -75,7 +108,19 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="fullName" nz-input placeholder="{{'register.fullName' | translate}}" />
+                  <nz-input-group [nzSuffix]="inputNameRegisterClear">
+                    <input formControlName="fullName" nz-input placeholder="{{'register.fullName' | translate}}" />
+                    <ng-template #inputNameRegisterClear>
+                        <span
+                            nz-icon
+                            class="ant-input-clear-icon"
+                            nzTheme="fill"
+                            nzType="close-circle"
+                            *ngIf="formRegister.controls['fullName'].value"
+                            (click)="formRegister.controls['fullName'].setValue(null)"
+                        ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
                 <div *ngIf="this.formRegister.controls['fullName'].invalid && (this.formRegister.controls['fullName'].dirty || this.formRegister.controls['fullName'].touched)">
                   <div class="error" *ngIf="this.formRegister.controls['fullName'].hasError('required')">
@@ -88,7 +133,16 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="password" nz-input placeholder="{{'register.password' | translate}}" />
+                  <nz-input-group [nzSuffix]="passwordTemplateSignIn">
+                    <input nz-input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" id="password" placeholder="{{'register.password' | translate}}" />
+                    <ng-template #passwordTemplateSignIn>
+                      <span
+                        nz-icon
+                        [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                        (click)="passwordVisible = !passwordVisible"
+                      ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
                 <div *ngIf="this.formRegister.controls['password'].invalid && (this.formRegister.controls['password'].dirty || this.formRegister.controls['password'].touched)">
                   <div class="error" *ngIf="this.formRegister.controls['password'].hasError('required')">
@@ -98,7 +152,16 @@
               </nz-form-item>
               <nz-form-item>
                 <nz-form-control>
-                  <input formControlName="confirmPassword" nz-input placeholder="{{'register.confirmPassword' | translate}}" />
+                  <nz-input-group [nzSuffix]="confirmPasswordTemplateSignIn">
+                    <input nz-input [type]="confirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword" id="confirmPassword" placeholder="{{'register.confirmPassword' | translate}}" />
+                    <ng-template #confirmPasswordTemplateSignIn>
+                      <span
+                        nz-icon
+                        [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'"
+                        (click)="confirmPasswordVisible = !confirmPasswordVisible"
+                      ></span>
+                    </ng-template>
+                  </nz-input-group>
                 </nz-form-control>
                 <div *ngIf="this.formRegister.controls['confirmPassword'].invalid && (this.formRegister.controls['confirmPassword'].dirty || this.formRegister.controls['confirmPassword'].touched)">
                   <div class="error" *ngIf="this.formRegister.controls['confirmPassword'].hasError('required')">

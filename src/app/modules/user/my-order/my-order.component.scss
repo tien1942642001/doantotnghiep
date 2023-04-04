@@ -99,7 +99,7 @@
         padding: 6.5px 12px;
         width: 100%;
     }
-    
+
     .input-code {
         border-radius: 25px;
     }
@@ -165,7 +165,7 @@
         font-weight: 600;
         font-size: 14px;
         line-height: 20px;
-        
+
         &.fail {
             color: #dc502c;
         }
@@ -186,7 +186,7 @@
             line-height: 22px;
             color: rgb(150, 154, 162);
             text-align: right;
-            
+
             span {
                 font-weight: 600;
                 font-size: 16px;
@@ -198,7 +198,7 @@
 }
 
 .my-order-filter {
-    border-bottom: 1px solid #ced4da; 
+    border-bottom: 1px solid #ced4da;
 }
 
 .my-order-empty {
@@ -213,6 +213,14 @@
     line-height: 23px;
     color: #343a40;
     margin: 18px 0;
+}
+
+.btn-buy {
+  text-align: center;
+  margin-top: 20px;
+  button {
+    height: 40px;
+  }
 }
 
 ::ng-deep {
@@ -230,9 +238,15 @@
             width: 100% !important;
             border-radius: 25px;
         }
-        
+
         .ant-select-selector {
             border-radius: 25px !important;
         }
+    }
+
+    .btn-buy {
+      span {
+        font-size: 12px;
+      }
     }
 }

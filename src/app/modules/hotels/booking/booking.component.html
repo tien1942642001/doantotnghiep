@@ -146,11 +146,11 @@
                 </nz-card>
                 <div class="check-policy">
                     <span>
-                        Khi nhấp vào "Thanh toán", bạn đồng ý cung cấp các thông tin trên và đồng ý với các 
+                        Khi nhấp vào "Thanh toán", bạn đồng ý cung cấp các thông tin trên và đồng ý với các
                         <span><a href="/vi-VND/dieu-khoan/dieu-khoan-chung">điều khoản, điều kiện</a></span>
-                        và 
+                        và
                         <span><a href="/vi-VND/dieu-khoan/chinh-sach-quyen-rieng-tu">chính sách quyền riêng tư</a></span>
-                        của Vinpearl.    
+                        của Vinpearl.
                     </span>
                 </div>
                 <div class="btn-groups flex-column-end">
@@ -394,78 +394,75 @@
             </div>
             <div class="detail-order-title">Thông tin đơn hàng</div>
             <div class="detail-order-box">
-                <div class="d-flex flex-column flex-md-row">
-                    <div class="item-image">
-                        <img [src]="detailBookingTour?.hotel.images[0].path" alt="">
+              <div class="d-flex flex-column flex-md-row">
+                <div class="item-image">
+                    <img [src]="detailBookingTour.tour.images[0]?.path" alt="">
+                </div>
+                <div class="name-desc">
+                    <div class="name">{{detailBookingTour.tour.name}}</div>
+                    <div>
+                        <div class="include">Bao gồm: </div>
+                        <div class="include1" [innerHTML]="detailBookingTour.tour.inclusion.slice(0, 800)"></div>
                     </div>
-                    <div class="name-desc">
-                        <div class="name">{{detailBookingTour?.hotel.name}}</div>
-                        <div class="desc">
-                            <div>{{detailBookingTour?.hotel.address}}</div>
-                            <div></div>
-                        </div>
-                        <div class="alert">
-                            <div></div>
-                            <div class="text-center">
-                                <div>Nhận phòng</div>
-                                <div style="font-size: 20px;">{{detailBookingTour?.checkIn | date: "dd/MM/YYYY"}}</div>
-                                <div>{{detailBookingTour?.checkIn | date: "HH:mm"}}</div>
-                            </div>
-                            <img src="../../../../assets/icon/Hotel.3f6dc87f.svg" alt="">
-                            <div>
-                                <div>Nhận phòng</div>
-                                <div style="font-size: 20px;">{{detailBookingTour?.checkOut | date: "dd/MM/YYYY"}}</div>
-                                <div>{{detailBookingTour?.checkOut | date: "HH:mm"}}</div>
-                            </div>
-                            <div></div>
-                        </div>
-                        <div class="detail-order-box-item">
-                            <span class="label">Số lượng phòng:</span>
-                            <span class="value">01</span>
-                        </div>
-                        <div class="detail-order-box-item">
-                            <span class="label">Số lượng:</span>
-                            <span class="value">
-                                <span *ngIf="detailBookingTour?.numberAdult < 10 && detailBookingTour?.numberAdult > 0">{{detailBookingTour?.numberAdult}} Người lớn</span>
-                                <span *ngIf="detailBookingTour?.numberAdult >= 10">{{detailBookingTour?.numberAdult}} Người lớn</span>
-                                <span *ngIf="detailBookingTour?.numberChildren < 10 && detailBookingTour?.numberChildren > 0">, {{detailBookingTour?.numberChildren}} Trẻ em</span>
-                                <span *ngIf="detailBookingTour?.numberChildren >= 10">, {{detailBookingTour?.numberChildren}} Người lớn</span>
-                            </span>
-                        </div>
+                    <div class="show-more">
+                      <div class="btn">Xem thêm</div>
                     </div>
                 </div>
-                <div class="content">
-                    <hr>
-                    <div class="title">
-                        1x {{detailBookingTour?.hotel.name}}
+            </div>
+            <hr>
+            <div class="content">
+                <div class="title">
+                    Địa điểm áp dụng:
+                </div>
+                <div style="color: #2a398c;">
+                    {{detailBookingTour.room?.roomTypes?.hotel?.name}}
+                </div>
+                <div class="d-flex flex-wrap g-mt-10">
+                    <div class="icon">
+                        <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
                     </div>
-                    <div style="color: #2a398c;">
-                        {{detailBookingTour?.hotel.name}}
-                    </div>
-                    <div class="detail-order-box-item">
-                        <span class="label">Tên gói:</span>
-                        <span class="value">{{detailBookingTour?.service.name}}</span>
-                    </div>
-                    <div class="detail-order-box-item">
-                        <span class="label">Thông tin gói phòng:</span>
-                        <span class="value">{{detailBookingTour?.service.name}}</span>
-                    </div>
-                    <div class="detail-order-box-item">
-                        <span class="label">Số lượng:</span>
-                        <span class="value">
-                            <span class="value">
-                                <span *ngIf="detailBookingTour?.numberAdult < 10 && detailBookingTour?.numberAdult > 0">{{detailBookingTour?.numberAdult}} Người lớn</span>
-                                <span *ngIf="detailBookingTour?.numberAdult >= 10">{{detailBookingTour?.numberAdult}} Người lớn</span>
-                                <span *ngIf="detailBookingTour?.numberChildren < 10 && detailBookingTour?.numberChildren > 0">, {{detailBookingTour?.numberChildren}} Trẻ em</span>
-                                <span *ngIf="detailBookingTour?.numberChildren >= 10">, {{detailBookingTour?.numberChildren}} Người lớn</span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="detail-order-box-item">
-                        <span class="label">Chính sách hoàn hủy:</span>
-                        <span class="value">Không hoàn/ hủy</span>
+                    <div class="date-value">
+                        <span>Giai đoạn áp dụng: </span>
+                        <span style="font-weight: 600; margin-left: 5px;">{{detailBookingTour.tour.startDate | date: 'dd/MM/yyyy'}} - {{detailBookingTour.tour.endDate | date: 'dd/MM/yyyy'}}</span>
                     </div>
                 </div>
+                <div class="d-flex flex-wrap g-mt-10">
+                    <div class="icon">
+                        <img src="../../../../assets/images/icon/feather_calendar.c217ce06.svg" alt="">
+                    </div>
+                    <div class="date-value">
+                        <span>Ngày đặt trước: </span>
+                        <span style="font-weight: 600; margin-left: 5px;">{{numberDay}} ngày trước ngày sử dụng dịch vụ</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap g-mt-10">
+                    <div class="icon">
+                        <img src="../../../../assets/images/icon/TimeCircle.53a32bfd.svg" alt="">
+                    </div>
+                    <div class="date-value">
+                        <span>Hạn sử dụng: </span>
+                        <span style="font-weight: 600; margin-left: 5px;">{{detailBookingTour.tour.expirationDate | date: 'dd/MM/yyyy'}}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap g-mt-10">
+                    <div class="icon">
+                        <img src="../../../../assets/images/icon/3 User.c77913ee.svg" alt="">
+                    </div>
+                    <div class="date-value">
+                        <span>Số lượng: </span>
+                        <span style="font-weight: 600; margin-left: 5px;">{{detailBookingTour.numberAdult + detailBookingTour.numberChildren}}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap g-mt-10">
+                    <div class="icon">
+                        <img src="../../../../assets/images/icon/Barcode.182ad4c7.svg" alt="">
+                    </div>
+                    <div class="date-value">
+                        <span>Mã kiểm tra: </span>
+                        <span style="font-weight: 600; margin-left: 5px;"></span>
+                    </div>
+                </div>
+            </div>
             </div>
             <div *ngIf="typeBooking == 'tour'" class="detail-order-box">
                 <div class="d-flex flex-column flex-md-row">

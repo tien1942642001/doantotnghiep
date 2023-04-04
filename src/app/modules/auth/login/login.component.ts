@@ -26,12 +26,16 @@ export class LoginComponent implements OnInit {
     password: new FormControl('')
   })
 
+  passwordVisible = false;
+  confirmPasswordVisible = false;
+  passwordVisibleLogin = false;
+
   constructor(
     private translate: TranslateService,
     private authService: AuthService,
     private router: Router,
     private location: Location
-  ) { 
+  ) {
     if (localStorage.getItem('lang')) {
       translate.use(localStorage.getItem('lang')!);
     } else {

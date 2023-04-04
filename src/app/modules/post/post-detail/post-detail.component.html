@@ -26,7 +26,7 @@
                 <div class="blog-detail-header">
                     <div class="blog-detail-header--left">
                         <p class="username">{{post?.customer?.fullName}}</p>
-                        <p class="date">{{post?.publishedAt}}</p>
+                        <p class="date">{{post?.publishedAt | date : "HH:mm:ss dd/MM/YYYY"}}</p>
                     </div>
                     <div class="blog-detail-header--right">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" class="svg-inline--fa fa-ellipsis-h fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -50,8 +50,8 @@ export class TourService {
   }
 
   getDetailTour(id: Number): Observable<any> {
-    // const headers = handle.requestHeaders();
-    // let options = {headers: headers};
-    return this.http.get(`${APIs.API_GET_TOUR_DETAIL}/${id}`)
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_TOUR_DETAIL}/${id}`, options)
   }
 }

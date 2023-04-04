@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import APIs from "../constants/APIs";
+import handle from "../functions/handle";
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class AuthService {
 
   // export class MyProtectedPageComponent {
   //   constructor(private authService: AuthService, private router: Router) {}
-  
+
   //   ngOnInit() {
   //     if (!this.authService.isLoggedIn) {
   //       this.authService.redirectUrl = this.router.url;
@@ -34,14 +35,16 @@ export class AuthService {
   //     }
   //   }
   // }
-  
+
   login(email: any, password: any): Observable<any> {
     // return this.http.post(`${APIs.AUTH_LOGIN}`, {
       this.isLoggedIn = true;
+      const headers = handle.requestHeaders();
+    let options = {headers: headers};
       return this.http.post(`${APIs.AUTH_LOGIN}`, {
         email: email,
         password: password,
-      });
+      }, options);
   };
 
   logout(): void {
@@ -49,22 +52,32 @@ export class AuthService {
   }
 
   register(body: any): Observable<any> {
-    return this.http.post(`${APIs.AUTH_REGISTER}`, body);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.post(`${APIs.AUTH_REGISTER}`, body , options);
   };
 
   detail(id: any): Observable<any> {
-    return this.http.get(`${APIs.API_CUSTOMER_DETAIL}/${id}`);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_CUSTOMER_DETAIL}/${id}` , options);
   };
 
   update(id: any, body: any): Observable<any> {
-    return this.http.put(`${APIs.API_CUSTOMER_UPDATE}/${id}`, body);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.put(`${APIs.API_CUSTOMER_UPDATE}/${id}`, body , options);
   };
 
   searchPost(customerId: any, page: any, size: any): Observable<any> {
-    return this.http.get(`${APIs.API_SEARCH_POST}?customerId=${customerId}&page=${page}&size=${size}`);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_SEARCH_POST}?customerId=${customerId}&page=${page}&size=${size}` , options);
   };
 
   detailPost(id: any): Observable<any> {
-    return this.http.get(`${APIs.API_GET_DETAIL_POST}/${id}`);
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_DETAIL_POST}/${id}`, options);
   };
 }

@@ -27,6 +27,7 @@ export class BookingComponent implements OnInit {
   paymentCode: any;
   customerId: any;
   typeBooking: any;
+  numberDay: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -62,22 +63,29 @@ export class BookingComponent implements OnInit {
       // vnp_TxnRef=Hotelf98b537e1cc6475a8d6495e3d91bf6be
       if (this.paymentStatus) {
         this.currentTab = 2;
-        if (this.paymentStatus == "00" && this.paymentCode.includes("Hotel")) {
+        if (this.paymentCode.includes("Hotel")) {
           this.homeService.getBookingRoomByPaymentCode(this.paymentCode).subscribe(res => {
             if (res.code === 200) {
-              const data = res.data;   
-              this.homeService.checkBookingRoomOk(this.paymentCode, data).subscribe(res => {
-                this.detailBookingRoom = data;
-              })
+              const data = res.data;
+              this.detailBookingRoom = data;
+              if (this.paymentStatus == "00") {
+                this.homeService.checkBookingRoomOk(this.paymentCode, data).subscribe(res => {
+                  this.detailBookingRoom.paymentStatus = 1;
+                })
+              }
             }
           })
-        } else if (this.paymentStatus == "00" && this.paymentCode.includes("Tour")) {
+        } else if (this.paymentCode.includes("Tour")) {
           this.homeService.getBookingTourByPaymentCode(this.paymentCode).subscribe(res => {
             if (res.code === 200) {
               const data = res.data;
-              this.homeService.checkBookingTourOk(this.paymentCode, data).subscribe(res => {
-                this.detailBookingTour = data;
-              })
+              this.detailBookingTour = data;
+              this.numberDay = Math.round((new Date(res.data?.tour.startDate).getTime() - new Date(res.data?.paymentDate).getTime())/ 86400000);
+              if (this.paymentStatus == "00") {
+                this.homeService.checkBookingTourOk(this.paymentCode, data).subscribe(res => {
+                  this.detailBookingTour.paymentStatus = 1;
+                })
+              }
             }
           })
         } else if (this.paymentStatus == "24") {
@@ -194,7 +202,7 @@ export class BookingComponent implements OnInit {
         },
         error: error => {
           if (error) {
-            
+
           }
         }
       })

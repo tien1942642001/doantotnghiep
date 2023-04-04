@@ -9,6 +9,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { LangChangeEvent, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClient } from '@angular/common/http';
     ReactiveFormsModule,
     NzButtonModule,
     CommonModule,
+    NzIconModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
