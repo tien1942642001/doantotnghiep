@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import constants from 'src/app/core/constants/constants';
 import { REGEX_PATTERN } from 'src/app/core/constants/pattern';
 import handle from 'src/app/core/functions/handle';
@@ -24,6 +25,7 @@ export class UserProfileComponent implements OnInit {
     private route: Router,
     private homeService: HomeService,
     private authService: AuthService,
+    private toastService: ToastrService,
   ) { }
 
   formUserProfile: FormGroup = new FormGroup({
@@ -88,6 +90,9 @@ export class UserProfileComponent implements OnInit {
     this.authService.update(this.customerId, formValue).subscribe(res => {
       if (res.code === 200) {
         // this.toast.success()
+        localStorage.setItem(constants.FULLNAME, formValue.fullName);
+        this.toastService.success("Cập nhật thông tin thành công", "Thành công");
+        window.location.reload();
       }
     })
   }

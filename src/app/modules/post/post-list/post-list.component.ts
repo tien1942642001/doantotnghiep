@@ -11,7 +11,7 @@ export class PostListComponent implements OnInit {
 
   listOfPost: any[] = [];
   pageSize = 9;
-  pageIndex = 1;
+  pageIndex = 0;
   sort: any = "id,desc";
   totalItem: any = 0;
   constructor(
@@ -20,7 +20,12 @@ export class PostListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.homeService.searchPost(9, 0).subscribe(res => {
+    const data = {
+      page: this.pageIndex,
+      size: this.pageSize,
+      sort: this.sort,
+    }
+    this.homeService.searchPost(data).subscribe(res => {
       if (res.code == 200) {
         this.listOfPost = res.data.content;
         console.log(this.listOfPost);

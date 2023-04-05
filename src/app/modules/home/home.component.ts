@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    
+
     this.nav_list = [
       {
         name: "Đặt dịch vụ",
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
           "Vé máy bay",
           "Khách sạn + Vé máy bay",
           "Tour & Trải nghiệm"
-        ] 
+        ]
       },
       {
         name: "Trải nghiệm Vinpearl",
@@ -105,7 +105,11 @@ export class HomeComponent implements OnInit {
     }
     ];
 
-    this.homeService.searchPost(3, 0).subscribe(res => {
+    this.homeService.searchPost({
+      page: 0,
+      size: 3,
+      sort: 'id,desc',
+    }).subscribe(res => {
       if (res.code == 200) {
         this.listOfPost = res.data.content;
       }
@@ -139,7 +143,7 @@ export class HomeComponent implements OnInit {
     }
     if (name == "language") {
       this.showDropLanguage = !this.showDropLanguage;
-    } 
+    }
   }
 
   searchTour(id: any) {

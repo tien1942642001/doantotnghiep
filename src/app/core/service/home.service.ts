@@ -90,10 +90,23 @@ export class HomeService {
     });
 };
 
-  searchPost(pageSize: Number, pageIndex: Number): Observable<any> {
+  searchPost(data: any): Observable<any> {
     const headers = handle.requestHeaders();
-    let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_POST}?page=${pageIndex}&size=${pageSize}`, options)
+    let queryParams = new HttpParams();
+    if (data.page || data.page == 0) {
+      queryParams = queryParams.append("page",data.page);
+    }
+    if (data.size) {
+      queryParams = queryParams.append("size",data.size);
+    }
+    if (data.sort) {
+      queryParams = queryParams.append("sort",data.sort);
+    }
+    let options = {
+      headers: headers,
+      params: queryParams,
+    };
+    return this.http.get(`${APIs.API_SEARCH_POST}`, options)
   }
 
   searchBookingRoom(data: any): Observable<any> {
