@@ -28,7 +28,7 @@ export class SearchHotelComponent implements OnInit {
   hotelList: any[] = [];
   totalHotel: any = 0;
   roomTypeList: any[] = [];
-  pageSize: Number = 10;
+  pageSize: Number = 20;
   pageIndex: Number = 0;
   hotelDetail: any;
   checkActive: boolean = false;

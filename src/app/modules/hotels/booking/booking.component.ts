@@ -69,7 +69,7 @@ export class BookingComponent implements OnInit {
               const data = res.data;
               this.detailBookingRoom = data;
               if (this.paymentStatus == "00") {
-                this.homeService.checkBookingRoomOk(this.paymentCode, data).subscribe(res => {
+                this.homeService.checkBookingRoomOk(this.paymentCode, data.id).subscribe(res => {
                   this.detailBookingRoom.paymentStatus = 1;
                 })
               }
@@ -82,7 +82,7 @@ export class BookingComponent implements OnInit {
               this.detailBookingTour = data;
               this.numberDay = Math.round((new Date(res.data?.tour.startDate).getTime() - new Date(res.data?.paymentDate).getTime())/ 86400000);
               if (this.paymentStatus == "00") {
-                this.homeService.checkBookingTourOk(this.paymentCode, data).subscribe(res => {
+                this.homeService.checkBookingTourOk(this.paymentCode, data.id).subscribe(res => {
                   this.detailBookingTour.paymentStatus = 1;
                 })
               }

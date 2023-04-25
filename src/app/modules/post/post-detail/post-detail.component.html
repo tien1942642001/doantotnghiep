@@ -13,7 +13,7 @@
                                 <path fill="currentColor" d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"></path>
                             </svg> -->
                         </div>
-                        <div class="comment-count reaction">
+                        <div (click)="setShowComment(true)" class="comment-count reaction">
                             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment" class="svg-inline--fa fa-comment fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                 <path fill="currentColor" d="M256 32C114.6 32 0 125.1 0 240c0 47.6 19.9 91.2 52.9 126.3C38 405.7 7 439.1 6.5 439.5c-6.6 7-8.4 17.2-4.6 26S14.4 480 24 480c61.5 0 110-25.7 139.1-46.3C192 442.8 223.2 448 256 448c141.4 0 256-93.1 256-208S397.4 32 256 32zm0 368c-26.7 0-53.1-4.1-78.4-12.1l-22.7-7.2-19.5 13.8c-14.3 10.1-33.9 21.4-57.5 29 7.3-12.1 14.4-25.7 19.9-40.2l10.6-28.1-20.6-21.8C69.7 314.1 48 282.2 48 240c0-88.2 93.3-160 208-160s208 71.8 208 160-93.3 160-208 160z"></path>
                             </svg>
@@ -35,6 +35,118 @@
                     </div>
                 </div>
                 <div [innerHTML]="post?.content" class="blog-detail-content" ></div>
+            </div>
+        </div>
+        <div *ngIf="showComment == true" class="block-comment">
+            <div class="comment">
+                <div (click)="setShowComment(false)" class="comment-close">
+                    <svg width="20px" height="20px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" className="svg-inline--fa fa-times fa-w-11 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                        <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
+                    </svg>
+                </div>
+                <div class="comment-body">
+                  <div class="comment-content">
+                    <div class="comment-view">
+                        <h4>{{commentTotal}} bình luận</h4>
+                    </div>
+                  </div>
+                  <div class="comment-form">
+                    <div>
+                      <div class="avatar">
+                        <img src="https://graph.facebook.com/1103996836772541/picture?width=400&height=400" alt="">
+                      </div>
+                    </div>
+                    <form [nzLayout]="'vertical'" nz-form [formGroup]="formGroup" class="input-forms">
+                      <div *ngIf="checkEditor == false">
+                        <input (focus)="checkEditor = true" placeholder="Viết bình luận của bạn..." nz-input type="primary" name="content" id="content-comment">
+                      </div>
+                      <div *ngIf="checkEditor == true">
+                        <nz-form-item>
+                          <nz-form-control class="custom-editor">
+                              <ngx-editor-menu [editor]="contentEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                              <ngx-editor placeholder="Viết bình luận của bạn..." formControlName="content" [editor]="contentEditor" [disabled]="false"></ngx-editor>
+                          </nz-form-control>
+                        </nz-form-item>
+                        <div class="comment-action">
+                          <button (click)="checkEditor = false" class="cancel">Hủy</button>
+                          <button (click)="addComment()" [class.active]="this.formGroup.controls['content'].value != ''" [disabled]="this.formGroup.controls['content'].value == ''" class="ok">Bình luận</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngFor="let item of commentList; let idx = index" class="comment-detail-comment">
+                    <div class="avatar">
+                      <img src="../../../../assets/images/home/diem-den-pho-bien-01.73404b25.png" alt="">
+                    </div>
+                    <div class="body">
+                      <div class="inner">
+                        <div class="wrapper">
+                          <div class="arthor">
+                            <h5>{{item.customer.fullName}}</h5>
+                          </div>
+                          <div class="comment-text">
+                            <div [innerHTML]="item.content"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="comment-time">
+                        <div (click)="setCheckReplyComment(item.id, 0)" class="left">Trả lời</div>
+                        <div class="right">
+                          <span> . </span>
+                          <span class="time">{{timeAgo}}</span>
+                          <div class="more">
+                            <span> . </span>
+                            <button nzTrigger="click" nz-dropdown [nzDropdownMenu]="menu" class="morn-btn">
+                              <svg width="16px" height="16px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis" class="svg-inline--fa fa-ellipsis " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path fill="currentColor" d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z"></path>
+                              </svg>
+                            </button>
+                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                              <ul class="ul-dropdowm-custom" nz-menu>
+                                <li (click)="setCheckReplyComment(item.id, item.content)" nz-menu-item>
+                                  <svg width="16px" height="16px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen" class="svg-inline--fa fa-pen " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path fill="currentColor" d="M362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32zM421.7 220.3L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3z"></path>
+                                  </svg>
+                                  <span>Sửa bình luận</span>
+                                </li>
+                                <li (click)="deleteComment(item.id)" nz-menu-item>
+                                  <svg width="16px" height="16px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path fill="currentColor" d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z"></path>
+                                  </svg>
+                                  <span>Xóa bình luận</span>
+                                </li>
+                              </ul>
+                            </nz-dropdown-menu>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="checkReplyComment == item.id || checkReplyComment == -1" class="reply-box">
+                        <div class="comment-form">
+                          <div>
+                            <div class="avatar">
+                              <img src="https://graph.facebook.com/1103996836772541/picture?width=400&height=400" alt="">
+                            </div>
+                          </div>
+                          <form [nzLayout]="'vertical'" nz-form [formGroup]="formGroupReply" class="input-forms">
+                            <nz-form-item>
+                              <nz-form-control class="custom-editor">
+                                  <ngx-editor-menu [editor]="contentEditor" [toolbar]="toolbar"> </ngx-editor-menu>
+                                  <ngx-editor placeholder="Bình luận công khai..." formControlName="content" [editor]="contentEditor" [disabled]="false"></ngx-editor>
+                              </nz-form-control>
+                            </nz-form-item>
+                            <div class="comment-action">
+                              <button (click)="checkReplyComment = -2" class="cancel">Hủy</button>
+                              <button (click)="updateComment(item.id, item)" [class.active]="this.formGroupReply.controls['content'].value != ''" [disabled]="this.formGroupReply.controls['content'].value == ''" class="ok">
+                                <span *ngIf="checkReplyComment == item.id">Trả lời</span>
+                                <span *ngIf="checkReplyComment == -1">Sửa</span>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </div>
