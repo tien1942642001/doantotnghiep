@@ -66,20 +66,6 @@ export class HomeService {
     return this.http.post(APIs.API_GET_BOOKING_TOUR, data, options);
   }
 
-  // addPost(formData: any): Observable<any> {
-  //   const headers = handle.requestHeadersFormData();
-  //   let options = {
-  //     headers: headers,
-  //     reportProgress: true,
-  //     observe: 'events'
-  //   };
-  //   return this.http.post(`${APIs.API_ADD_POST}`, formData, {
-  //     headers: headers,
-  //     reportProgress: true,
-  //     observe: 'events'
-  //   });
-  // };
-
   addPost(formData: any) {
     return axios.post(`${APIs.API_ADD_POST}`, formData, {
       headers: {

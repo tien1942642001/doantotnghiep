@@ -14,6 +14,7 @@ export class MyPostComponent implements OnInit {
   isSpinning = false;
   pageSize: any = 10;
   pageIndex: any = 0;
+  sort: any = "id,desc";
   listOfData: any[] = [];
   constructor(
     private route: ActivatedRoute,
@@ -22,8 +23,8 @@ export class MyPostComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.customerId = localStorage.getItem(constants.CUSTOMER_ID); 
-    this.authService.searchPost(this.customerId, this.pageIndex, this.pageSize).subscribe(res => {
+    this.customerId = localStorage.getItem(constants.CUSTOMER_ID);
+    this.authService.searchPost(this.customerId, this.pageIndex, this.pageSize, this.sort).subscribe(res => {
       if (res.code === 200) {
         this.listOfData = res.data.content;
       }

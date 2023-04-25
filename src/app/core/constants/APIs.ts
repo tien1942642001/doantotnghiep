@@ -6,7 +6,7 @@ export default {
   AUTH_REGISTER: environment.BASE_PATH_DOMAIN + '/customer/register',
   API_CUSTOMER_DETAIL: environment.BASE_PATH_DOMAIN + '/customer/detail',
   API_CUSTOMER_UPDATE: environment.BASE_PATH_DOMAIN + '/customer/update',
-  
+
   //home
   API_SEARCH_HOTEL: environment.BASE_PATH_DOMAIN + '/hotel/search/customer',
   API_SEARCH_SITE: environment.BASE_PATH_DOMAIN + '/site/findAll',
@@ -14,18 +14,18 @@ export default {
   API_GET_HOTEL_DETAIL: environment.BASE_PATH_DOMAIN + '/hotel/detail',
   API_GET_BOOKING_HOTEL: environment.BASE_PATH_DOMAIN + '/booking-room/booking',
   API_GET_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/booking',
-  
+
   // tour
   API_SEARCH_TOUR: environment.BASE_PATH_DOMAIN + '/tour/search',
   API_GET_TOUR_DETAIL: environment.BASE_PATH_DOMAIN + '/tour/detail',
-  
+
   //booking room, tour
   API_CHECK_BOOKING_ROOM_OK: environment.BASE_PATH_DOMAIN + '/booking-room/check-payment-room-ok',
   API_CHECK_BOOKING_TOUR_OK: environment.BASE_PATH_DOMAIN + '/booking-tour/check-payment-tour-ok',
-  
+
   API_SEARCH_BOOKING_ROOM: environment.BASE_PATH_DOMAIN + '/booking-room/search',
   API_SEARCH_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/search',
-  
+
   API_DETAIL_BOOKING_ROOM: environment.BASE_PATH_DOMAIN + '/booking-room/detail',
   API_DETAIL_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/detail',
 
@@ -35,5 +35,6 @@ export default {
   //post
   API_SEARCH_POST: environment.BASE_PATH_DOMAIN + '/post/search',
   API_ADD_POST: environment.BASE_PATH_DOMAIN + '/post/add',
+  API_COMMENT: environment.BASE_PATH_DOMAIN + '/posts',
   API_GET_DETAIL_POST: environment.BASE_PATH_DOMAIN + '/post/detail',
 }
