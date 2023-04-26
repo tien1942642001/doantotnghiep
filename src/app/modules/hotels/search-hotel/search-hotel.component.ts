@@ -26,7 +26,7 @@ export class SearchHotelComponent implements OnInit {
   selectedHotel = null;
   currentDate = new Date().getTime();
   hotelList: any[] = [];
-  totalHotel: any;
+  totalHotel: any = 0;
   roomTypeList: any[] = [];
   pageSize: Number = 20;
   pageIndex: Number = 0;
