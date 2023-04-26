@@ -37,9 +37,31 @@ export class PostDetailComponent implements OnInit {
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
   sendUpActive: boolean = false;
-  checkReplyComment: any = 0;
+  checkReplyComment: any = -100;
   commentContent: any = "Đã từng học khóa 18+ ở Mindx nhưng thấy ở đây dạy rất chán @@ đúng là được cái nhiệt tình hỗ trợ từ sale cho đến mentor, nhưng học để hiểu thì mình thấy F8 dễ hiểu hơn rất nhiều so với Mindx";
-  commentList: any[] = [];
+  commentList: any[] = [
+    {
+      id: 0,
+      customer: {
+        fullName: "Fsfanfj àdsf"
+      },
+      content: "fhgwuertweirwerwsf dsfsadrfasf",
+    },
+    {
+      id: 1,
+      customer: {
+        fullName: "Fsfanfj àdsf"
+      },
+      content: "fhgwuertweirwerwsf dsfsadrfasf",
+    },
+    {
+      id: 2,
+      customer: {
+        fullName: "Fsfanfj àdsf"
+      },
+      content: "fhgwuertweirwerwsf dsfsadrfasf",
+    },
+  ];
   commentTotal: number = 0;
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +93,8 @@ export class PostDetailComponent implements OnInit {
     this.checkReplyComment = id;
     if (content) {
       this.formGroupReply.controls['content'].setValue(content);
+    } else {
+      this.formGroupReply.controls['content'].setValue("");
     }
   }
 
@@ -129,15 +153,19 @@ export class PostDetailComponent implements OnInit {
     }
     this.authService.addComment(this.idPost, data).subscribe(res => {
       if (res.code === 200) {
-
+        // this.commentList.unshift(res.data);
+        this.setShowComment(true);
+        this.checkEditor = false;
       }
     })
   }
 
-  deleteComment(id: any) {
+  deleteComment(id: any, idx: any) {
     this.authService.deleteComment(this.idPost, id).subscribe(res => {
       if (res.code === 200) {
-
+        // this.commentList = this.commentList.filter(item => item.id != id);
+        this.commentList.splice(idx, 1);
+        this.commentTotal -= 1;
       }
     })
   }
@@ -150,7 +178,8 @@ export class PostDetailComponent implements OnInit {
     }
     this.authService.updateComment(this.idPost, id, data1).subscribe(res => {
       if (res.code === 200) {
-
+        this.setShowComment(true);
+        this.checkReplyComment = 0;
       }
     })
   }

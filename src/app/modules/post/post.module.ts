@@ -15,12 +15,14 @@ import { NewPostComponent } from './new-post/new-post.component';
 import { PostRoutingModule } from './post-routing.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 @NgModule({
   declarations: [
     PostListComponent,
     NewPostComponent,
     PostDetailComponent,
+    CommentListComponent,
   ],
   imports: [
     CommonModule,
