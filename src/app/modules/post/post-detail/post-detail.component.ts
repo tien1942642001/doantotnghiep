@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
 import { Editor, Toolbar } from 'ngx-editor';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HomeService } from 'src/app/core/service/home.service';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
 import 'moment/locale/vi';
 @Component({
@@ -24,6 +25,8 @@ export class PostDetailComponent implements OnInit {
   post: any;
   showComment: boolean = false;
   checkEditor: boolean = false;
+  checkIsLike: any = 0;
+  idLike: any;
   contentEditor: any;
   contentForm: any = '';
   toolbar: Toolbar = [
@@ -39,36 +42,16 @@ export class PostDetailComponent implements OnInit {
   sendUpActive: boolean = false;
   checkReplyComment: any = -100;
   commentContent: any = "Đã từng học khóa 18+ ở Mindx nhưng thấy ở đây dạy rất chán @@ đúng là được cái nhiệt tình hỗ trợ từ sale cho đến mentor, nhưng học để hiểu thì mình thấy F8 dễ hiểu hơn rất nhiều so với Mindx";
-  commentList: any[] = [
-    {
-      id: 0,
-      customer: {
-        fullName: "Fsfanfj àdsf"
-      },
-      content: "fhgwuertweirwerwsf dsfsadrfasf",
-    },
-    {
-      id: 1,
-      customer: {
-        fullName: "Fsfanfj àdsf"
-      },
-      content: "fhgwuertweirwerwsf dsfsadrfasf",
-    },
-    {
-      id: 2,
-      customer: {
-        fullName: "Fsfanfj àdsf"
-      },
-      content: "fhgwuertweirwerwsf dsfsadrfasf",
-    },
-  ];
+  commentList: any[] = [];
   commentTotal: number = 0;
+  likeTotal: number = 0;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private homeService: HomeService,
     private renderer: Renderer2,
+    private sanitizer: DomSanitizer
   ) { }
 
   editor: Editor = new Editor;
@@ -81,7 +64,6 @@ export class PostDetailComponent implements OnInit {
       this.authService.searchComment(this.idPost, this.pageIndex, this.pageSize, this.sort).subscribe(res => {
         if (res.code === 200) {
           this.commentList = res.data.content;
-          this.commentTotal = res.data.totalElements;
         }
       })
     } else {
@@ -107,6 +89,19 @@ export class PostDetailComponent implements OnInit {
     this.authService.detailPost(this.idPost).subscribe(res => {
       if (res.code === 200) {
         this.post = res.data;
+        this.likeTotal = res.data.countLike;
+        this.commentTotal = res.data.countComment;
+      }
+    })
+    this.authService.checkCustomerLike(
+      {
+        postId: this.idPost,
+        customerId: this.customerId
+      }
+    ).subscribe(res => {
+      if (res.code === 200) {
+        this.checkIsLike = res.data.status;
+        this.idLike = res.data.id;
       }
     })
   }
@@ -143,11 +138,13 @@ export class PostDetailComponent implements OnInit {
   commentDate = new Date(1682396582046);
 
   // Tính khoảng cách thời gian
-  timeAgo = moment(this.commentDate).fromNow(); // Khoảng một năm trước
+  timeAgo = moment(this.commentDate).fromNow();
 
   addComment() {
+    // phương thức bypassSecurityTrustHtml sẽ loại bỏ ký tự độc lại khi thêm mới bình luận
+    const conent = this.sanitizer.bypassSecurityTrustHtml(this.formGroup.value.content);
     const data = {
-      content: this.formGroup.value.content,
+      content: conent,
       postId: this.idPost,
       customerId: localStorage.getItem(constants.CUSTOMER_ID)
     }
@@ -156,6 +153,7 @@ export class PostDetailComponent implements OnInit {
         // this.commentList.unshift(res.data);
         this.setShowComment(true);
         this.checkEditor = false;
+        this.commentTotal++;
       }
     })
   }
@@ -180,6 +178,25 @@ export class PostDetailComponent implements OnInit {
       if (res.code === 200) {
         this.setShowComment(true);
         this.checkReplyComment = 0;
+      }
+    })
+  }
+
+  updateLike() {
+    const data = {
+      id: this.idLike,
+      postId: this.idPost,
+      customerId: localStorage.getItem(constants.CUSTOMER_ID),
+      status: this.checkIsLike ? 0 : 1,
+    }
+    this.authService.updateLike(data).subscribe(res => {
+      if (res.code === 200) {
+        this.checkIsLike = !this.checkIsLike;
+        if (this.checkIsLike) {
+          this.likeTotal ++;
+        } else {
+          this.likeTotal --;
+        }
       }
     })
   }

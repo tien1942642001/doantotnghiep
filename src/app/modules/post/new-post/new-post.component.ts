@@ -18,9 +18,10 @@ export class NewPostComponent implements OnInit {
   imageInput: any[] = [];
   fileList: any[] = [];
   postId: boolean = false;
-  listOfSite: any[] = [];
   listOfHotel: any[] = [];
+  listOfSite: any[] = [];
   contentEditor: any;
+  customerId: any = localStorage.getItem(constants.CUSTOMER_ID);
   toolbar: Toolbar = [
     ['bold', 'italic'],
     ['underline', 'strike'],
@@ -39,23 +40,23 @@ export class NewPostComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.contentEditor = new Editor();
-    this.getAllSite();
+    this.getAllSite(this.customerId);
   }
 
-  getAllSite() {
-    this.homeService.getAllSite().subscribe(res => {
+  getAllSite(customerId: Number) {
+    this.homeService.getAllSiteByCustomerId(customerId).subscribe(res => {
       if (res.code === 200) {
         this.listOfSite = res.data;
       }
     });
   }
 
-  getAllHotel(siteId: Number) {
+  getAllHotel(customerId: Number, siteId: Number) {
     this.listOfHotel = [];
-    this.homeService.getAllHotel(100, 0, siteId).subscribe(res => {
+    this.homeService.getAllHotelByCustomerId(customerId, siteId).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
-        this.listOfHotel = res.data.content;
+        this.listOfHotel = res.data;
       }
     });
   }
@@ -159,7 +160,7 @@ export class NewPostComponent implements OnInit {
   }
 
   getHotel() {
-    this.getAllHotel(this.formGroup.value.site);
+    this.getAllHotel(this.customerId, this.formGroup.value.site);
   }
 
 }

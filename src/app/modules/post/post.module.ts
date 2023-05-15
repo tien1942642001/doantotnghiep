@@ -16,6 +16,7 @@ import { PostRoutingModule } from './post-routing.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     NzButtonModule,
     NzGridModule,
     NzInputModule,
+    NzPaginationModule,
   ]
 })
 export class PostModule { }

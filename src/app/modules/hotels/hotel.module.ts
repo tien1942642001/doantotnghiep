@@ -28,6 +28,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { BookingComponent } from './booking/booking.component';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
         NzDividerModule,
         SwiperModule,
         NzRadioModule,
+        NzPaginationModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

@@ -233,7 +233,8 @@ export class HeaderComponent implements OnInit {
           "Vé máy bay",
           "Khách sạn + Vé máy bay",
           "Tour & Trải nghiệm"
-        ] 
+        ],
+        navigate: "",
       },
       {
         name: "Trải nghiệm Vinpearl",
@@ -246,23 +247,20 @@ export class HeaderComponent implements OnInit {
           "Ẩm thực",
           "Hội họp và Sự kiện",
           "Grand World"
-        ]
+        ],
+        navigate: "",
     },
     {
       name: "Ưu đã khuyến mại",
       child: [
         "Ưu đã nổi bật",
         "Ưu đãi Pearl Club"
-      ]
+      ],
+      navigate: "",
     },
     {
-      name: "Pearl Club",
-      child: [
-        "Tổng quan",
-        "Quyền lợi",
-        "Hế thống áp dụng",
-        "Điều kiện điều khoản"
-      ]
+      name: "Blog",
+      navigate: "post/post-list",
     }
     ];
 
@@ -275,7 +273,7 @@ export class HeaderComponent implements OnInit {
     }
     if (name == "language") {
       this.showDropLanguage = !this.showDropLanguage;
-    } 
+    }
   }
 
   searchBooking () {

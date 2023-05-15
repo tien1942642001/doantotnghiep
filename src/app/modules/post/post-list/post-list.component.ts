@@ -11,17 +11,21 @@ export class PostListComponent implements OnInit {
 
   listOfPost: any[] = [];
   pageSize = 9;
-  pageIndex = 0;
+  pageIndex = 1;
   sort: any = "id,desc";
-  totalItem: any = 0;
+  totalItems: any = 0;
   constructor(
     private homeService: HomeService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.getAllPost();
+  }
+
+  getAllPost() {
     const data = {
-      page: this.pageIndex,
+      page: this.pageIndex - 1,
       size: this.pageSize,
       sort: this.sort,
     }
@@ -35,6 +39,17 @@ export class PostListComponent implements OnInit {
 
   navigateDetailPost(id: any) {
     this.router.navigate([`/post/detail/${id}`]);
+  }
+
+  changeCurrentPage(currentPage: number) {
+    this.pageIndex = currentPage;
+    this.getAllPost();
+  }
+
+  changeItemPerPage(itemPerPage: number) {
+    this.pageIndex = 1;
+    this.pageSize = itemPerPage;
+    this.getAllPost();
   }
 
 }

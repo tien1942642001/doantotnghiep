@@ -82,6 +82,45 @@
   }
 }
 
+#block-homepage-recommendation {
+  .recommendation {
+    &-wrapper {
+      box-shadow: 0 5px 10px -6px rgba(0,0,0,.1);
+      background-color: #FFF;
+    }
+
+    &-title {
+      margin-bottom: 35px;
+
+      a {
+        color: #222;
+        font-size: 16px;
+        line-height: 150%;
+        height: 35px;
+      }
+    }
+  }
+  .tour-price {
+    margin-top: 20px;
+    margin-bottom: 15px;
+
+    .price {
+        margin-left: 5px;
+        font-size: 18px;
+        color: #f39f2d;
+        font-weight: 500;
+    }
+}
+
+.price-detail {
+    margin-left: 5px;
+    font-size: 36px;
+    color: #f39f2d;
+    font-weight: 700;
+}
+}
+
+
 .homepage-title {
   margin-bottom: 30px;
   font-style: normal;
@@ -107,11 +146,11 @@
     .exp-item._741x500 {
       width: calc(741 * 100%/1170);
     }
-    
+
     .exp-item._409x500 {
       width: calc(409 * 100%/1170);
     }
-  
+
     &::before {
       content: "";
       width: 380px;
@@ -122,7 +161,7 @@
       background: #fbf8f2;
       transform: matrix(1,0,0,-1,0,0);
     }
-  
+
     &::after {
       content: "";
       position: absolute;
@@ -134,7 +173,7 @@
       z-index: -1;
     }
   }
-  
+
   .experience-item-title {
     font-weight: 500;
     font-size: 26px;
@@ -144,7 +183,7 @@
     margin-bottom: 4px;
     transition: .5s;
   }
-  
+
   .experience-item-desc {
     font-weight: 400;
     font-size: 14px;
@@ -152,7 +191,7 @@
     color: #616971;
     margin-bottom: 21px;
   }
-  
+
   .experience-item-dis a {
     font-weight: 600;
     font-size: 16px;
@@ -164,7 +203,7 @@
     background-position: right;
     padding-right: 24px;
     transition: .5s;
-  
+
     &:hover {
       padding-right: 34px;
     }
@@ -270,7 +309,7 @@
       margin-top: 18px;
       margin-bottom: 0;
       height: 47px;
-      
+
       a {
         font-weight: 500;
         font-size: 14px;

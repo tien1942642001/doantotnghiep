@@ -19,4 +19,18 @@
             </div>
         </div>
     </div>
+    <div class="table-footer d-flex justify-content-between align-items-center">
+      <div *ngIf="totalItems <= 10 && totalItems > 0">Hiển thị 1 - {{totalItems}} trong {{totalItems}} bản ghi</div>
+      <div *ngIf="totalItems > 10">
+          <nz-pagination
+              [nzPageIndex]="pageIndex"
+              [nzTotal]="totalItems"
+              nzShowSizeChanger
+              [nzPageSize]="pageSize"
+              (nzPageSizeChange)="changeItemPerPage($event)"
+              (nzPageIndexChange)="changeCurrentPage($event)"
+          ></nz-pagination>
+          <div style="width: 300px;"></div>
+      </div>
+  </div>
 </div>

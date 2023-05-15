@@ -1,0 +1,20 @@
+<nz-collapse [nzBordered]="false" [nzAccordion]="false">
+  <nz-collapse-panel [nzShowArrow]="false" [nzHeader]="headerOptions" [nzActive]="true"
+      [nzDisabled]="true" class="custom-borderless-collapse-panel">
+      <label
+          class="custom-checkbox"
+          nz-checkbox
+          [(ngModel)]="allChecked"
+          (ngModelChange)="updateAllChecked()"
+          [nzIndeterminate]="indeterminate"
+      >
+          Tất cả
+      </label>
+      <nz-checkbox-group class="custom-checkbox" [(ngModel)]="checkOptions"
+          (ngModelChange)="updateSingleChecked()">
+          <label nz-checkbox *ngFor="let option of checkOptions" [nzValue]="option.value">
+              {{ option.label }}
+          </label>
+      </nz-checkbox-group>
+  </nz-collapse-panel>
+</nz-collapse>

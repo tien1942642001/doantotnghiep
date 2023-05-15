@@ -9,9 +9,9 @@
                 </div>
                 <div class="menu">
                     <ul>
-                        <li class="menu-item" *ngFor="let data of nav_list">
+                        <li [routerLink]="data.navigate" class="menu-item" *ngFor="let data of nav_list">
                             <div class="nav-item">{{data.name}}</div>
-                            <div class="drop-menu">
+                            <div *ngIf="data.child" class="drop-menu">
                                 <div class="links-wrapper">
                                     <p *ngFor="let dropMenu of data.child">{{dropMenu}}</p>
                                 </div>
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </li>
                     <li>
                         <a *ngIf="!fullName" [routerLink]="'/auth/login'" class="login">

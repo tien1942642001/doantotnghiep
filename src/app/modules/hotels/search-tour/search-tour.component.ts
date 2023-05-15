@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NumberInput } from 'ng-zorro-antd/core/types';
 import constants from 'src/app/core/constants/constants';
 import { HomeService } from 'src/app/core/service/home.service';
 import { TourService } from 'src/app/core/service/tour.service';
@@ -44,8 +45,14 @@ export class SearchTourComponent implements OnInit {
     { value: 8, label: '22 ngày 21 đêm', checked: true },
   ];
 
-  checkTourSelect: any;
+  checkOptionsSuitables: any[] = [
+    { value: 1, label: 'Cặp đôi', checked: true },
+    { value: 2, label: 'Gia đình', checked: true },
+    { value: 3, label: 'Nhóm bạn', checked: true },
+    { value: 4, label: 'Doanh nhân', checked: true },
+  ];
 
+  checkTourSelect: any;
   siteId: any;
   searchName: any;
   hotelDetail: any;
@@ -54,8 +61,9 @@ export class SearchTourComponent implements OnInit {
   currentDate = new Date().getTime();
   tourList: any[] = [];
   roomTypeList: any[] = [];
-  pageSize: Number = 10;
-  pageIndex: Number = 0;
+  pageSize: any = 10;
+  pageIndex: any = 1;
+  sort: any = 'id,desc';
   remainingOfPeople: number = 0;
   showPeople: any;
   showTotalPrice: boolean = false;
@@ -65,6 +73,22 @@ export class SearchTourComponent implements OnInit {
   tourDetail: any;
   hotelList: any[] = [];
   hideDetail: boolean = false;
+  totalItems: any = 0;
+
+  selectedValue: any;
+
+  onValueChange() {
+    if (this.selectedValue == '0') {
+      this.sort = 'th.priceAdult,desc';
+    } else if (this.selectedValue == '1') {
+      this.sort = 'th.priceAdult,asc';
+    } if (this.selectedValue == '2') {
+      this.sort = 'th.priceAdult,desc';
+    }
+    setTimeout(() => {
+      this.getAllTour();
+    }, 600)
+  }
 
   suitableList: any[] = this.checkOptionsTypeOfTour.map(item => item.value);
   lengthStayIdList: any[] = this.checkOptionsLengthStayIds.map(item => item.value);
@@ -72,56 +96,42 @@ export class SearchTourComponent implements OnInit {
 
   allCheckedTypeOfTour = true;
   indeterminateTypeOfTour = true;
-  
-  updateAllCheckedTypeOfTour(): void {
-    this.indeterminateTypeOfTour = false;
-    if (this.allCheckedTypeOfTour) {
-      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
-        ...item,
-        checked: true
-      }));
-      const data = {
-        name: "",
-        leavingToId: this.siteId,
-        suitables: this.suitableList,
-        typeOfTours: this.typeOfTourIdList,
-        lengthStayIds: this.lengthStayIdList,
-        pageSize: 10,
-        pageIndex: 0,
-      };
-      this.getAllTour(data);
-    } else {
-      this.checkOptionsTypeOfTour = this.checkOptionsTypeOfTour.map(item => ({
-        ...item,
-        checked: false
-      }));
-    }
-  }
 
-  selectTypeOfTour: any[] = [];
+  selectedTypeOfTours: any[] = this.typeOfTourIdList;
+  selectedLengthStayIds: any[] = this.lengthStayIdList;
+  selectedSuitables: any[] = this.suitableList;
 
-  updateSingleCheckedTypeOfTour(): void {
-    this.selectTypeOfTour = this.checkOptionsTypeOfTour.filter(item => item.checked).map(item1 => item1.value);
-    if (this.checkOptionsTypeOfTour.every(item => !item.checked)) {
-      this.allCheckedTypeOfTour = false;
-      this.indeterminateTypeOfTour = false;
-    } else if (this.checkOptionsTypeOfTour.every(item => item.checked)) {
-      this.allCheckedTypeOfTour = true;
-      this.indeterminateTypeOfTour = false;
-    } else {
-      this.indeterminateTypeOfTour = true;
-    }
-    console.log(this.checkOptionsTypeOfTour);
+  getListTour(event: any[]) {
+    console.log(event);
+    // const typeOfTours = number == 1 ? event : this.typeOfTourIdList;
+    // const lengthStayIds = number == 2 ? event : this.lengthStayIdList;
+    // const suitableIds = number == 3 ? event : this.suitableList;
     const data = {
       name: "",
       leavingToId: this.siteId,
-      suitables: this.suitableList,
-      typeOfTours: this.selectTypeOfTour,
-      lengthStayIds: this.lengthStayIdList,
-      pageSize: 10,
-      pageIndex: 0,
+      // suitableIds: suitableIds,
+      // typeOfTours: typeOfTours,
+      // lengthStayIds: lengthStayIds,
+      page: this.pageIndex - 1,
+      size: this.pageSize,
+      sort: this.sort,
     };
-    this.getAllTour(data);
+    this.getAllTour();
+  }
+
+  getListTour1(event: any[]) {
+    this.selectedTypeOfTours = event;
+    this.getAllTour();
+  }
+
+  getListTour2(event: any[]) {
+    this.selectedLengthStayIds = event;
+    this.getAllTour();
+  }
+
+  getListTour3(event: any[]) {
+    this.selectedSuitables = event;
+    this.getAllTour();
   }
 
   config: SwiperOptions = {
@@ -147,17 +157,9 @@ export class SearchTourComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.siteId = params['siteId'] ? parseInt(params['siteId']) : '';
       this.searchName = params['searchName'];
-      const data = {
-        name: this.searchName,
-        siteId: this.siteId,
-        suitables: this.suitableList,
-        lengthStayIds: this.lengthStayIdList,
-        pageSize: this.pageSize,
-        pageIndex: this.pageIndex,
-      };
-      this.getAllTour(data);
+      this.getAllTour();
     })
-    
+
     this.tourId = this.route.snapshot.params['id'];
     if (this.tourId) {
       this.tourService.getDetailTour(this.tourId).subscribe(res => {
@@ -177,13 +179,26 @@ export class SearchTourComponent implements OnInit {
     }
   }
 
-  getAllTour(data: any) {
+  getAllTour() {
+    const data = {
+      name: "",
+      leavingToId: this.siteId,
+      suitableIds: this.selectedSuitables,
+      typeOfTours: this.selectedTypeOfTours,
+      lengthStayIds: this.selectedLengthStayIds,
+      page: this.pageIndex - 1,
+      size: this.pageSize,
+      sort: this.sort,
+    };
+
     this.tourService.getAllTour(data).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.tourList = res.data.content;
+        this.totalItems = res.data.totalElements;
         this.tourList.forEach(item => {
-          item.numberBuyer = item.numberOfPeople - item.remainingOfPeople
+          item.numberBuyer = item.numberOfPeople - item.remainingOfPeople;
+          item.checkExpirationDate = new Date().getTime() > item.expirationDate;
         })
       }
     });
@@ -269,6 +284,17 @@ export class SearchTourComponent implements OnInit {
     this.router.navigate(['/hotels/booking'], {
       queryParams: {type: 'tour'}
     });
+  }
+
+  changeCurrentPage(currentPage: number) {
+    this.pageIndex = currentPage;
+    this.getAllTour();
+  }
+
+  changeItemPerPage(itemPerPage: number) {
+    this.pageIndex = 1;
+    this.pageSize = itemPerPage;
+    this.getAllTour();
   }
 }
 

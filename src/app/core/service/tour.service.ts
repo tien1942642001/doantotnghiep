@@ -36,11 +36,14 @@ export class TourService {
     if (data.siteId) {
       queryParams = queryParams.append("siteId",data.siteId);
     }
-    if (data.page) {
+    if (data.page >= 0) {
       queryParams = queryParams.append("page",data.page);
     }
-    if (data.size) {
+    if (data.size > 0) {
       queryParams = queryParams.append("size",data.size);
+    }
+    if (data.sort) {
+      queryParams = queryParams.append("sort",data.sort);
     }
     let options = {
       headers: headers,
@@ -53,5 +56,11 @@ export class TourService {
     const headers = handle.requestHeaders();
     let options = {headers: headers};
     return this.http.get(`${APIs.API_GET_TOUR_DETAIL}/${id}`, options)
+  }
+
+  getTourRecommendation(id: Number): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_TOUR_RECOMMENDATION}/${id}`, options)
   }
 }

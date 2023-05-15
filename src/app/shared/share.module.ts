@@ -21,6 +21,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HotelSummaryComponent } from './hotel-summary/hotel-summary.component';
 import { FormatPrice } from '../core/pipe/number.pipe';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';
 
 @NgModule({
  declarations: [
@@ -29,6 +30,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
    TourComponent,
    HotelSummaryComponent,
    FormatPrice,
+   CustomCheckboxComponent,
  ],
  imports: [
    CommonModule,
@@ -60,7 +62,8 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
    HotelFlightComponent,
    TourComponent,
    HotelSummaryComponent,
-   FormatPrice
+   FormatPrice,
+   CustomCheckboxComponent,
  ]
 })
 export class SharedModule { }

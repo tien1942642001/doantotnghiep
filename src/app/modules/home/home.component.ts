@@ -3,6 +3,8 @@ import { NzSelectPlacementType } from 'ng-zorro-antd/select';
 import { TranslateService } from '@ngx-translate/core';
 import { HomeService } from 'src/app/core/service/home.service';
 import { Router } from '@angular/router';
+import { TourService } from 'src/app/core/service/tour.service';
+import constants from 'src/app/core/constants/constants';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +22,7 @@ export class HomeComponent implements OnInit {
   placementSelect: NzSelectPlacementType = 'bottomLeft';
   currentDate = new Date().getTime();
   listOfPost: any[] = [];
+  listOfRecommenDation: any[] = [];
 
   bookingTypes: any[] = [
     {
@@ -51,6 +54,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private homeService: HomeService,
+    private tourService: TourService,
     private route: Router,
   ) {
     if (localStorage.getItem('lang')) {
@@ -112,6 +116,16 @@ export class HomeComponent implements OnInit {
         this.listOfPost = res.data.content;
       }
     })
+
+    const customerIdStr = localStorage.getItem(constants.CUSTOMER_ID);
+    if (customerIdStr) {
+      const customerId = parseInt(customerIdStr);
+      this.tourService.getTourRecommendation(customerId).subscribe(res => {
+        if (res.code == 200) {
+          this.listOfRecommenDation = res.data;
+        }
+      })
+    }
   }
 
   selectedIndexChange(idx: any) {
@@ -150,6 +164,10 @@ export class HomeComponent implements OnInit {
 
   navigateDetailPost(id: any) {
     this.route.navigate([`/post/detail/${id}`]);
+  }
+
+  navigateDetaiTour(id: any) {
+    this.route.navigate([`/hotels/search-tour/${id}`]);
   }
 
 }

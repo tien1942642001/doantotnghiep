@@ -51,6 +51,65 @@
         </div>
     </div>
 </div>
+<div *ngIf="listOfRecommenDation.length > 0" id="block-homepage-recommendation">
+  <div class="block-content">
+      <div class="promo-block">
+          <div class="container">
+              <div class="title-wrapper">
+                  <h2 class="homepage-title">Sản phẩm dành cho bạn</h2>
+                  <a [routerLink]="'/hotels/search-tour'">{{'promo.more' | translate}}</a>
+              </div>
+              <div class="promo-items">
+                  <swiper
+                      [slidesPerView]="3"
+                      [spaceBetween]="50"
+                      (swiper)="onSwiper($event)"
+                      (slideChange)="onSlideChange()"
+                      >
+                      <ng-template *ngFor="let item of listOfRecommenDation; let idx = index;" swiperSlide>
+                          <div class="recommendation-wrapper" (click)="navigateDetaiTour(item.id)">
+                            <div class="img-wrapper">
+                                <img src={{item.images[0].path}} alt="">
+                            </div>
+                            <div style="padding: 16px; border: 1px solid #CCC; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;">
+                              <div class="item-title three_dots_2">
+                                <div class="recommendation-title">
+                                  <a>{{item.name}}</a>
+                                </div>
+                              </div>
+                              <div class="tour-price d-flex align-items-center justify-content-between">
+                                <div class="tour-clock">
+                                    <div>
+                                      <img style="margin-right: 8px;"
+                                        src="../../../../assets/icon/clock.641022d8.svg" alt="clock">
+                                      <span *ngIf="item.lengthStayId == 1">1 ngày</span>
+                                      <span *ngIf="item.lengthStayId == 2">2 ngày 1 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 3">3 ngày 2 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 4">4 ngày 3 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 5">5 ngày 4 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 6">6 ngày 4 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 7">6 ngày 5 đêm</span>
+                                      <span *ngIf="item.lengthStayId == 8">22 ngày 21 đêm</span>
+                                    </div>
+                                    <div>
+                                      <img src="../../../../assets/icon/sold-quantity.d42ff9e4.svg" alt="">
+                                      <span>{{item.numberOfPeople - item.remainingOfPeople}} người mua</span>
+                                    </div>
+                                </div>
+                                <p class="price">
+                                    {{item.priceAdult | format}}
+                                    <span>đ</span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                      </ng-template>
+                  </swiper>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 <div id="block-homepage-destination">
     <div class="block-content">
         <div class="destination-block">
@@ -89,7 +148,7 @@
                             </div>
                         </a>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -247,11 +306,6 @@
                         >
                         <ng-template *ngFor="let item of listOfPost; let idx = index;" swiperSlide>
                             <a (click)="navigateDetailPost(item.id)">
-                                <!-- <div class='post-item'>
-                                    <img class="post-image" src={{item.path}} alt="" />
-                                    <h5 class="post-title">{{item.title}}</h5>
-                                    <div class="post-excerpt">{{item.excerpt}}</div>
-                                </div> -->
                                 <div class="img-wrapper">
                                     <img src={{item.path}} alt="">
                                 </div>

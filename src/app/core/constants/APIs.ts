@@ -18,6 +18,7 @@ export default {
   // tour
   API_SEARCH_TOUR: environment.BASE_PATH_DOMAIN + '/tour/search',
   API_GET_TOUR_DETAIL: environment.BASE_PATH_DOMAIN + '/tour/detail',
+  API_GET_TOUR_RECOMMENDATION: environment.BASE_PATH_DOMAIN + '/tour/recommendation',
 
   //booking room, tour
   API_CHECK_BOOKING_ROOM_OK: environment.BASE_PATH_DOMAIN + '/booking-room/check-payment-room-ok',
@@ -35,6 +36,10 @@ export default {
   //post
   API_SEARCH_POST: environment.BASE_PATH_DOMAIN + '/post/search',
   API_ADD_POST: environment.BASE_PATH_DOMAIN + '/post/add',
+  API_GET_LIST_HOTEL_BY_CUSTOMER_ID: environment.BASE_PATH_DOMAIN + '/hotel/getListHotelByCustomer',
+  API_GET_LIST_SITE_BY_CUSTOMER_ID: environment.BASE_PATH_DOMAIN + '/site/getListSiteByCustomer',
   API_COMMENT: environment.BASE_PATH_DOMAIN + '/posts',
+  API_LIKE_SAVE: environment.BASE_PATH_DOMAIN + '/post/like/save',
+  API_LIKE_CHECK: environment.BASE_PATH_DOMAIN + '/post/like/detail',
   API_GET_DETAIL_POST: environment.BASE_PATH_DOMAIN + '/post/detail',
 }

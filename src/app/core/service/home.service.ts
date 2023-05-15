@@ -30,6 +30,18 @@ export class HomeService {
     this.sharingDataTour.next(data);
   }
 
+  getAllHotelByCustomerId(customerId: Number, siteId: Number): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_LIST_HOTEL_BY_CUSTOMER_ID}?customerId=${customerId}&siteId=${siteId}`, options)
+  }
+
+  getAllSiteByCustomerId(customerId: Number): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.get(`${APIs.API_GET_LIST_SITE_BY_CUSTOMER_ID}?customerId=${customerId}`, options)
+  }
+
   getAllHotel(pageSize: Number, pageIndex: Number, siteId: Number): Observable<any> {
     const headers = handle.requestHeaders();
     let options = {headers: headers};

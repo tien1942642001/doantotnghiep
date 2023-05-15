@@ -104,4 +104,16 @@ export class AuthService {
     let options = {headers: headers};
     return this.http.get(`${APIs.API_COMMENT}/${idPost}/comments/delete/${idComment}`, options);
   };
+
+  updateLike(data: any): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.post(`${APIs.API_LIKE_SAVE}`, data, options);
+  };
+
+  checkCustomerLike(data: any): Observable<any> {
+    const headers = handle.requestHeaders();
+    let options = {headers: headers};
+    return this.http.post(`${APIs.API_LIKE_CHECK}`, data, options);
+  }
 }
