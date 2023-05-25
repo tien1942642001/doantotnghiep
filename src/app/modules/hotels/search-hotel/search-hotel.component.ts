@@ -30,6 +30,7 @@ export class SearchHotelComponent implements OnInit {
   roomTypeList: any[] = [];
   pageSize: Number = 20;
   pageIndex: Number = 0;
+  sort: any = "id,desc";
   hotelDetail: any;
   checkActive: boolean = false;
   displayService: boolean = false;
@@ -117,7 +118,13 @@ export class SearchHotelComponent implements OnInit {
   }
 
   getAllHotel(siteId: Number) {
-    this.homeService.getAllHotel(this.pageSize, this.pageIndex, siteId).subscribe(res => {
+    const data = {
+      siteId: siteId,
+      page: this.pageIndex,
+      size: this.pageSize,
+      sort: this.sort,
+    }
+    this.homeService.getAllHotel(data).subscribe(res => {
       if (res.code === 200) {
         // console.log(res.data.content);
         this.hotelList = res.data.content;

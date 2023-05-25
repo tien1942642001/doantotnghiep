@@ -2,21 +2,21 @@ import { environment } from "src/environments/environment.prod";
 
 export default {
   //user
-  AUTH_LOGIN: environment.BASE_PATH_DOMAIN + '/customer/login',
-  AUTH_REGISTER: environment.BASE_PATH_DOMAIN + '/customer/register',
+  AUTH_LOGIN: environment.BASE_PATH_DOMAIN + '/public/customer/login',
+  AUTH_REGISTER: environment.BASE_PATH_DOMAIN + '/public/customer/register',
   API_CUSTOMER_DETAIL: environment.BASE_PATH_DOMAIN + '/customer/detail',
   API_CUSTOMER_UPDATE: environment.BASE_PATH_DOMAIN + '/customer/update',
 
   //home
-  API_SEARCH_HOTEL: environment.BASE_PATH_DOMAIN + '/hotel/search/customer',
+  API_SEARCH_HOTEL: environment.BASE_PATH_DOMAIN + '/public/hotel/search/customer',
   API_SEARCH_SITE: environment.BASE_PATH_DOMAIN + '/site/findAll',
-  API_SEARCH_ROOM_TYPE: environment.BASE_PATH_DOMAIN + '/room/room-type/search',
+  API_SEARCH_ROOM_TYPE: environment.BASE_PATH_DOMAIN + '/public/room/room-type/search',
   API_GET_HOTEL_DETAIL: environment.BASE_PATH_DOMAIN + '/hotel/detail',
   API_GET_BOOKING_HOTEL: environment.BASE_PATH_DOMAIN + '/booking-room/booking',
   API_GET_BOOKING_TOUR: environment.BASE_PATH_DOMAIN + '/booking-tour/booking',
 
   // tour
-  API_SEARCH_TOUR: environment.BASE_PATH_DOMAIN + '/tour/search',
+  API_SEARCH_TOUR: environment.BASE_PATH_DOMAIN + '/public/tour/search',
   API_GET_TOUR_DETAIL: environment.BASE_PATH_DOMAIN + '/tour/detail',
   API_GET_TOUR_RECOMMENDATION: environment.BASE_PATH_DOMAIN + '/tour/recommendation',
 

@@ -181,7 +181,8 @@ export class SearchTourComponent implements OnInit {
 
   getAllTour() {
     const data = {
-      name: "",
+      name: this.searchName,
+      siteId: this.siteId,
       leavingToId: this.siteId,
       suitableIds: this.selectedSuitables,
       typeOfTours: this.selectedTypeOfTours,
@@ -223,17 +224,6 @@ export class SearchTourComponent implements OnInit {
   handleOk() {
     console.log(123);
   }
-
-  formGroup: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    selectedSite: new FormControl('', Validators.required),
-    rangePicker: new FormControl([this.currentDate, this.currentDate + 86400000 * 2]),
-  });
-
-  // searchHotels () {
-  //   const formValue = this.formGroup.value;
-  //   this.getAllTour(formValue.name, formValue.selectedSite);
-  // }
 
   handleCheckFocus(name: any) {
     if (name == "focus") {

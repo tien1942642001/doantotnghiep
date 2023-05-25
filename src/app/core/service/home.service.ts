@@ -42,10 +42,26 @@ export class HomeService {
     return this.http.get(`${APIs.API_GET_LIST_SITE_BY_CUSTOMER_ID}?customerId=${customerId}`, options)
   }
 
-  getAllHotel(pageSize: Number, pageIndex: Number, siteId: Number): Observable<any> {
+  getAllHotel(data: any): Observable<any> {
     const headers = handle.requestHeaders();
-    let options = {headers: headers};
-    return this.http.get(`${APIs.API_SEARCH_HOTEL}?page=${pageIndex}&size=${pageSize}&siteId=${siteId}`, options)
+    let queryParams = new HttpParams();
+    if (data.siteId) {
+      queryParams = queryParams.append("siteId",data.siteId);
+    }
+    if (data.page || data.page == 0) {
+      queryParams = queryParams.append("page",data.page);
+    }
+    if (data.size) {
+      queryParams = queryParams.append("size",data.size);
+    }
+    if (data.sort) {
+      queryParams = queryParams.append("sort",data.sort);
+    }
+    let options = {
+      headers: headers,
+      params: queryParams,
+    };
+    return this.http.get(`${APIs.API_SEARCH_HOTEL}`, options)
   }
 
   getHotelDetail(hotelId: Number): Observable<any> {

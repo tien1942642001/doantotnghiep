@@ -41,7 +41,6 @@ export class PostDetailComponent implements OnInit {
   ];
   sendUpActive: boolean = false;
   checkReplyComment: any = -100;
-  commentContent: any = "Đã từng học khóa 18+ ở Mindx nhưng thấy ở đây dạy rất chán @@ đúng là được cái nhiệt tình hỗ trợ từ sale cho đến mentor, nhưng học để hiểu thì mình thấy F8 dễ hiểu hơn rất nhiều so với Mindx";
   commentList: any[] = [];
   commentTotal: number = 0;
   likeTotal: number = 0;
@@ -83,9 +82,9 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     this.contentEditor = new Editor();
     this.route.params.subscribe((param: any) => {
-      this.idPost = param.id;
+      this.idPost = Number(param.id);
     } )
-    this.customerId = localStorage.getItem(constants.CUSTOMER_ID);
+    this.customerId = Number(localStorage.getItem(constants.CUSTOMER_ID));
     this.authService.detailPost(this.idPost).subscribe(res => {
       if (res.code === 200) {
         this.post = res.data;
@@ -125,7 +124,7 @@ export class PostDetailComponent implements OnInit {
   savePost = async () => {
     const data = {
       content: this.contentForm,
-      customerId: localStorage.getItem(constants.CUSTOMER_ID),
+      customerId: this.customerId,
     }
     this.authService.addComment(this.idPost, data).subscribe(res => {
       if (res.body?.code == 200) {
@@ -142,11 +141,12 @@ export class PostDetailComponent implements OnInit {
 
   addComment() {
     // phương thức bypassSecurityTrustHtml sẽ loại bỏ ký tự độc lại khi thêm mới bình luận
-    const conent = this.sanitizer.bypassSecurityTrustHtml(this.formGroup.value.content);
+    // const conent = this.sanitizer.bypassSecurityTrustHtml(this.formGroup.value.content);
+    const conent = this.formGroup.value.content;
     const data = {
       content: conent,
       postId: this.idPost,
-      customerId: localStorage.getItem(constants.CUSTOMER_ID)
+      customerId: this.customerId
     }
     this.authService.addComment(this.idPost, data).subscribe(res => {
       if (res.code === 200) {
@@ -154,6 +154,7 @@ export class PostDetailComponent implements OnInit {
         this.setShowComment(true);
         this.checkEditor = false;
         this.commentTotal++;
+        this.formGroup.controls['content'].setValue("");
       }
     })
   }
@@ -172,7 +173,7 @@ export class PostDetailComponent implements OnInit {
     const data1 = {
       content: this.formGroupReply.value.content,
       postId: this.idPost,
-      customerId: localStorage.getItem(constants.CUSTOMER_ID)
+      customerId: this.customerId
     }
     this.authService.updateComment(this.idPost, id, data1).subscribe(res => {
       if (res.code === 200) {
@@ -186,7 +187,7 @@ export class PostDetailComponent implements OnInit {
     const data = {
       id: this.idLike,
       postId: this.idPost,
-      customerId: localStorage.getItem(constants.CUSTOMER_ID),
+      customerId: this.customerId,
       status: this.checkIsLike ? 0 : 1,
     }
     this.authService.updateLike(data).subscribe(res => {
