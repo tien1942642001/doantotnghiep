@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
 import constants from '../constants/constants';
 import handle from '../functions/handle';
+import { LoadingService } from '../service/loading.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppInterceptor implements HttpInterceptor{
@@ -12,6 +13,7 @@ export class AppInterceptor implements HttpInterceptor{
     constructor(
         // public jwtHelper: JwtHelperService,
         public router: Router,
+        private loader: LoadingService,
     ) { }
 
     // public isAuthenticated(): boolean {
@@ -27,6 +29,7 @@ export class AppInterceptor implements HttpInterceptor{
             localStorage.getItem(constants.TOKEN) &&
             localStorage.getItem(constants.TOKEN) != 'undefined'
         ) {
+            this.loader.show();
             return next.handle(request).pipe(
                 tap((request: HttpEvent<any>) => {
                     if (request instanceof HttpResponse) {
@@ -45,34 +48,11 @@ export class AppInterceptor implements HttpInterceptor{
                     }
                 }),
                 finalize(() => {
-                    // this.loader.hide();
+                    this.loader.hide();
                 }),
-                // catchError((err, caught) => {
-                //     // let checkErr = false;
-                //     // if (checkErr) {
-    
-                //     // }
-                //     console.log(caught)
-                //     switch (err.status) {
-                //         case 401: //unauthorized
-                //             this.router.navigate(['pages/401']);
-                //             break;
-                //         case 403: //forbidden
-                //             this.router.navigate(['pages/403']);
-                //             break;
-                //         case 404:
-                //             // this.router.navigate(['pages/404']);
-                //             break;
-                //         case 502:
-                //         case 503:
-                //         case 500:
-                //         case 504:
-                //         case 0:
-                //             this.router.navigate(['pages/500']);
-                //     }
-                // })
             );
         } else {
+            this.loader.show();
             request = request.clone({
                 setHeaders: {
                   'Content-Type': 'application/json',
@@ -81,7 +61,7 @@ export class AppInterceptor implements HttpInterceptor{
               });
             return next.handle(request).pipe(
                 finalize(() => {
-                //   this.loader.hide();
+                  this.loader.hide();
                 })
               );
         }

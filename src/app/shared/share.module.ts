@@ -22,6 +22,7 @@ import { HotelSummaryComponent } from './hotel-summary/hotel-summary.component';
 import { FormatPrice } from '../core/pipe/number.pipe';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
  declarations: [
@@ -31,6 +32,7 @@ import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.compo
    HotelSummaryComponent,
    FormatPrice,
    CustomCheckboxComponent,
+   LoadingComponent,
  ],
  imports: [
    CommonModule,
@@ -64,6 +66,7 @@ import { CustomCheckboxComponent } from './custom-checkbox/custom-checkbox.compo
    HotelSummaryComponent,
    FormatPrice,
    CustomCheckboxComponent,
+   LoadingComponent,
  ]
 })
 export class SharedModule { }

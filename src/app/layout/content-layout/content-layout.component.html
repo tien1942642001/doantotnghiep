@@ -1,5 +1,7 @@
 <div id="app__client">
     <app-header></app-header>
+    <div class="backgroup-loading" *ngIf="(loading$ | async)"></div>
+    <app-loading [isFull]="false" *ngIf="(loading$ | async)"></app-loading>
     <div class="client__body">
       <router-outlet></router-outlet>
     </div>
