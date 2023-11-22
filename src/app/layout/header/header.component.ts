@@ -134,12 +134,6 @@ export class HeaderComponent implements OnInit {
       icon: "icon_hotel_w",
       iconActive: "icon_hotel_y",
     },
-    // {
-    //   id: 2,
-    //   name: "Vé máy bay",
-    //   icon: "icon_flight_w",
-    //   iconActive: "icon_flight_y",
-    // },
     {
       id: 3,
       name: "Khách sạn + Vé máy bay",
